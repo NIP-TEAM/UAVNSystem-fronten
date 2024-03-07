@@ -80,7 +80,7 @@ export const useHttp = <T, >({
         code: networkError.response.status,
         data: null,
       })
-      httpStrategy[networkError.response.status]?.()
+      httpStrategy?.[networkError.response.status]?.()
     }
   }
 
