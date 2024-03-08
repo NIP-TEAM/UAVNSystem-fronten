@@ -6,8 +6,7 @@ import { ConfigProvider, getAntdLanguageTheme } from "./hooks";
 import { AppLayout } from "./components";
 import { pageTypes, routes } from "./router";
 import { useAtomValue } from "jotai";
-import { userAtom } from "./store";
-import { LANGUAGES } from "./hooks";
+import { languageAtom, userAtom } from "./store";
 
 export const AppContext = createContext<{ messageApi: MessageInstance | null }>(
   {
@@ -45,12 +44,15 @@ function App() {
     
   }
 
+  // language
+  const language = useAtomValue(languageAtom)
+
   return (
     <AppContext.Provider value={appContextMemoValue}>
       {contextHolder}
       <ConfigProvider {...{config}}>
         <AntdConfigProvider
-          locale={getAntdLanguageTheme(LANGUAGES.zh)}
+          locale={getAntdLanguageTheme(language)}
           theme={{
             components: {
               Tabs: {
