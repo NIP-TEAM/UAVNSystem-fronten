@@ -26,6 +26,7 @@ export const routes: RouteItem[] = [
     id: "login",
     element: <Login />,
     path: "/login",
+    isPublic: true,
   },
 ];
 

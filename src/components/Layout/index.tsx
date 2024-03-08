@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import { RouteItem } from "../../router";
+import { Layout } from "antd";
 
 interface AppLayoutProp {
   routes: RouteItem[];
@@ -7,11 +8,6 @@ interface AppLayoutProp {
   children: ReactNode;
 }
 
-export const AppLayout: FC<AppLayoutProp> = ({ children }) => {
-  return (
-    <div>
-      111
-      {children}
-    </div>
-  );
+export const AppLayout: FC<AppLayoutProp> = ({ children, pageType }) => {
+  return pageType === "frame" ? <div>{children}</div> : <Layout.Content>{children}</Layout.Content>;
 };

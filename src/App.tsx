@@ -2,12 +2,13 @@ import { message, ConfigProvider as AntdConfigProvider } from "antd";
 import { MessageInstance } from "antd/es/message/interface";
 import { createContext, useMemo } from "react";
 import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { ConfigProvider } from "./hooks";
-import zhCN from "antd/locale/zh_CN";
+import { ConfigProvider, getAntdLanguageTheme } from "./hooks";
 import { AppLayout } from "./components";
 import { pageTypes, routes } from "./router";
 import { useAtomValue } from "jotai";
 import { userAtom } from "./store";
+import { LANGUAGES } from "./hooks";
+
 export const AppContext = createContext<{ messageApi: MessageInstance | null }>(
   {
     messageApi: null,
@@ -49,7 +50,7 @@ function App() {
       {contextHolder}
       <ConfigProvider {...{config}}>
         <AntdConfigProvider
-          locale={zhCN}
+          locale={getAntdLanguageTheme(LANGUAGES.zh)}
           theme={{
             components: {
               Tabs: {
