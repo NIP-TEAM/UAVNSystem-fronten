@@ -1,8 +1,14 @@
 import { message, ConfigProvider as AntdConfigProvider } from "antd";
 import { MessageInstance } from "antd/es/message/interface";
 import { createContext, useMemo } from "react";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { ConfigProvider, getAntdLanguageTheme } from "./hooks";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { ANTDLANGUAGETHEME, ConfigProvider } from "./hooks";
 import { AppLayout } from "./components";
 import { pageTypes, routes } from "./router";
 import { useAtomValue } from "jotai";
@@ -33,26 +39,31 @@ function App() {
     [routeKey]
   );
 
-  // tokenAbout
-  const { token } = useAtomValue(userAtom)
-  const config = {
-    401: () => {
-      navigate('/login')
-    },
-    // TODO: 403处理
-    403: () => console.log('error')
-    
-  }
+  // token
+  const { token } = useAtomValue(userAtom);
 
   // language
-  const language = useAtomValue(languageAtom)
+  const language = useAtomValue(languageAtom);
+
+  // context config
+  const config = {
+    token,
+    language,
+    httpStrategy: {
+      401: () => {
+        navigate("/login");
+      },
+      // TODO: 403处理
+      403: () => console.log("error"),
+    },
+  };
 
   return (
     <AppContext.Provider value={appContextMemoValue}>
       {contextHolder}
-      <ConfigProvider {...{config}}>
+      <ConfigProvider {...{ config }}>
         <AntdConfigProvider
-          locale={getAntdLanguageTheme(language)}
+          locale={ANTDLANGUAGETHEME[language]}
           theme={{
             components: {
               Tabs: {
