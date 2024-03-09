@@ -1,6 +1,7 @@
 import { FC, ReactNode } from "react";
 import { RouteItem } from "../../router";
 import { Layout } from "antd";
+import { LoginLayoutStyle } from "./style";
 
 interface AppLayoutProp {
   routes: RouteItem[];
@@ -9,5 +10,5 @@ interface AppLayoutProp {
 }
 
 export const AppLayout: FC<AppLayoutProp> = ({ children, pageType }) => {
-  return pageType === "frame" ? <div>{children}</div> : <Layout.Content>{children}</Layout.Content>;
+  return pageType === "frame" ? <div>{children}</div> : <Layout.Content style={LoginLayoutStyle}>{children}</Layout.Content>;
 };
