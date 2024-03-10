@@ -28,8 +28,8 @@ interface Config {
   language: LANGUAGES;
   token: string;
   httpStrategy: Record<number, () => void>;
+  apiBaseUrl: string;
   useLanguage: (languageJson: LanguageJsonProtocol) => TextProtocol;
-  [key: string]: unknown;
 }
 
 type PartialConfig = Partial<Config>;

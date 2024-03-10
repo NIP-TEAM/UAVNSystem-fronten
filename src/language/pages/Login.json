@@ -1,10 +1,42 @@
 {
   "title": {
-    "en": "LogIn",
-    "zh": "登录"
+    "en": "UAV Mesh Network Management",
+    "zh": "无人机自组网管理系统"
   },
-  "nameInput": {
-    "en": "account",
-    "zh": "账号"
+  "emailInput": {
+    "en": "email",
+    "zh": "账号邮箱"
+  },
+  "emailEmpty": {
+    "en": "Please input your email!",
+    "zh": "请输入您的邮箱!"
+  },
+  "emailInvalid": {
+    "en": "Please input a valid email!",
+    "zh": "请输入合法格式的邮箱!"
+  },
+  "passwordInput": {
+    "en": "password",
+    "zh": "密码"
+  },
+  "passwordEmpty": {
+    "en": "Please input your Password!",
+    "zh": "请输入您的密码!"
+  },
+  "protocolTip": {
+    "en": "I have read protocols and agree with those:",
+    "zh": "我已阅读并同意这些协议:"
+  },
+  "loginButton": {
+    "en": "Log in",
+    "zh": "登陆"
+  },
+  "findPassword": {
+    "en": "Forget password",
+    "zh": "忘记密码"
+  },
+  "register": {
+    "en": "No account? Register now!",
+    "zh": "没有账户? 立即注册!"
   }
 }

@@ -3,12 +3,12 @@ import { UserProtocol } from "../../store";
 
 export interface LoginInfo {
   password: string;
-  userName: string;
+  email: string;
 }
 
-export const useLogin = (data: LoginInfo) =>
+export const useLogin = (data: Partial<LoginInfo>) =>
   useHttp<UserProtocol>({
-    url: "/tenants/sessions",
+    url: "/user",
     method: "post",
     data,
   });

@@ -4,7 +4,7 @@ export const LoginCardStyle: CSSProperties = {
     width: "40em",
 }
 
-export const LoginHeaderStyle: CSSProperties = {
+export const ButtonNoStyle: CSSProperties = {
     margin: 0,
     padding: 0
 }

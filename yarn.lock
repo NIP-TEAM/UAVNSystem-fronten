@@ -42,7 +42,7 @@
 
 "@ant-design/icons@^5.3.1":
   version "5.3.1"
-  resolved "https://registry.npmmirror.com/@ant-design/icons/-/icons-5.3.1.tgz"
+  resolved "https://registry.npmmirror.com/@ant-design/icons/-/icons-5.3.1.tgz#908eda82cbd455b83b30d620947ab8fbf2f4c5da"
   integrity sha512-85zROTJCCApQn0Ee6L9561+Vd7yVKtSWNm2TpmOsYMrumchbzaRK83x1WWHv2VG+Y1ZAaKkDwcnnSPS/eSwNHA==
   dependencies:
     "@ant-design/colors" "^7.0.0"

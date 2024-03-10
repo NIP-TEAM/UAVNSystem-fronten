@@ -49,6 +49,7 @@ function App() {
   const config = {
     token,
     language,
+    apiBaseUrl: import.meta.env.VITE_API_BASE_URL,
     httpStrategy: {
       401: () => {
         navigate("/login");

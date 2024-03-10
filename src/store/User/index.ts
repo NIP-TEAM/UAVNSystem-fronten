@@ -10,6 +10,7 @@ export interface UserInfo {
     id: string
     name: string
     active: boolean
+    email: string
     lastLogin: number
 }
 
