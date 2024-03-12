@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { Login, ErrorPage } from "../pages";
 import { ReactNode } from "react";
+import { DashBoard } from "../pages/DashBoard";
 
 export interface RouteItem {
   id: string;
@@ -27,6 +28,11 @@ export const routes: RouteItem[] = [
     element: <Login />,
     path: "/login",
     isPublic: true,
+  },
+  {
+    id: "dashBoard",
+    element: <DashBoard />,
+    path: "/dashboard",
   },
 ];
 

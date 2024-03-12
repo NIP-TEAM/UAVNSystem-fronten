@@ -1,13 +1,17 @@
 import { Button, Card, Checkbox, Flex, Form, Input } from "antd";
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { ButtonNoStyle, LoginCardStyle } from "./style";
 import { useConfig } from "../../hooks";
 import LoginTextLanguage from "../../language/pages/Login.json";
 import { LoginInfo, useLogin } from "../../service";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { ProtocalBox } from "./components";
+import { useAtom } from "jotai";
+import { userAtom } from "../../store";
+import { useNavigate } from "react-router";
+import { AppContext } from "../../App";
 
-export interface LoginProp {}
+export interface LoginProp { }
 
 interface FormInfo extends LoginInfo {
   protocolRead: boolean;
@@ -15,8 +19,10 @@ interface FormInfo extends LoginInfo {
 
 export const Login: FC<LoginProp> = () => {
   const { useLanguage } = useConfig();
+  const { messageApi } = useContext(AppContext)
   const LoginText = useLanguage?.(LoginTextLanguage) || {};
   const [form] = Form.useForm<FormInfo>();
+  const navigate = useNavigate()
   const [{ email, password, protocolRead }, setFormInfo] = useState<
     Partial<FormInfo>
   >({});
@@ -38,13 +44,29 @@ export const Login: FC<LoginProp> = () => {
   };
   const handleValuesChange = (_: unknown, allFields: FormInfo) =>
     setFormInfo(allFields);
-  const { fetchData, data, loading } = useLogin({ email, password });
+  const { fetchData, data, loading, error } = useLogin({ email, password });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setUserInfo] = useAtom(userAtom);
+  useEffect(() => {
+    if (data?.status === 200) {
+      setUserInfo(data.data);
+      if (data.data.token) navigate('/dashBboard')
+    }
+  }, [data, navigate, setUserInfo]);
   const onFinish = () => {
     if (!protocolRead) {
       return setReadState(false);
     }
     fetchData?.();
   };
+
+  // Error Handle
+  useEffect(() => {
+    if (error) {
+      messageApi?.error(error)
+    }
+  }, [error, messageApi])
+
   return (
     <Card style={LoginCardStyle}>
       <h1>{LoginText.title}</h1>
