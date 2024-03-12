@@ -1,5 +1,5 @@
 import { atom } from "jotai"
-import { LANGUAGES } from "../../hooks"
+import { LANGUAGES } from "../../language/types"
 
 const languageCoreAtom = atom(LANGUAGES.zh)
 

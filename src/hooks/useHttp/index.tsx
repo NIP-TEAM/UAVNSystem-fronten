@@ -43,6 +43,7 @@ export const useHttp = <DataType, MetaType=unknown, >({
     token,
     apiBaseUrl,
     httpStrategy,
+    language,
   } = useConfig()
   const [state, setState] = useState<UseHttpState<DataType, MetaType>>({
     loading: false,
@@ -73,7 +74,6 @@ export const useHttp = <DataType, MetaType=unknown, >({
           Authorization: token ? `Bearer ${token}` : '',
         },
       })
-      console.log(response.data)
       setState({
         loading: false,
         error: null,
@@ -81,11 +81,12 @@ export const useHttp = <DataType, MetaType=unknown, >({
         data: response.data as ApiResponseData<DataType, MetaType>,
       })
     } catch (error) {
-      console.log(error)
       const networkError = error as {response: {data: {meta: {message: string}, message: string}, status: number}, message: string}
+      const errorMsg = JSON.parse(networkError.response?.data?.message || networkError.response?.data?.meta?.message || networkError.message)
+      console.log(errorMsg)
       setState({
         loading: false,
-        error: networkError.response?.data?.message || networkError.response?.data?.meta?.message || networkError.message,
+        error: typeof errorMsg === 'string' ? errorMsg : errorMsg[language!],
         code: networkError.response.status,
         data: null,
       })

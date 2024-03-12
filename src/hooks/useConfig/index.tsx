@@ -3,24 +3,17 @@ import enUS from "antd/es/locale/en_US";
 import zhCN from "antd/es/locale/zh_CN";
 import { Locale } from "antd/es/locale";
 import { cloneDeepWith } from "lodash-es";
+import { LANGUAGES, LanguageJson } from "../../language/types";
 
-export enum LANGUAGES {
-  en = "en",
-  zh = "zh",
-}
+type LanguageJsonProtocol = Record<
+  string,
+  LanguageJson
+>;
 
 export const ANTDLANGUAGETHEME: Readonly<Record<LANGUAGES, Locale>> = {
   [LANGUAGES.en]: enUS,
   [LANGUAGES.zh]: zhCN,
 };
-
-type LanguageJsonProtocol = Record<
-  string,
-  {
-    zh: string;
-    en: string;
-  }
->;
 
 type TextProtocol = Record<keyof LanguageJsonProtocol, string>;
 
@@ -34,7 +27,7 @@ interface Config {
 
 type PartialConfig = Partial<Config>;
 
-export const ConfigContext = createContext<PartialConfig>({});
+export const ConfigContext = createContext<PartialConfig>({language: navigator.language.split('-')[0] as LANGUAGES || LANGUAGES.zh});
 
 type ConfigProviderProps = {
   children: React.ReactNode;
