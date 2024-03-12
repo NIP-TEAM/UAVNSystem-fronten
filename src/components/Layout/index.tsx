@@ -10,5 +10,5 @@ interface AppLayoutProp {
 }
 
 export const AppLayout: FC<AppLayoutProp> = ({ children, pageType }) => {
-  return pageType === "frame" ? <div>{children}</div> : <Layout.Content style={LoginLayoutStyle}>{children}</Layout.Content>;
+  return pageType === "frame" ? <div>111{children}</div> : <Layout.Content style={LoginLayoutStyle}>{children}</Layout.Content>;
 };

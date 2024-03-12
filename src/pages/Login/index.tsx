@@ -42,8 +42,6 @@ export const Login: FC<LoginProp> = () => {
     password: [{ required: true, message: LoginText.passwordEmpty }],
     protocolRead: [{ required: true, message: "error" }],
   };
-  const handleValuesChange = (_: unknown, allFields: FormInfo) =>
-    setFormInfo(allFields);
   const { fetchData, data, loading, error } = useLogin({ email, password });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setUserInfo] = useAtom(userAtom);
@@ -70,7 +68,7 @@ export const Login: FC<LoginProp> = () => {
   return (
     <Card style={LoginCardStyle}>
       <h1>{LoginText.title}</h1>
-      <Form onFinish={onFinish} form={form} onValuesChange={handleValuesChange}>
+      <Form onFinish={onFinish} form={form} onValuesChange={(_, newValue) => setFormInfo(newValue)}>
         <Form.Item name="email" rules={rules.email}>
           <Input prefix={<UserOutlined />} placeholder={LoginText.emailInput} />
         </Form.Item>
@@ -105,7 +103,7 @@ export const Login: FC<LoginProp> = () => {
               {LoginText.findPassword}
             </Button>
           )}
-          <Button type="link" style={ButtonNoStyle}>
+          <Button type="link" style={ButtonNoStyle} onClick={() => navigate('/register')}>
             {LoginText.register}
           </Button>
         </Flex>

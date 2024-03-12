@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 import { Login, ErrorPage } from "../pages";
 import { ReactNode } from "react";
 import { DashBoard } from "../pages/DashBoard";
+import { Register } from "../pages/Register";
 
 export interface RouteItem {
   id: string;
@@ -34,16 +35,18 @@ export const routes: RouteItem[] = [
     element: <DashBoard />,
     path: "/dashboard",
   },
+  {
+    id: "register",
+    element: <Register />,
+    path: "/register",
+    isPublic: true
+  }
 ];
 
 export const pageTypes = {
   noFrame: [
     "",
     "login",
-    "registration",
-    "conditions-view",
-    "forms",
-    "congratulations",
-    "sample",
+    "register",
   ],
 };
