@@ -8,7 +8,7 @@ export interface LoginInfo {
 
 export const useLogin = (data: Partial<LoginInfo>) =>
   useHttp<UserProtocol>({
-    url: "/user",
+    url: "/tenants/sessions",
     method: "post",
     data,
   });

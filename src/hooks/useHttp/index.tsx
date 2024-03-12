@@ -17,27 +17,34 @@ export interface UseHttpProps {
   isLocal?: boolean
 }
 
-export interface UseHttpState<T> {
+interface ApiResponseData <DataType, MetaType> {
+  status: number,
+  data: DataType,
+  meta: MetaType,
+  [key: string]: unknown
+}
+
+export interface UseHttpState<DataType, MetaType> {
   loading: boolean
   error: string | null
-  data: T | null
+  data: ApiResponseData<DataType, MetaType> | null
   code: number | null
   fetchData?: () => void
 }
 
-export const useHttp = <T, >({
+export const useHttp = <DataType, MetaType=unknown, >({
   url,
   method = 'get',
   data,
   headers,
   isLocal = true,
-}: UseHttpProps): UseHttpState<T> => {
+}: UseHttpProps): UseHttpState<DataType, MetaType> => {
   const {
     token,
     apiBaseUrl,
     httpStrategy,
   } = useConfig()
-  const [state, setState] = useState<UseHttpState<T>>({
+  const [state, setState] = useState<UseHttpState<DataType, MetaType>>({
     loading: false,
     error: null,
     data: null,
@@ -53,7 +60,7 @@ export const useHttp = <T, >({
         loading: true,
         code: 0,
       })
-      const response: AxiosResponse<T> = await axios({
+      const response: AxiosResponse<DataType> = await axios({
         url: isLocal ? `${apiBaseUrl}${url}` : url,
         method,
         ...(method === 'get' ? {
@@ -66,17 +73,19 @@ export const useHttp = <T, >({
           Authorization: token ? `Bearer ${token}` : '',
         },
       })
+      console.log(response.data)
       setState({
         loading: false,
         error: null,
         code: 200,
-        data: response.data,
+        data: response.data as ApiResponseData<DataType, MetaType>,
       })
     } catch (error) {
-      const networkError = error as {response: {data: {meta: {message: string}}, status: number}, message: string}
+      console.log(error)
+      const networkError = error as {response: {data: {meta: {message: string}, message: string}, status: number}, message: string}
       setState({
         loading: false,
-        error: networkError.response?.data.meta.message || networkError.message,
+        error: networkError.response?.data?.message || networkError.response?.data?.meta?.message || networkError.message,
         code: networkError.response.status,
         data: null,
       })
