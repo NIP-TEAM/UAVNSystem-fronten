@@ -21,11 +21,21 @@ export const Register: FC<RegisterProp> = () => {
     const [form] = Form.useForm<FormInfo>()
     const [registerInfo, setRegisterInfo] = useState<Partial<FormInfo>>({})
     const RegisterText = useLanguage?.(RegisterJson) || {}
+
+    const rules = {
+        email: [
+          { required: true, message: RegisterText.emailEmpty },
+          {
+            pattern:
+              /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
+            message: RegisterText.emailInvalid,
+          },
+        ],}
     return <Card style={RegisterCardStyle}>
         <h1>{RegisterText.title}</h1>
         <Form form={form} onValuesChange={(_, newValue) => setRegisterInfo(newValue)} autoComplete="off">
         <Form.Item name="email" rules={rules.email}>
-          <Input prefix={<UserOutlined />} placeholder={LoginText.emailInput} />
+          <Input prefix={<UserOutlined />} placeholder={RegisterText.emailInput} />
         </Form.Item>
         </Form>
     </Card>

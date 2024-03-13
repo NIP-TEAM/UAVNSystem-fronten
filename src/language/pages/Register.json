@@ -1,6 +1,18 @@
 {
-    "title": {
-        "en": "Register Account",
-        "zh": "注册账号"
-    }
+  "title": {
+    "en": "Register Account",
+    "zh": "注册账号"
+  },
+  "emailEmpty": {
+    "en": "Please input your email!",
+    "zh": "请输入您的邮箱!"
+  },
+  "emailInvalid": {
+    "en": "Please input a valid email!",
+    "zh": "请输入合法格式的邮箱!"
+  },
+  "emailInput": {
+    "en": "email",
+    "zh": "账号邮箱"
+  }
 }
