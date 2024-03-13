@@ -13,6 +13,66 @@
   },
   "emailInput": {
     "en": "email",
-    "zh": "账号邮箱"
+    "zh": "邮箱"
+  },
+  "passwordEmpty": {
+    "en": "Please input your Password!",
+    "zh": "请输入您的密码!"
+  },
+  "passwordInvalid": {
+    "en": "Please input a valid password!",
+    "zh": "请输入合法格式的密码!"
+  },
+  "confirmPasswordEmpty": {
+    "en": "Please confirm your password!",
+    "zh": "请再次输入您的密码!"
+  },
+  "confirmPasswordInvalid": {
+    "en": "Passwords entered twice are different!",
+    "zh": "两次输入的密码不一样!"
+  },
+  "verifyCodeEmpty": {
+    "en": "Please input verify code!",
+    "zh": "请输入验证码!"
+  },
+  "verifyCodeInvalid": {
+    "en": "Please input a valid verify code!",
+    "zh": "请输入合法格式的验证码!"
+  },
+  "emailTitle": {
+    "en": "Email",
+    "zh": "邮箱"
+  },
+  "verifyTitle": {
+    "zh": "验证码",
+    "en": "Code"
+  },
+  "verifySend": {
+    "en": "Send",
+    "zh": "发送"
+  },
+  "verifyResend": {
+    "en": "Resend in",
+    "zh": "重新发送"
+  },
+  "avatarTitle": {
+    "en": "Avatar",
+    "zh": "头像"
+  },
+  "nameTitle": {
+    "en": "Username",
+    "zh": "用户名"
+  },
+  "passwordTitle": {
+    "en": "Password",
+    "zh": "密码"
+  },
+  "confirmTitle": {
+    "en": "Confirm Password",
+    "zh": "确认密码"
+  },
+  "submitButton": {
+    "en": "Create",
+    "zh": "创建"
   }
 }
