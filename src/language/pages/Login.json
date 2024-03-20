@@ -32,8 +32,8 @@
     "zh": "登陆"
   },
   "findPassword": {
-    "en": "Forget password",
-    "zh": "忘记密码"
+    "en": "Retrieve password",
+    "zh": "找回密码"
   },
   "register": {
     "en": "No account? Register now!",

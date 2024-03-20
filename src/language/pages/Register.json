@@ -20,8 +20,8 @@
     "zh": "请输入您的密码!"
   },
   "passwordInvalid": {
-    "en": "Please input a valid password!",
-    "zh": "请输入合法格式的密码!"
+    "en": "The password must contain both letters and numbers, and be at least 8 characters long!",
+    "zh": "密码应同时包含字母和数字, 并且长度不少于8个字符!"
   },
   "confirmPasswordEmpty": {
     "en": "Please confirm your password!",
@@ -51,6 +51,14 @@
     "en": "Send",
     "zh": "发送"
   },
+  "verifySendFeedback": {
+    "en": "Verification code send successfully!",
+    "zh": "验证码已成功发送！"
+  },
+  "verifySending": {
+    "en": "Sending...",
+    "zh": "发送中..."
+  },
   "verifyResend": {
     "en": "Resend in",
     "zh": "重新发送"
@@ -74,5 +82,13 @@
   "submitButton": {
     "en": "Create",
     "zh": "创建"
+  },
+  "loginButton": {
+    "en": "Have an account? Log in now!",
+    "zh": "已有帐号？立即登录！"
+  },
+  "registerSuccess": {
+    "zh": "帐号注册成功, 将在5秒后跳转至登陆界面!",
+    "en": "Account registered successfully. You will be redirected to the login page in 5 seconds!"
   }
 }

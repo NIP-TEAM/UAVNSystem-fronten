@@ -5,17 +5,12 @@ import RegisterJson from "../../language/pages/Register.json";
 import { RegisterCardStyle } from "./style";
 import { Rule } from "rc-field-form/lib/interface";
 import { AppContext } from "../../App";
+import { RegisterInfo, useRegister, useVerifyCode } from "../../service";
+import { useNavigate } from "react-router";
 
 interface RegisterProp {}
 
-interface FormInfo {
-  email: string;
-  password: string;
-  rePassword: string;
-  verify: number;
-  avatar: string;
-  name: string;
-}
+interface FormInfo extends RegisterInfo {}
 
 const SECOUNDKEY = "_SECOUND_KEY";
 
@@ -27,6 +22,7 @@ export const Register: FC<RegisterProp> = () => {
   const [holdSecond, setHoldSecound] = useState(() =>
     Number(localStorage.getItem(SECOUNDKEY) || 0)
   );
+  const navigate = useNavigate();
   const RegisterText = useLanguage?.(RegisterJson) || {};
 
   const rules: Record<string, Rule[]> = {
@@ -42,7 +38,8 @@ export const Register: FC<RegisterProp> = () => {
       { required: true, message: RegisterText.verifyCodeEmpty },
       { pattern: /^\d+$/, message: RegisterText.verifyCodeInvalid },
     ],
-    password: [{ required: true }],
+    password: [{ required: true },
+    {pattern: /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/, message: RegisterText.passwordInvalid}],
     passwordConfirm: [
       {
         required: true,
@@ -58,16 +55,53 @@ export const Register: FC<RegisterProp> = () => {
     ],
   };
 
+  const {
+    data,
+    code: verificationCode,
+    fetchData: postVerification,
+    error: verificationError,
+    loading: verificationLoading,
+  } = useVerifyCode({ email: registerInfo.email });
+  useEffect(() => {
+    if (verificationCode === 200) {
+      messageApi?.success(RegisterText.verifySendFeedback);
+      setHoldSecound(60);
+    }
+  }, [verificationCode, messageApi, data, RegisterText.verifySendFeedback]);
+
+  useEffect(() => {
+    if (verificationError) messageApi?.error(verificationError);
+  }, [verificationError, messageApi]);
+
+  const {
+    code: registerCode,
+    fetchData: postRegister,
+    loading: registerLoading,
+    error: registerError,
+  } = useRegister({
+    ...registerInfo,
+    ...{name: registerInfo.name ?? registerInfo.email}
+  });
+
+  useEffect(() => {
+    if (registerCode === 200) {
+      messageApi?.success(RegisterText.registerSuccess);
+      setHoldSecound(0)
+      setTimeout(() => navigate("/login"), 5000);
+    }
+  }, [RegisterText.registerSuccess, messageApi, navigate, registerCode]);
+
+  useEffect(() => {
+    if (registerError) messageApi?.error(registerError);
+  }, [registerError, messageApi]);
+
   const handleVerify = () => {
     if (!registerInfo.email) messageApi?.error(RegisterText.emailEmpty);
     else {
       const fieldErrors = form.getFieldsError(["email"]);
       if (fieldErrors.some((error) => error.errors.length > 0))
         messageApi?.error(RegisterText.emailInvalid);
-      else {
-        console.log("111");
-        setHoldSecound(60);
-      }
+      else postVerification?.();
     }
   };
 
@@ -89,7 +123,7 @@ export const Register: FC<RegisterProp> = () => {
   }, [holdSecond]);
 
   const onFinish = () => {
-    console.log("111");
+    postRegister?.();
   };
 
   return (
@@ -111,7 +145,7 @@ export const Register: FC<RegisterProp> = () => {
         </Form.Item>
         <Form.Item
           label={RegisterText.verifyTitle}
-          name="verify"
+          name="verifyCode"
           rules={rules.verify}
         >
           <Flex gap={5} align="center">
@@ -119,16 +153,16 @@ export const Register: FC<RegisterProp> = () => {
             <Button
               type="primary"
               onClick={handleVerify}
-              disabled={!!holdSecond}
+              disabled={!!holdSecond && !verificationLoading}
+              loading={verificationLoading}
             >
-              {!holdSecond
+              {verificationLoading
+                ? RegisterText.verifySending
+                : !holdSecond
                 ? RegisterText.verifySend
                 : `${RegisterText.verifyResend} ${holdSecond}s`}
             </Button>
           </Flex>
-        </Form.Item>
-        <Form.Item label={RegisterText.avatarTitle} name="avatar">
-          <div>111</div>
         </Form.Item>
         <Form.Item label={RegisterText.nameTitle} name="username">
           <Input style={{ width: "50%" }} />
@@ -148,9 +182,14 @@ export const Register: FC<RegisterProp> = () => {
         >
           <Input.Password />
         </Form.Item>
-        <Button type="primary" htmlType="submit">
-          {RegisterText.submitButton}
-        </Button>
+        <Flex gap={3}>
+          <Button type="primary" htmlType="submit" loading={registerLoading}>
+            {RegisterText.submitButton}
+          </Button>
+          <Button type="link" onClick={() => navigate("/login")}>
+            {RegisterText.loginButton}
+          </Button>
+        </Flex>
       </Form>
     </Card>
   );

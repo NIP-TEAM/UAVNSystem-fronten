@@ -82,8 +82,8 @@ export const useHttp = <DataType, MetaType=unknown, >({
       })
     } catch (error) {
       const networkError = error as {response: {data: {meta: {message: string}, message: string}, status: number}, message: string}
-      const errorMsg = JSON.parse(networkError.response?.data?.message || networkError.response?.data?.meta?.message || networkError.message)
-      console.log(errorMsg)
+      console.log(networkError)
+      const errorMsg = JSON.parse(networkError?.response?.data?.message || networkError?.response?.data?.meta?.message || networkError?.message)
       setState({
         loading: false,
         error: typeof errorMsg === 'string' ? errorMsg : errorMsg[language!],
