@@ -1,0 +1,62 @@
+{
+  "title": {
+    "en": "Retrieve Password",
+    "zh": "找回密码"
+  },
+  "emailTitle": {
+    "en": "Email",
+    "zh": "邮箱"
+  },
+  "emailEmpty": {
+    "en": "Please input your email!",
+    "zh": "请输入您的邮箱!"
+  },
+  "emailInvalid": {
+    "en": "Please input a valid email!",
+    "zh": "请输入合法格式的邮箱!"
+  },
+  "emailInput": {
+    "en": "email",
+    "zh": "邮箱"
+  },
+  "verifyCodeEmpty": {
+    "en": "Please input verify code!",
+    "zh": "请输入验证码!"
+  },
+  "verifyCodeInvalid": {
+    "en": "Please input a valid verify code!",
+    "zh": "请输入合法格式的验证码!"
+  },
+  "verifyTitle": {
+    "zh": "验证码",
+    "en": "Code"
+  },
+  "verifySend": {
+    "en": "Send",
+    "zh": "发送"
+  },
+  "verifySendFeedback": {
+    "en": "Verification code send successfully!",
+    "zh": "验证码已成功发送！"
+  },
+  "verifySending": {
+    "en": "Sending...",
+    "zh": "发送中..."
+  },
+  "verifyResend": {
+    "en": "Resend in",
+    "zh": "重新发送"
+  },
+  "submitButton": {
+    "en": "Retrieve",
+    "zh": "找回"
+  },
+  "loginButton": {
+    "en": "Remembered your password? Log in now!",
+    "zh": "想起密码? 立即登陆!"
+  },
+  "forgetSuccess": {
+    "zh": "密码重置成功, 将在5秒后跳转至登陆界面!",
+    "en": "Password reset successful. You will be redirected to the login page in 5 seconds!"
+  }
+}

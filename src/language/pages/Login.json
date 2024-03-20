@@ -38,5 +38,9 @@
   "register": {
     "en": "No account? Register now!",
     "zh": "没有账户? 立即注册!"
+  },
+  "loginSuccess": {
+    "en": "Login successfully!",
+    "zh": "登陆成功"
   }
 }

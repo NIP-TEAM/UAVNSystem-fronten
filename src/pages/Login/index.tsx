@@ -47,10 +47,12 @@ export const Login: FC<LoginProp> = () => {
   const [_, setUserInfo] = useAtom(userAtom);
   useEffect(() => {
     if (data?.status === 200) {
+      console.log(data.data)
       setUserInfo(data.data);
-      if (data.data.token) navigate('/dashBboard')
+      messageApi?.success(LoginText.loginSuccess)
+      if (data.data.token) navigate('/dashboard')
     }
-  }, [data, navigate, setUserInfo]);
+  }, [LoginText.loginSuccess, data, messageApi, navigate, setUserInfo]);
   const onFinish = () => {
     if (!protocolRead) {
       return setReadState(false);
@@ -99,7 +101,7 @@ export const Login: FC<LoginProp> = () => {
         )}
         <Flex gap={10}>
           {!!email && (
-            <Button type="link" style={ButtonNoStyle}>
+            <Button type="link" style={ButtonNoStyle} onClick={() => navigate('/forget')}>
               {LoginText.findPassword}
             </Button>
           )}

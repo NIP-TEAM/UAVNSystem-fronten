@@ -3,6 +3,7 @@ import { Login, ErrorPage } from "../pages";
 import { ReactNode } from "react";
 import { DashBoard } from "../pages/DashBoard";
 import { Register } from "../pages/Register";
+import { Forget } from "../pages/Forget";
 
 export interface RouteItem {
   id: string;
@@ -23,6 +24,7 @@ export const routes: RouteItem[] = [
     id: "error",
     path: "/error",
     element: <ErrorPage />,
+    isPublic: true
   },
   {
     id: "login",
@@ -31,22 +33,24 @@ export const routes: RouteItem[] = [
     isPublic: true,
   },
   {
-    id: "dashBoard",
-    element: <DashBoard />,
-    path: "/dashboard",
+    id: "forget",
+    element: <Forget />,
+    path: "/forget",
+    isPublic: true,
   },
   {
     id: "register",
     element: <Register />,
     path: "/register",
-    isPublic: true
-  }
+    isPublic: true,
+  },
+  {
+    id: "dashBoard",
+    element: <DashBoard />,
+    path: "/dashboard",
+  },
 ];
 
 export const pageTypes = {
-  noFrame: [
-    "",
-    "login",
-    "register",
-  ],
+  noFrame: ["", "login", "register", "forget"],
 };

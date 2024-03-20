@@ -12,7 +12,7 @@ interface RegisterProp {}
 
 interface FormInfo extends RegisterInfo {}
 
-const SECOUNDKEY = "_SECOUND_KEY";
+const SECOUNDKEY = "_REGISTER_SECOUND_KEY";
 
 export const Register: FC<RegisterProp> = () => {
   const { useLanguage } = useConfig();
@@ -56,7 +56,6 @@ export const Register: FC<RegisterProp> = () => {
   };
 
   const {
-    data,
     code: verificationCode,
     fetchData: postVerification,
     error: verificationError,
@@ -67,7 +66,7 @@ export const Register: FC<RegisterProp> = () => {
       messageApi?.success(RegisterText.verifySendFeedback);
       setHoldSecound(60);
     }
-  }, [verificationCode, messageApi, data, RegisterText.verifySendFeedback]);
+  }, [verificationCode, messageApi, RegisterText.verifySendFeedback]);
 
   useEffect(() => {
     if (verificationError) messageApi?.error(verificationError);
@@ -75,7 +74,7 @@ export const Register: FC<RegisterProp> = () => {
 
   const {
     code: registerCode,
-    fetchData: postRegister,
+    fetchData: postRegisterData,
     loading: registerLoading,
     error: registerError,
   } = useRegister({
@@ -123,7 +122,7 @@ export const Register: FC<RegisterProp> = () => {
   }, [holdSecond]);
 
   const onFinish = () => {
-    postRegister?.();
+    postRegisterData?.();
   };
 
   return (
@@ -164,7 +163,7 @@ export const Register: FC<RegisterProp> = () => {
             </Button>
           </Flex>
         </Form.Item>
-        <Form.Item label={RegisterText.nameTitle} name="username">
+        <Form.Item label={RegisterText.nameTitle} name="name">
           <Input style={{ width: "50%" }} />
         </Form.Item>
         <Form.Item
