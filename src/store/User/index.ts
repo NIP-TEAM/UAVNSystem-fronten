@@ -16,7 +16,9 @@ export interface UserInfo {
 
 type PartialUserProtocol = Partial<UserProtocol>
 
-const userCoreAtom = atomWithStorage<PartialUserProtocol>('user-about', {})
+const userCoreAtom = atomWithStorage<PartialUserProtocol>('user-about', {}, undefined, {
+    getOnInit: true
+})
 
 export const userAtom = atom(
     (get) => get(userCoreAtom),

@@ -1,4 +1,4 @@
-import { message, ConfigProvider as AntdConfigProvider } from "antd";
+import { message, ConfigProvider as AntdConfigProvider} from "antd";
 import { MessageInstance } from "antd/es/message/interface";
 import { createContext, useMemo } from "react";
 import {
@@ -8,11 +8,12 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import { ANTDLANGUAGETHEME, ConfigProvider } from "./hooks";
+import { ANTDCOLORTHEME, ANTDLANGUAGETHEME, ConfigProvider } from "./hooks";
 import { AppLayout } from "./components";
 import { pageTypes, routes } from "./router";
 import { useAtomValue } from "jotai";
 import { languageAtom, userAtom } from "./store";
+import { themeAtom } from "./store/Theme";
 
 export const AppContext = createContext<{ messageApi: MessageInstance | null }>(
   {
@@ -45,6 +46,9 @@ function App() {
   // language
   const language = useAtomValue(languageAtom);
 
+  // theme
+  const theme = useAtomValue(themeAtom);
+
   // context config
   const config = {
     token,
@@ -71,6 +75,7 @@ function App() {
                 horizontalMargin: "0",
               },
             },
+            algorithm: ANTDCOLORTHEME[theme]
           }}
         >
           <AppLayout routes={routes} pageType={memoPageType}>

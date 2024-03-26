@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import { RouteItem } from "../../router";
-import { Flex, Layout } from "antd";
-import { LanguageSwitchStyle, LoginLayoutStyle } from "./style";
+import { Button, Flex, Layout } from "antd";
+import { LoginLayoutStyle } from "./style";
 import { LanguageSwitch } from "..";
 import { TranslationOutlined } from "@ant-design/icons";
 import { GlobalHeader, GlobalSider } from "./components";
@@ -27,9 +27,10 @@ export const AppLayout: FC<AppLayoutProp> = ({ children, pageType }) => {
         {children}
         <Flex justify="center">
           <LanguageSwitch>
-            <TranslationOutlined
-              style={LanguageSwitchStyle}
-              title="Swith language"
+            <Button
+              type="link"
+              icon={<TranslationOutlined />}
+              title="Switch language"
             />
           </LanguageSwitch>
         </Flex>

@@ -4,6 +4,10 @@ import zhCN from "antd/es/locale/zh_CN";
 import { Locale } from "antd/es/locale";
 import { cloneDeepWith } from "lodash-es";
 import { LANGUAGES, LanguageJson } from "../../language/types";
+import { THEMESNAME } from "../../store/Theme";
+import { theme } from "antd";
+import { MapToken } from "antd/es/theme/interface";
+import { SeedToken } from "antd/es/theme/internal";
 
 type LanguageJsonProtocol = Record<
   string,
@@ -14,6 +18,11 @@ export const ANTDLANGUAGETHEME: Readonly<Record<LANGUAGES, Locale>> = {
   [LANGUAGES.en]: enUS,
   [LANGUAGES.zh]: zhCN,
 };
+
+export const ANTDCOLORTHEME: Readonly<Record<THEMESNAME, (token: SeedToken) => MapToken>> = {
+  [THEMESNAME.dark]: theme.darkAlgorithm,
+  [THEMESNAME.light]: theme.defaultAlgorithm
+}
 
 type TextProtocol = Record<keyof LanguageJsonProtocol, string>;
 

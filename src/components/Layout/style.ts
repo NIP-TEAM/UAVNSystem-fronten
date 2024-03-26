@@ -7,7 +7,3 @@ export const LoginLayoutStyle: Readonly<CSSProperties> = {
     alignItems: 'center',
     justifyContent: 'center',
 }
-
-export const LanguageSwitchStyle: Readonly<CSSProperties> = {
-    margin: '1em 0'
-}
