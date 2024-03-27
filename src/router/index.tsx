@@ -1,18 +1,9 @@
 import { Navigate } from "react-router-dom";
 import { Login, ErrorPage } from "../pages";
-import { ReactNode } from "react";
 import { DashBoard } from "../pages/DashBoard";
 import { Register } from "../pages/Register";
 import { Forget } from "../pages/Forget";
-
-export interface RouteItem {
-  id: string;
-  element: ReactNode;
-  path: string;
-  text?: string;
-  icon?: ReactNode;
-  isPublic?: boolean;
-}
+import { RouteItem } from "./types";
 
 export const routes: RouteItem[] = [
   {

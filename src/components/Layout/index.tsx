@@ -1,6 +1,6 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useState } from "react";
 import { RouteItem } from "../../router";
-import { Button, Flex, Layout } from "antd";
+import { Button, Flex, Layout, theme } from "antd";
 import { LoginLayoutStyle } from "./style";
 import { LanguageSwitch } from "..";
 import { TranslationOutlined } from "@ant-design/icons";
@@ -13,11 +13,16 @@ interface AppLayoutProp {
 }
 
 export const AppLayout: FC<AppLayoutProp> = ({ children, pageType }) => {
+  const [collapse, setCollapse] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
   return pageType === "frame" ? (
     <Layout hasSider>
-      <GlobalSider />
+      <GlobalSider {... {collapse, background: colorBgContainer}} />
       <Layout>
-        <GlobalHeader />
+        <GlobalHeader {...{ collapse, setCollapse, background: colorBgContainer }} />
         <Layout.Content>{children}</Layout.Content>
       </Layout>
     </Layout>
