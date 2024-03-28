@@ -77,9 +77,8 @@ export const Login: FC<LoginProp> = () => {
         {!!email && (
           <>
             <Form.Item name="password" rules={rules.password}>
-              <Input
+              <Input.Password
                 prefix={<LockOutlined />}
-                type="password"
                 placeholder={LoginText.passwordInput}
               />
             </Form.Item>

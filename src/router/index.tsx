@@ -45,7 +45,7 @@ export const routes: RouteItem[] = [
     icon: <PieChartFilled />,
   },
   {
-    id: "userCenter",
+    id: "user-center",
     element: <UserCenter />,
     path: "/usercenter",
     text: "About Me",
@@ -53,11 +53,13 @@ export const routes: RouteItem[] = [
     children: [
       {
         id: "test",
+        // text: 'test1',
         element: <>test</>,
         path: "/usercenter/test",
       },
       {
         id: "test2",
+        // text: 'test2',
         element: <>222</>,
         path: "/usercenter/test2",
       },
@@ -69,7 +71,7 @@ export const flatRoutes: RouteItem[] = (() => {
   const result: RouteItem[] = [];
   const flat = (target: RouteItem[]): void => {
     target.forEach((eachTarget) => {
-      if (eachTarget.text) result.push(omit(eachTarget, "children"));
+      result.push(omit(eachTarget, "children"));
       if (eachTarget.children) flat(eachTarget.children);
     });
   };

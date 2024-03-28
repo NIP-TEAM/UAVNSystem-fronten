@@ -59,7 +59,6 @@ function App() {
       403: () => console.log("error"),
     },
   };
-  console.log(flatRoutes)
 
   return (
     <AppContext.Provider value={appContextMemoValue}>
