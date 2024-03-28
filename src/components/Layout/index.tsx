@@ -1,5 +1,5 @@
 import { FC, ReactNode, useState } from "react";
-import { RouteItem } from "../../router";
+import { RouteItem } from "../../router/types";
 import { Button, Flex, Layout, theme } from "antd";
 import { LoginLayoutStyle } from "./style";
 import { LanguageSwitch } from "..";
