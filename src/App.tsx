@@ -1,4 +1,4 @@
-import { message, ConfigProvider as AntdConfigProvider} from "antd";
+import { message, ConfigProvider as AntdConfigProvider } from "antd";
 import { MessageInstance } from "antd/es/message/interface";
 import { createContext, useMemo } from "react";
 import {
@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { ANTDCOLORTHEME, ANTDLANGUAGETHEME, ConfigProvider } from "./hooks";
 import { AppLayout } from "./components";
-import { pageTypes, routes } from "./router";
+import { flatRoutes, pageTypes, routes } from "./router";
 import { useAtomValue } from "jotai";
 import { languageAtom, userAtom } from "./store";
 import { themeAtom } from "./store/Theme";
@@ -42,13 +42,10 @@ function App() {
 
   // token
   const { token } = useAtomValue(userAtom);
-
   // language
   const language = useAtomValue(languageAtom);
-
   // theme
   const theme = useAtomValue(themeAtom);
-
   // context config
   const config = {
     token,
@@ -62,6 +59,7 @@ function App() {
       403: () => console.log("error"),
     },
   };
+  console.log(flatRoutes)
 
   return (
     <AppContext.Provider value={appContextMemoValue}>
@@ -75,12 +73,12 @@ function App() {
                 horizontalMargin: "0",
               },
             },
-            algorithm: ANTDCOLORTHEME[theme]
+            algorithm: ANTDCOLORTHEME[theme],
           }}
         >
           <AppLayout routes={routes} pageType={memoPageType}>
             <Routes>
-              {routes.map((route) => (
+              {flatRoutes.map((route) => (
                 <Route
                   key={route.id}
                   path={route.path}

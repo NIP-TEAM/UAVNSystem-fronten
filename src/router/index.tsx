@@ -5,6 +5,7 @@ import { Register } from "../pages/Register";
 import { Forget } from "../pages/Forget";
 import { RouteItem } from "./types";
 import { PieChartFilled, SettingFilled } from "@ant-design/icons";
+import { omit } from "lodash-es";
 
 export const routes: RouteItem[] = [
   {
@@ -16,7 +17,7 @@ export const routes: RouteItem[] = [
     id: "error",
     path: "/error",
     element: <ErrorPage />,
-    isPublic: true
+    isPublic: true,
   },
   {
     id: "login",
@@ -37,26 +38,45 @@ export const routes: RouteItem[] = [
     isPublic: true,
   },
   {
-    id: "dashBoard",
+    id: "dashboard",
     element: <DashBoard />,
     path: "/dashboard",
-    text: 'Dashboard',
+    text: "Dashboard",
     icon: <PieChartFilled />,
   },
   {
-    id: 'userCenter',
+    id: "userCenter",
     element: <UserCenter />,
-    path: '/usercenter',
-    text: 'About Me',
+    path: "/usercenter",
+    text: "About Me",
     icon: <SettingFilled />,
-    children: [{
-      id: 'test',
-      element: <>111</>,
-      text: 'test',
-      path: "/usercenter/test",
-    }]
-  }
+    children: [
+      {
+        id: "test",
+        element: <>test</>,
+        path: "/usercenter/test",
+      },
+      {
+        id: "test2",
+        element: <>222</>,
+        path: "/usercenter/test2",
+      },
+    ],
+  },
 ];
+
+export const flatRoutes: RouteItem[] = (() => {
+  const result: RouteItem[] = [];
+  const flat = (target: RouteItem[]): void => {
+    target.forEach((eachTarget) => {
+      if (eachTarget.text) result.push(omit(eachTarget, "children"));
+      if (eachTarget.children) flat(eachTarget.children);
+    });
+  };
+  flat(routes);
+  console.log(result);
+  return result;
+})();
 
 export const pageTypes = {
   noFrame: ["", "login", "register", "forget"],

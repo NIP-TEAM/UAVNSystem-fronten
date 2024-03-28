@@ -1,5 +1,5 @@
 import { Layout, Menu } from "antd";
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, ReactNode, useEffect, useMemo, useState } from "react";
 import { SiderStyle } from "./style";
 import { routes } from "../../../../router";
 import { useLocation, useNavigate } from "react-router";
@@ -11,16 +11,17 @@ interface GlobalSiderProp {
   background: string;
 }
 
-type MenuItem = ItemType<MenuItemType>
-
+interface MenuItem {
+  label: string;
+  key: string;
+  icon?: ReactNode;
+  children?: MenuItem[];
+  onClick: ({ keyPath }: { keyPath: string[] }) => void;
+}
 
 export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  useEffect(() => {
-    console.log("111");
-  }, [location.pathname]);
 
   const MenuItems: MenuItem[] = useMemo(() => {
     const handleLinkTo = (target: string) => {
@@ -32,21 +33,46 @@ export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
       text,
       path,
       children,
-    }: RouteItem): MenuItem => ({
-      key: id,
-      icon,
-      label: text,
-      children: children?.map((item) => formateMenuItem(item)),
-      onClick: () => {
-        handleLinkTo(path)
-      },
-    });
-    return routes.filter(({text}) => !!text).map(item => formateMenuItem(item))
-  },
-    [navigate]
-  );
+    }: RouteItem): MenuItem => {
+      let childrenFormate: MenuItem[] = [];
+      if (children?.length)
+        childrenFormate = children
+          .map((item) => formateMenuItem(item))
+          .filter(({ label }) => !!label);
+      return {
+        key: id,
+        icon,
+        label: text || "",
+        children: childrenFormate.length ? childrenFormate : undefined,
+        onClick: ({ keyPath }) => {
+          const selectPath = "/" + keyPath.reverse().join("/");
+          if (path === selectPath.toLowerCase()) handleLinkTo(selectPath);
+        },
+      };
+    };
+    return routes
+      .filter(({ text }) => !!text)
+      .map((item) => formateMenuItem(item));
+  }, [navigate]);
 
-  console.log(MenuItems)
+  // const [activeKey, setActiveKey] = useState('dashBoard')
+
+  const activeKey = useMemo(() => {
+    const pathName = location.pathname;
+    // console.log(pathName)
+    console.log('111')
+    const findKey = (target: RouteItem[]): RouteItem | undefined => {
+      for (const item of target) {
+        // console.log(item.path, pathName)
+        if (item?.path === pathName) return item;
+        findKey(item.children || []);
+      }
+    };
+    console.log(findKey(routes))
+    return findKey(routes)?.id || "dashboard";
+  }, [location.pathname]);
+
+  console.log(activeKey, location.pathname);
 
   return (
     <Layout.Sider
@@ -57,8 +83,10 @@ export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
     >
       <Menu
         mode="inline"
-        defaultSelectedKeys={[MenuItems[0]?.key?.toString() || 'dashboard']}
+        defaultSelectedKeys={[MenuItems[0]?.key?.toString() || "dashboard"]}
+        // selectedKeys={[activeKey]}
         items={MenuItems}
+        onSelect={(e) => console.log(e)}
       />
     </Layout.Sider>
   );
