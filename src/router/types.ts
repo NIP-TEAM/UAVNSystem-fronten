@@ -7,4 +7,5 @@ export interface RouteItem {
   text?: string;
   icon?: ReactNode;
   isPublic?: boolean;
+  children?: RouteItem[]
 }

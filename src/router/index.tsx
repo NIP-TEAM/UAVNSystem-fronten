@@ -1,9 +1,10 @@
 import { Navigate } from "react-router-dom";
-import { Login, ErrorPage } from "../pages";
+import { Login, ErrorPage, UserCenter } from "../pages";
 import { DashBoard } from "../pages/DashBoard";
 import { Register } from "../pages/Register";
 import { Forget } from "../pages/Forget";
 import { RouteItem } from "./types";
+import { PieChartFilled, SettingFilled } from "@ant-design/icons";
 
 export const routes: RouteItem[] = [
   {
@@ -39,7 +40,22 @@ export const routes: RouteItem[] = [
     id: "dashBoard",
     element: <DashBoard />,
     path: "/dashboard",
+    text: 'Dashboard',
+    icon: <PieChartFilled />,
   },
+  {
+    id: 'userCenter',
+    element: <UserCenter />,
+    path: '/usercenter',
+    text: 'About Me',
+    icon: <SettingFilled />,
+    children: [{
+      id: 'test',
+      element: <>111</>,
+      text: 'test',
+      path: "/usercenter/test",
+    }]
+  }
 ];
 
 export const pageTypes = {
