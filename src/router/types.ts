@@ -4,8 +4,9 @@ export interface RouteItem {
   id: string;
   element?: ReactNode;
   path: string;
-  text?: string;
+  textKey?: string;
   icon?: ReactNode;
   isPublic?: boolean;
   children?: RouteItem[]
+  
 }

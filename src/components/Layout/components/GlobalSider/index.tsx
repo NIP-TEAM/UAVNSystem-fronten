@@ -4,6 +4,8 @@ import { SiderStyle } from "./style";
 import { flatRoutes, routes } from "../../../../router";
 import { useLocation, useNavigate } from "react-router";
 import { RouteItem } from "../../../../router/types";
+import GlobalMenuJson from '../../../../language/core/GlobalMenu.json'
+import { useConfig } from "../../../../hooks";
 
 interface GlobalSiderProp {
   collapse: boolean;
@@ -16,13 +18,12 @@ interface MenuItem {
   icon?: ReactNode;
   children?: MenuItem[];
   path: string;
-  // onClick: ({ keyPath }: { keyPath: string[] }) => void;
 }
 
 const _formateMenuItem = ({
   id,
   icon,
-  text,
+  textKey,
   path,
   children,
 }: RouteItem): MenuItem => {
@@ -34,27 +35,34 @@ const _formateMenuItem = ({
   return {
     key: id,
     icon,
-    label: text || "",
+    label: textKey || "",
     path,
     children: childrenFormate.length ? childrenFormate : undefined,
   };
 };
 
 const MenuItems: MenuItem[] = routes
-  .filter(({ text }) => !!text)
+  .filter(({ textKey }) => !!textKey)
   .map((item) => _formateMenuItem(item));
 
 export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { useLanguage } = useConfig();
+  const GlobalMenuText = useLanguage?.(GlobalMenuJson) || {}
 
   const [activeKey, setActiveKey] = useState(
     MenuItems[0]?.key?.toString() || "dashboard"
   );
 
   useEffect(() => {
-    const result = flatRoutes.find(({path}) => path === location.pathname)?.id;
-    setActiveKey(result || 'dashboard');
+    const pathName = location.pathname;
+    const findActiveKey = (target: string): string | undefined => {
+      const result = flatRoutes.find(({path}) => path === target);
+      if (result && result?.textKey) return result.id;
+      return findActiveKey(target.split('/').slice(0, -1).join('/'))
+    }
+    setActiveKey(findActiveKey(pathName) || 'dashboard');
   }, [location.pathname]);
 
   return (
@@ -67,7 +75,10 @@ export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
       <Menu
         mode="inline"
         selectedKeys={[activeKey]}
-        items={MenuItems}
+        items={MenuItems.map(item => ({
+          ...item,
+          label: GlobalMenuText[item.label]
+        }))}
         onSelect={({ key }) => {
           setActiveKey(key);
           const result = flatRoutes.find(({ id }) => id === key)?.path;

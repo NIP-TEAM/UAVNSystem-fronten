@@ -1,7 +1,12 @@
+import { Button } from "antd";
 import { FC } from "react";
+import { useNavigate } from "react-router";
 
 interface DashBoardProp {}
 
 export const DashBoard: FC<DashBoardProp> = () => {
-    return <div style={{height: 1000}}>111</div>
+    const navigate = useNavigate()
+    return <div style={{height: 1000}}>
+        <Button onClick={() => navigate('/usercenter/test')}> test </Button>
+    </div>
 }

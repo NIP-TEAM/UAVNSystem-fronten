@@ -41,14 +41,14 @@ export const routes: RouteItem[] = [
     id: "dashboard",
     element: <DashBoard />,
     path: "/dashboard",
-    text: "Dashboard",
+    textKey: "dashboard",
     icon: <PieChartFilled />,
   },
   {
     id: "user-center",
     element: <UserCenter />,
     path: "/usercenter",
-    text: "About Me",
+    textKey: "usercenter",
     icon: <SettingFilled />,
     children: [
       {
@@ -76,7 +76,6 @@ export const flatRoutes: RouteItem[] = (() => {
     });
   };
   flat(routes);
-  console.log(result);
   return result;
 })();
 
