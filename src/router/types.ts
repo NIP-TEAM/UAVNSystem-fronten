@@ -8,5 +8,5 @@ export interface RouteItem {
   icon?: ReactNode;
   isPublic?: boolean;
   children?: RouteItem[]
-  
+  forbiddenBrid?: boolean
 }
