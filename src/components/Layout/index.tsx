@@ -20,9 +20,11 @@ export const AppLayout: FC<AppLayoutProp> = ({ children, pageType }) => {
 
   return pageType === "frame" ? (
     <Layout hasSider>
-      <GlobalSider {... {collapse, background: colorBgContainer}} />
+      <GlobalSider {...{ collapse, background: colorBgContainer }} />
       <Layout>
-        <GlobalHeader {...{ collapse, setCollapse, background: colorBgContainer }} />
+        <GlobalHeader
+          {...{ collapse, setCollapse, background: colorBgContainer }}
+        />
         <Layout.Content>{children}</Layout.Content>
       </Layout>
     </Layout>

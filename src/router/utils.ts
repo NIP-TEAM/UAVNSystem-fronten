@@ -5,3 +5,5 @@ export const findActiveKey = (target: string): string | undefined => {
   if (result && result?.textKey) return result.id;
   return findActiveKey(target.split("/").slice(0, -1).join("/"));
 };
+
+export const findActivePath = (target: string): string => flatRoutes.find(({id}) => id === target)?.path || flatRoutes[0].path

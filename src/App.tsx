@@ -14,6 +14,7 @@ import { flatRoutes, pageTypes, routes } from "./router";
 import { useAtomValue } from "jotai";
 import { languageAtom, userAtom } from "./store";
 import { themeAtom } from "./store/Theme";
+import { MyBreadcrumb } from "./components/Layout/components";
 
 export const AppContext = createContext<{ messageApi: MessageInstance | null }>(
   {
@@ -83,7 +84,10 @@ function App() {
                   path={route.path}
                   element={
                     token || route.isPublic ? (
-                      route.element
+                      <>
+                        {!route.breadcrumbForbidden && <MyBreadcrumb />}
+                        {route.element}
+                      </>
                     ) : (
                       <Navigate to="/login" />
                     )
