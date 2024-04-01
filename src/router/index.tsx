@@ -1,8 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { Login, ErrorPage, UserCenter } from "../pages";
-import { DashBoard } from "../pages/DashBoard";
-import { Register } from "../pages/Register";
-import { Forget } from "../pages/Forget";
+import { Login, ErrorPage, UserCenter, DashBoard, Forget, Register } from "../pages";
 import { RouteItem } from "./types";
 import { PieChartFilled, SettingFilled } from "@ant-design/icons";
 import { omit } from "lodash-es";
@@ -43,6 +40,7 @@ export const routes: RouteItem[] = [
     path: "/dashboard",
     textKey: "dashboard",
     icon: <PieChartFilled />,
+    breadcrumbForbidden: true,
   },
   {
     id: "user-center",
@@ -50,20 +48,6 @@ export const routes: RouteItem[] = [
     path: "/usercenter",
     textKey: "usercenter",
     icon: <SettingFilled />,
-    children: [
-      {
-        id: "test",
-        // text: 'test1',
-        element: <>test</>,
-        path: "/usercenter/test",
-      },
-      {
-        id: "test2",
-        // text: 'test2',
-        element: <>222</>,
-        path: "/usercenter/test2",
-      },
-    ],
   },
 ];
 
