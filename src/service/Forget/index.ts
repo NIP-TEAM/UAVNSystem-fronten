@@ -1,4 +1,4 @@
-import { useHttp } from "../../hooks";
+import { useHttp } from "@/hooks";
 
 export interface ForgetInfo {
     email: string,

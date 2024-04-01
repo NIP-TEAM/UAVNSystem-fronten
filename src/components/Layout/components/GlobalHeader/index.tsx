@@ -1,7 +1,7 @@
 import { Avatar, Button, Flex, Layout, Typography } from "antd";
 import { Dispatch, FC } from "react";
 import { HeaderStyle } from "./style";
-import { LanguageSwitch } from "../../..";
+import { LanguageSwitch } from "@/components";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -11,8 +11,8 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { useAtom, useAtomValue } from "jotai";
-import { userAtom } from "../../../../store";
-import { THEMESNAME, themeAtom } from "../../../../store/Theme";interface GlobalHeaderProp {
+import { userAtom } from "@/store";
+import { THEMESNAME, themeAtom } from "@/store/Theme";interface GlobalHeaderProp {
   collapse: boolean;
   setCollapse: Dispatch<boolean>;
   background: string;

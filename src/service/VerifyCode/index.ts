@@ -1,4 +1,4 @@
-import { useHttp } from "../../hooks";
+import { useHttp } from "@/hooks";
 
 interface VerifyCode {
   email: string;

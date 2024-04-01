@@ -1,5 +1,5 @@
-import { useHttp } from "../../hooks";
-import { UserProtocol } from "../../store";
+import { useHttp } from "@/hooks";
+import { UserProtocol } from "@/store";
 
 export interface LoginInfo {
   password: string;

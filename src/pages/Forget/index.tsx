@@ -1,11 +1,11 @@
 import { Button, Card, Flex, Form, Input } from "antd";
 import { FC, useContext, useEffect, useState } from "react";
-import { useConfig } from "../../hooks";
-import ForgetJson from "../../language/pages/Forget.json";
+import { useConfig } from "@/hooks";
+import ForgetJson from "@/language/pages/Forget.json";
 import { ForgetCardStyle } from "./style";
 import { Rule } from "rc-field-form/lib/interface";
-import { AppContext } from "../../App";
-import { ForgetInfo, useForget, useVerifyCode } from "../../service";
+import { AppContext } from "@/App";
+import { ForgetInfo, useForget, useVerifyCode } from "@/service";
 import { useNavigate } from "react-router";
 
 interface ForgetProp {}

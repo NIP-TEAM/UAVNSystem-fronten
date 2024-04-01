@@ -1,15 +1,15 @@
 import { Button, Card, Checkbox, Flex, Form, Input } from "antd";
 import { FC, useContext, useEffect, useState } from "react";
 import { ButtonNoStyle, LoginCardStyle } from "./style";
-import { useConfig } from "../../hooks";
-import LoginTextLanguage from "../../language/pages/Login.json";
-import { LoginInfo, useLogin } from "../../service";
+import { useConfig } from "@/hooks";
+import LoginTextLanguage from "@/language/pages/Login.json";
+import { LoginInfo, useLogin } from "@/service";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { ProtocalBox } from "./components";
 import { useAtom } from "jotai";
-import { userAtom } from "../../store";
+import { userAtom } from "@/store";
 import { useNavigate } from "react-router";
-import { AppContext } from "../../App";
+import { AppContext } from "@/App";
 
 export interface LoginProp { }
 

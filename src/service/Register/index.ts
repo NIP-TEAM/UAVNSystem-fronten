@@ -1,5 +1,5 @@
-import { LoginInfo } from "..";
-import { useHttp } from "../../hooks";
+import { LoginInfo } from "@/service";
+import { useHttp } from "@/hooks";
 
 export interface RegisterInfo extends LoginInfo {
   verifyCode: string;

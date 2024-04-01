@@ -1,11 +1,12 @@
 import { Layout, Menu } from "antd";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { SiderStyle } from "./style";
-import { flatRoutes, routes } from "../../../../router";
+import { flatRoutes, routes } from "@/router";
 import { useLocation, useNavigate } from "react-router";
-import { RouteItem } from "../../../../router/types";
-import GlobalMenuJson from '../../../../language/core/GlobalMenu.json'
-import { useConfig } from "../../../../hooks";
+import { RouteItem } from "@/router/types";
+import GlobalMenuJson from '@/language/core/GlobalMenu.json'
+import { useConfig } from "@/hooks";
+import { findActiveKey } from "@/router/utils";
 
 interface GlobalSiderProp {
   collapse: boolean;
@@ -56,13 +57,7 @@ export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
   );
 
   useEffect(() => {
-    const pathName = location.pathname;
-    const findActiveKey = (target: string): string | undefined => {
-      const result = flatRoutes.find(({path}) => path === target);
-      if (result && result?.textKey) return result.id;
-      return findActiveKey(target.split('/').slice(0, -1).join('/'))
-    }
-    setActiveKey(findActiveKey(pathName) || 'dashboard');
+    setActiveKey(findActiveKey(location.pathname) || 'dashboard');
   }, [location.pathname]);
 
   return (

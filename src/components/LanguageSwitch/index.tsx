@@ -1,9 +1,9 @@
 import { FC, ReactNode } from "react";
-import { LANGUAGES } from "../../language/types";
+import { LANGUAGES } from "@/language/types";
 import { Popover, Select } from "antd";
 import { DefaultOptionType } from "antd/es/select";
 import { useAtom } from "jotai";
-import { languageAtom } from "../../store";
+import { languageAtom } from "@/store";
 
 const languageSet: DefaultOptionType[] = [
   { value: LANGUAGES.en, label: "English" },
