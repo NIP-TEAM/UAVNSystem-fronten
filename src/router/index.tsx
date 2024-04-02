@@ -1,10 +1,11 @@
 import { Navigate } from "react-router-dom";
 import { Login, ErrorPage, UserCenter, DashBoard, Forget, Register } from "../pages";
-import { RouteItem } from "./types";
+import { BreadcrumbItem, MenuItem, RouteItem } from "./types";
 import { PieChartFilled, SettingFilled } from "@ant-design/icons";
 import { omit } from "lodash-es";
+import { _formateBreadcrumbItem, _formateMenuItem } from "./utils";
 
-export const routes: RouteItem[] = [
+export const ROUTES: readonly RouteItem[] = [
   {
     id: "not-found",
     path: "*",
@@ -59,9 +60,17 @@ export const flatRoutes: RouteItem[] = (() => {
       if (eachTarget.children) flat(eachTarget.children);
     });
   };
-  flat(routes);
+  flat([...ROUTES]);
   return result;
 })();
+
+export const menuRoutes: MenuItem[] = ROUTES
+  .filter(({ textKey }) => !!textKey)
+  .map((item) => _formateMenuItem(item))
+
+export const breadcrumbRoutes: BreadcrumbItem[] = ROUTES
+  .filter(({ textKey }) => !!textKey)
+  .map((item) => _formateBreadcrumbItem(item))
 
 export const pageTypes = {
   noFrame: ["", "login", "register", "forget"],

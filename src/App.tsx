@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { ANTDCOLORTHEME, ANTDLANGUAGETHEME, ConfigProvider } from "./hooks";
 import { AppLayout } from "./components";
-import { flatRoutes, pageTypes, routes } from "./router";
+import { flatRoutes, pageTypes } from "./router";
 import { useAtomValue } from "jotai";
 import { languageAtom, userAtom } from "./store";
 import { themeAtom } from "./store/Theme";
@@ -76,7 +76,7 @@ function App() {
             algorithm: ANTDCOLORTHEME[theme],
           }}
         >
-          <AppLayout routes={routes} pageType={memoPageType}>
+          <AppLayout pageType={memoPageType}>
             <Routes>
               {flatRoutes.map((route) => (
                 <Route
@@ -85,7 +85,7 @@ function App() {
                   element={
                     token || route.isPublic ? (
                       <>
-                        {!route.breadcrumbForbidden && <MyBreadcrumb />}
+                        {!route.breadcrumbForbidden && memoPageType !== 'noFrame' && <MyBreadcrumb />}
                         {route.element}
                       </>
                     ) : (

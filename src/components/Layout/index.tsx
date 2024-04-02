@@ -1,5 +1,4 @@
 import { FC, ReactNode, useState } from "react";
-import { RouteItem } from "@/router/types";
 import { Button, Flex, Layout, theme } from "antd";
 import { LoginLayoutStyle } from "./style";
 import { LanguageSwitch } from "@/components";
@@ -7,7 +6,6 @@ import { TranslationOutlined } from "@ant-design/icons";
 import { GlobalHeader, GlobalSider } from "./components";
 
 interface AppLayoutProp {
-  routes: RouteItem[];
   pageType?: "noFrame" | "frame";
   children: ReactNode;
 }

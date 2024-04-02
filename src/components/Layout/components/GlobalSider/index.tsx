@@ -1,50 +1,19 @@
 import { Layout, Menu } from "antd";
-import { FC, ReactNode, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { SiderStyle } from "./style";
-import { flatRoutes, routes } from "@/router";
+import { flatRoutes, menuRoutes } from "@/router";
 import { useLocation, useNavigate } from "react-router";
-import { RouteItem } from "@/router/types";
 import GlobalMenuJson from '@/language/core/GlobalMenu.json'
 import { useConfig } from "@/hooks";
 import { findActiveKey } from "@/router/utils";
+import { MenuItem } from "@/router/types";
 
 interface GlobalSiderProp {
   collapse: boolean;
   background: string;
 }
 
-interface MenuItem {
-  label: string;
-  key: string;
-  icon?: ReactNode;
-  children?: MenuItem[];
-  path: string;
-}
-
-const _formateMenuItem = ({
-  id,
-  icon,
-  textKey,
-  path,
-  children,
-}: RouteItem): MenuItem => {
-  let childrenFormate: MenuItem[] = [];
-  if (children?.length)
-    childrenFormate = children
-      .map((item) => _formateMenuItem(item))
-      .filter(({ label }) => !!label);
-  return {
-    key: id,
-    icon,
-    label: textKey || "",
-    path,
-    children: childrenFormate.length ? childrenFormate : undefined,
-  };
-};
-
-const MenuItems: MenuItem[] = routes
-  .filter(({ textKey }) => !!textKey)
-  .map((item) => _formateMenuItem(item));
+const MenuItems: MenuItem[] = menuRoutes;
 
 export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
   const navigate = useNavigate();
