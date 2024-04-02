@@ -10,7 +10,7 @@ import {
   Network,
   Uav,
 } from "../pages";
-import { BreadcrumbItem, MenuItem, RouteItem } from "./types";
+import { MenuItem, RouteItem } from "./types";
 import {
   ClusterOutlined,
   GlobalOutlined,
@@ -19,7 +19,7 @@ import {
   SettingFilled,
 } from "@ant-design/icons";
 import { omit } from "lodash-es";
-import { _formateBreadcrumbItem, _formateMenuItem } from "./utils";
+import { _formateMenuItem } from "./utils";
 
 const ROUTES: readonly RouteItem[] = [
   {
@@ -104,10 +104,6 @@ export const flatRoutes: RouteItem[] = (() => {
 export const menuRoutes: MenuItem[] = ROUTES.filter(
   ({ textKey }) => !!textKey
 ).map((item) => _formateMenuItem(item));
-
-export const breadcrumbRoutes: BreadcrumbItem[] = ROUTES.filter(
-  ({ textKey }) => !!textKey
-).map((item) => _formateBreadcrumbItem(item));
 
 export const pageTypes = {
   noFrame: ["", "login", "register", "forget"],

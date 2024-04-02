@@ -1,7 +1,4 @@
 import { ReactNode } from "react";
-import { ItemType } from "antd/es/breadcrumb/Breadcrumb";
-
-export type BreadcrumbItem = ItemType
 
 export interface RouteItem {
   id: string;
