@@ -5,7 +5,7 @@ import { PieChartFilled, SettingFilled } from "@ant-design/icons";
 import { omit } from "lodash-es";
 import { _formateBreadcrumbItem, _formateMenuItem } from "./utils";
 
-export const ROUTES: readonly RouteItem[] = [
+const ROUTES: readonly RouteItem[] = [
   {
     id: "not-found",
     path: "*",

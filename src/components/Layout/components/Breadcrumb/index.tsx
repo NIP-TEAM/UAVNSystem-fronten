@@ -13,8 +13,8 @@ export const MyBreadcrumb: FC<BreadcrumbProp> = () => {
   return (
     <AntdBreadcrumb
       items={breadcrumbRoutes}
-      itemRender={(currentRoute, items) =>
-        currentRoute?.path === items[items.length - 1]?.path ? (
+      itemRender={(currentRoute) =>
+        currentRoute?.path === location.pathname ? (
           <Typography.Text>
             {GlobalMenuText[currentRoute.title as string]}
           </Typography.Text>
@@ -25,7 +25,7 @@ export const MyBreadcrumb: FC<BreadcrumbProp> = () => {
         )
       }
       separator="=>"
-      style={{ padding: "0.5em" }}
+      style={{ padding: "0.5em 1em" }}
     />
   );
 };
