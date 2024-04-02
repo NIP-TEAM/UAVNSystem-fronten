@@ -1,7 +1,23 @@
 import { Navigate } from "react-router-dom";
-import { Login, ErrorPage, UserCenter, DashBoard, Forget, Register } from "../pages";
+import {
+  Login,
+  ErrorPage,
+  UserCenter,
+  DashBoard,
+  Forget,
+  Register,
+  Email,
+  Network,
+  Uav,
+} from "../pages";
 import { BreadcrumbItem, MenuItem, RouteItem } from "./types";
-import { PieChartFilled, SettingFilled } from "@ant-design/icons";
+import {
+  ClusterOutlined,
+  GlobalOutlined,
+  MailFilled,
+  PieChartFilled,
+  SettingFilled,
+} from "@ant-design/icons";
 import { omit } from "lodash-es";
 import { _formateBreadcrumbItem, _formateMenuItem } from "./utils";
 
@@ -50,6 +66,27 @@ const ROUTES: readonly RouteItem[] = [
     textKey: "usercenter",
     icon: <SettingFilled />,
   },
+  {
+    id: "networkcenter",
+    element: <Network />,
+    path: "/network",
+    textKey: "networkcenter",
+    icon: <GlobalOutlined />,
+  },
+  {
+    id: "uavcenter",
+    element: <Uav />,
+    path: "/uavs",
+    textKey: "uavcenter",
+    icon: <ClusterOutlined />,
+  },
+  {
+    id: "email-center",
+    element: <Email />,
+    path: "/emailcenter",
+    icon: <MailFilled />,
+    textKey: "emailcenter",
+  },
 ];
 
 export const flatRoutes: RouteItem[] = (() => {
@@ -64,13 +101,13 @@ export const flatRoutes: RouteItem[] = (() => {
   return result;
 })();
 
-export const menuRoutes: MenuItem[] = ROUTES
-  .filter(({ textKey }) => !!textKey)
-  .map((item) => _formateMenuItem(item))
+export const menuRoutes: MenuItem[] = ROUTES.filter(
+  ({ textKey }) => !!textKey
+).map((item) => _formateMenuItem(item));
 
-export const breadcrumbRoutes: BreadcrumbItem[] = ROUTES
-  .filter(({ textKey }) => !!textKey)
-  .map((item) => _formateBreadcrumbItem(item))
+export const breadcrumbRoutes: BreadcrumbItem[] = ROUTES.filter(
+  ({ textKey }) => !!textKey
+).map((item) => _formateBreadcrumbItem(item));
 
 export const pageTypes = {
   noFrame: ["", "login", "register", "forget"],

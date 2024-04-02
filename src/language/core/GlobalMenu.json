@@ -6,5 +6,17 @@
   "usercenter": {
     "en": "About Me",
     "zh": "账户设置"
+  },
+  "emailcenter": {
+    "en": "Email Setting",
+    "zh": "邮件设置"
+  },
+  "networkcenter": {
+    "en": "Network",
+    "zh": "网络"
+  },
+  "uavcenter": {
+    "en": "Uavs",
+    "zh": "无人机"
   }
 }
