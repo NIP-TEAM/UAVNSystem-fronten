@@ -60,13 +60,6 @@ const ROUTES: readonly RouteItem[] = [
     breadcrumbForbidden: true,
   },
   {
-    id: "user-center",
-    element: <UserCenter />,
-    path: "/usercenter",
-    textKey: "usercenter",
-    icon: <SettingFilled />,
-  },
-  {
     id: "networkcenter",
     element: <Network />,
     path: "/network",
@@ -86,6 +79,13 @@ const ROUTES: readonly RouteItem[] = [
     path: "/emailcenter",
     icon: <MailFilled />,
     textKey: "emailcenter",
+  },
+  {
+    id: "user-center",
+    element: <UserCenter />,
+    path: "/usercenter",
+    textKey: "usercenter",
+    icon: <SettingFilled />,
   },
 ];
 
