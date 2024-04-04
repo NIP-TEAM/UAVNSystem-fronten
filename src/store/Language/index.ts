@@ -1,11 +1,11 @@
 import { atom } from "jotai";
 import { LANGUAGES } from "@/language/types";
 import { atomWithStorage } from "jotai/utils";
-import { _getBrowseColorTheme } from "../Theme/utils";
+import { _getBrowseLanguage } from "./utils";
 
 const languageCoreAtom = atomWithStorage(
   "user-language",
-  _getBrowseColorTheme(),
+  _getBrowseLanguage(),
   undefined,
   {
     getOnInit: true,

@@ -1,6 +1,10 @@
 import { LANGUAGES } from "@/language/types";
 
-const _getBrowseLanguage = (): LANGUAGES => {
-    console.log(navigator.language)
-    return LANGUAGES.zh
+export const _getBrowseLanguage = (): LANGUAGES => {
+    switch (navigator.language) {
+        case 'zh-CN': return LANGUAGES.zh
+        default:
+            LANGUAGES.en;
+    }
+    return LANGUAGES.en;
 }
