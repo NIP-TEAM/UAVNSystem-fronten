@@ -9,7 +9,7 @@ import { theme } from "antd";
 import { MapToken } from "antd/es/theme/interface";
 import { SeedToken } from "antd/es/theme/internal";
 
-type LanguageJsonProtocol = Record<
+type DefaultLanguageJsonProtocol = Record<
   string,
   LanguageJson
 >;
@@ -24,14 +24,14 @@ export const ANTDCOLORTHEME: Readonly<Record<THEMESNAME, (token: SeedToken) => M
   [THEMESNAME.light]: theme.defaultAlgorithm
 }
 
-type TextProtocol = Record<keyof LanguageJsonProtocol, string>;
+export type TextProtocol<T> = Record<keyof T, string>;
 
 interface Config {
   language: LANGUAGES;
   token: string;
   httpStrategy: Record<number, () => void>;
   apiBaseUrl: string;
-  useLanguage: (languageJson: LanguageJsonProtocol) => TextProtocol;
+  useLanguage: <T = DefaultLanguageJsonProtocol>(languageJson: T) => TextProtocol<T>;
 }
 
 type PartialConfig = Partial<Config>;

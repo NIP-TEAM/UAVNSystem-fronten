@@ -1,7 +1,13 @@
+import { Form, Typography } from "antd";
 import { FC } from "react";
 
-export interface FilterProp {}
+export interface FilterProp {
+    initParams?: string
+}
 
 export const Filter: FC<FilterProp> = () => {
-    return <div>UAVs Filter</div>
+    const [form] = Form.useForm()
+    return <Form form={form}>
+        <Typography.Title level={5}>Filted by</Typography.Title>
+    </Form>
 }

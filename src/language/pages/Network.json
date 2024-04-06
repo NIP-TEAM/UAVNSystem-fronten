@@ -1,0 +1,38 @@
+{
+  "moduleTitle": {
+    "en": "Network(s)",
+    "zh": "自组网管理"
+  },
+  "filterTitle": {
+    "en": "Filter by",
+    "zh": "筛选器"
+  },
+  "name": {
+    "en": "Network Name",
+    "zh": "网络名称"
+  },
+  "id": {
+    "en": "Network Id",
+    "zh": "网络Id"
+  },
+  "total": {
+    "en": "Total Count",
+    "zh": "数据总数"
+  },
+  "select": {
+    "en": "Been Choosen",
+    "zh": "已选择"
+  },
+  "new": {
+    "en": "Create Network",
+    "zh": "创建新网络"
+  },
+  "newCancel": {
+    "en": "Cancel",
+    "zh": "取消"
+  },
+  "newConfirm": {
+    "en": "Confirm",
+    "zh": "确定"
+  }
+}

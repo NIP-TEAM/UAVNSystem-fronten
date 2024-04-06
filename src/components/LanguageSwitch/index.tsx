@@ -1,13 +1,13 @@
 import { FC, ReactNode } from "react";
 import { LANGUAGES } from "@/language/types";
-import { Popover, Select } from "antd";
-import { DefaultOptionType } from "antd/es/select";
+import { Button, Dropdown, Popover } from "antd";
 import { useAtom } from "jotai";
 import { languageAtom } from "@/store";
+import { DownOutlined } from "@ant-design/icons";
 
-const languageSet: DefaultOptionType[] = [
-  { value: LANGUAGES.en, label: "English" },
-  { value: LANGUAGES.zh, label: "简体中文" },
+const languageSet: readonly {key: LANGUAGES, label: string}[] = [
+  { key: LANGUAGES.en, label: "English" },
+  { key: LANGUAGES.zh, label: "简体中文" },
 ];
 
 export interface LanguageSwitchProp {
@@ -17,11 +17,18 @@ export interface LanguageSwitchProp {
 export const LanguageSwitch: FC<LanguageSwitchProp> = ({ children }) => {
   const [language, setLanguage] = useAtom(languageAtom);
   const languageChooser = (
-    <Select
-      options={languageSet}
-      value={language}
-      onChange={(newLanguage) => setLanguage(newLanguage)}
-    />
+    <Dropdown
+      trigger={["click"]}
+      menu={{
+        items: [...languageSet],
+        selectedKeys: [language],
+        onClick: ({ key }) => setLanguage(key as LANGUAGES),
+      }}
+    >
+      <Button type="link">
+        {languageSet?.find(({ key }) => key === language)?.label} <DownOutlined />
+      </Button>
+    </Dropdown>
   );
 
   return (
