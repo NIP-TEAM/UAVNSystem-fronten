@@ -21,7 +21,7 @@ export const Forget: FC<ForgetProp> = () => {
     Number(localStorage.getItem(SECOUNDKEY) || 0)
   );
   const navigate = useNavigate();
-  const ForgetText = useConfig().useLanguage!("Forget");
+  const ForgetText = useConfig().useLanguage!<"Forget">("Forget");
 
   const rules: Record<string, Rule[]> = {
     email: [

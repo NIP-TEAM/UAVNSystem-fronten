@@ -22,7 +22,7 @@ const _formateBreadcurmbItem = ({
 type GlobalMenuJsonType = typeof GlobalMenuJson
 
 export const MyBreadcrumb: FC<BreadcrumbProp> = () => {
-  const GlobalMenuText = useConfig().useLanguage!("GlobalMenu");
+  const GlobalMenuText = useConfig().useLanguage!<"GlobalMenu">("GlobalMenu");
   const [breadcrumbRoutes, setBreadCrumbroutes] = useState<ItemType[]>([
     _formateBreadcurmbItem(findRouteByPath("/dashboard")),
   ]);

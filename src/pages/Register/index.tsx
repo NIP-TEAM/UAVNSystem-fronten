@@ -21,7 +21,7 @@ export const Register: FC<RegisterProp> = () => {
     Number(localStorage.getItem(SECOUNDKEY) || 0)
   );
   const navigate = useNavigate();
-  const RegisterText = useConfig().useLanguage!("Register");
+  const RegisterText = useConfig().useLanguage!<"Register">("Register");
 
   const rules: Record<string, Rule[]> = {
     email: [

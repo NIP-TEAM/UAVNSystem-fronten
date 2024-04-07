@@ -18,7 +18,7 @@ interface FormInfo extends LoginInfo {
 
 export const Login: FC<LoginProp> = () => {
   const { messageApi } = useContext(AppContext)
-  const LoginText = useConfig().useLanguage!("Login");
+  const LoginText = useConfig().useLanguage!<"Login">("Login");
   const [form] = Form.useForm<FormInfo>();
   const navigate = useNavigate()
   const [{ email, password, protocolRead }, setFormInfo] = useState<

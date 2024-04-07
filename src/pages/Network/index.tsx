@@ -1,4 +1,3 @@
-import NetworkJson from "@/language/pages/Network.json";
 import { NetworkDataType } from "@/service";
 import { Card, Divider, Flex, Typography } from "antd";
 import { FC, useState } from "react";
@@ -27,12 +26,12 @@ const defaltPagination: BasicPagination = {
   total: networkData.length,
 };
 
-type NetworkJsonType = typeof NetworkJson;
+const LANGUAGEKEY = "Network"
 
-export type NetworkLanguageType = TextProtocol<NetworkJsonType>;
+export type NetworkLanguageType = TextProtocol<typeof LANGUAGEKEY>;
 
 export const Network: FC<NetworkProp> = () => {
-  const NetworkText = useConfig().useLanguage!("Network");
+  const NetworkText = useConfig().useLanguage!<typeof LANGUAGEKEY>(LANGUAGEKEY);
 
   const [pagination, setPagination] =
     useState<BasicPagination>(defaltPagination);

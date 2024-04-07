@@ -18,7 +18,7 @@ const MenuItems: MenuItem[] = menuRoutes;
 export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const GlobalMenuText = useConfig().useLanguage!("GlobalMenu")
+  const GlobalMenuText = useConfig().useLanguage!<"GlobalMenu">("GlobalMenu")
 
   const [activeKey, setActiveKey] = useState(
     MenuItems[0]?.key?.toString() || "dashboard"

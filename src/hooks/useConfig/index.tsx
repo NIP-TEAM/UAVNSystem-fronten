@@ -22,16 +22,16 @@ export const ANTDCOLORTHEME: Readonly<
   [THEMESNAME.light]: theme.defaultAlgorithm,
 };
 
-export type TextProtocol<T> = Record<keyof T, string>;
+export type TextProtocol<T extends LanguageJsonSet> = Record<keyof typeof LanguageTextJson[T], string>;
 
 interface Config {
   language: LANGUAGES;
   token: string;
   httpStrategy: Record<number, () => void>;
   apiBaseUrl: string;
-  useLanguage: (
+  useLanguage: <T extends LanguageJsonSet >(
     languageJsonName: LanguageJsonSet
-  ) => TextProtocol<keyof typeof LanguageTextJson[LanguageJsonSet]>;
+  ) => TextProtocol<T>;
 }
 
 type PartialConfig = Partial<Config>;
