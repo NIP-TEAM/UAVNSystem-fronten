@@ -29,7 +29,7 @@ const defaltPagination: BasicPagination = {
 export const Network: FC<NetworkProp> = () => {
   const [pagination, setPagination] =
     useState<BasicPagination>(defaltPagination);
-  const [filter, setFilter] = useState<string>("");
+  const [filter, setFilter] = useState("");
 
   return (
     <LanguageProvider textKey="Network">
