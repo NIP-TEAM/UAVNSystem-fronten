@@ -1,7 +1,6 @@
 import { Button, Card, Flex, Form, Input } from "antd";
 import { FC, useContext, useEffect, useState } from "react";
 import { useConfig } from "@/hooks";
-import ForgetJson from "@/language/pages/Forget.json";
 import { ForgetCardStyle } from "./style";
 import { Rule } from "rc-field-form/lib/interface";
 import { AppContext } from "@/App";
@@ -15,7 +14,6 @@ interface FormInfo extends ForgetInfo {}
 const SECOUNDKEY = "_FORGET_SECOUND_KEY";
 
 export const Forget: FC<ForgetProp> = () => {
-  const { useLanguage } = useConfig();
   const [form] = Form.useForm<FormInfo>();
   const { messageApi } = useContext(AppContext);
   const [forgetInfo, setForgetInfo] = useState<Partial<FormInfo>>({});
@@ -23,7 +21,7 @@ export const Forget: FC<ForgetProp> = () => {
     Number(localStorage.getItem(SECOUNDKEY) || 0)
   );
   const navigate = useNavigate();
-  const ForgetText = useLanguage?.(ForgetJson) || {};
+  const ForgetText = useConfig().useLanguage!("Forget");
 
   const rules: Record<string, Rule[]> = {
     email: [

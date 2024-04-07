@@ -2,7 +2,6 @@ import { Button, Card, Checkbox, Flex, Form, Input } from "antd";
 import { FC, useContext, useEffect, useState } from "react";
 import { ButtonNoStyle, LoginCardStyle } from "./style";
 import { useConfig } from "@/hooks";
-import LoginTextLanguage from "@/language/pages/Login.json";
 import { LoginInfo, useLogin } from "@/service";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { ProtocalBox } from "./components";
@@ -18,9 +17,8 @@ interface FormInfo extends LoginInfo {
 }
 
 export const Login: FC<LoginProp> = () => {
-  const { useLanguage } = useConfig();
   const { messageApi } = useContext(AppContext)
-  const LoginText = useLanguage?.(LoginTextLanguage) || {};
+  const LoginText = useConfig().useLanguage!("Login");
   const [form] = Form.useForm<FormInfo>();
   const navigate = useNavigate()
   const [{ email, password, protocolRead }, setFormInfo] = useState<

@@ -19,9 +19,10 @@ const _formateBreadcurmbItem = ({
   title: textKey,
 });
 
+type GlobalMenuJsonType = typeof GlobalMenuJson
+
 export const MyBreadcrumb: FC<BreadcrumbProp> = () => {
-  const { useLanguage } = useConfig();
-  const GlobalMenuText = useLanguage?.(GlobalMenuJson) || {};
+  const GlobalMenuText = useConfig().useLanguage!("GlobalMenu");
   const [breadcrumbRoutes, setBreadCrumbroutes] = useState<ItemType[]>([
     _formateBreadcurmbItem(findRouteByPath("/dashboard")),
   ]);
@@ -40,11 +41,11 @@ export const MyBreadcrumb: FC<BreadcrumbProp> = () => {
       itemRender={(currentRoute) =>
         currentRoute?.path === location.pathname ? (
           <Typography.Text>
-            {GlobalMenuText[currentRoute.title as string]}
+            {GlobalMenuText[currentRoute.title as keyof GlobalMenuJsonType]}
           </Typography.Text>
         ) : (
           <Link to={currentRoute.path || "/error"}>
-            {GlobalMenuText[currentRoute.title as string]}
+            {GlobalMenuText[currentRoute.title as keyof GlobalMenuJsonType]}
           </Link>
         )
       }

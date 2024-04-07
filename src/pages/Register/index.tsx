@@ -1,7 +1,6 @@
 import { Button, Card, Flex, Form, Input } from "antd";
 import { FC, useContext, useEffect, useState } from "react";
 import { useConfig } from "@/hooks";
-import RegisterJson from "@/language/pages/Register.json";
 import { RegisterCardStyle } from "./style";
 import { Rule } from "rc-field-form/lib/interface";
 import { AppContext } from "@/App";
@@ -15,7 +14,6 @@ interface FormInfo extends RegisterInfo {}
 const SECOUNDKEY = "_REGISTER_SECOUND_KEY";
 
 export const Register: FC<RegisterProp> = () => {
-  const { useLanguage } = useConfig();
   const [form] = Form.useForm<FormInfo>();
   const { messageApi } = useContext(AppContext);
   const [registerInfo, setRegisterInfo] = useState<Partial<FormInfo>>({});
@@ -23,7 +21,7 @@ export const Register: FC<RegisterProp> = () => {
     Number(localStorage.getItem(SECOUNDKEY) || 0)
   );
   const navigate = useNavigate();
-  const RegisterText = useLanguage?.(RegisterJson) || {};
+  const RegisterText = useConfig().useLanguage!("Register");
 
   const rules: Record<string, Rule[]> = {
     email: [

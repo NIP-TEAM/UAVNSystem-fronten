@@ -1,28 +1,26 @@
-import { FC, createContext, useContext } from "react";
+import { FC, ReactNode, createContext, useContext } from "react";
 import enUS from "antd/es/locale/en_US";
 import zhCN from "antd/es/locale/zh_CN";
 import { Locale } from "antd/es/locale";
 import { cloneDeepWith } from "lodash-es";
-import { LANGUAGES, LanguageJson } from "@/language/types";
+import { LANGUAGES } from "@/language/types";
 import { THEMESNAME } from "@/store/Theme";
 import { theme } from "antd";
 import { MapToken } from "antd/es/theme/interface";
 import { SeedToken } from "antd/es/theme/internal";
-
-type DefaultLanguageJsonProtocol = Record<
-  string,
-  LanguageJson
->;
+import { LanguageJsonSet, LanguageTextJson } from "@/language";
 
 export const ANTDLANGUAGETHEME: Readonly<Record<LANGUAGES, Locale>> = {
   [LANGUAGES.en]: enUS,
   [LANGUAGES.zh]: zhCN,
 };
 
-export const ANTDCOLORTHEME: Readonly<Record<THEMESNAME, (token: SeedToken) => MapToken>> = {
+export const ANTDCOLORTHEME: Readonly<
+  Record<THEMESNAME, (token: SeedToken) => MapToken>
+> = {
   [THEMESNAME.dark]: theme.darkAlgorithm,
-  [THEMESNAME.light]: theme.defaultAlgorithm
-}
+  [THEMESNAME.light]: theme.defaultAlgorithm,
+};
 
 export type TextProtocol<T> = Record<keyof T, string>;
 
@@ -31,15 +29,19 @@ interface Config {
   token: string;
   httpStrategy: Record<number, () => void>;
   apiBaseUrl: string;
-  useLanguage: <T = DefaultLanguageJsonProtocol>(languageJson: T) => TextProtocol<T>;
+  useLanguage: (
+    languageJsonName: LanguageJsonSet
+  ) => TextProtocol<keyof typeof LanguageTextJson[LanguageJsonSet]>;
 }
 
 type PartialConfig = Partial<Config>;
 
-export const ConfigContext = createContext<PartialConfig>({language: navigator.language.split('-')[0] as LANGUAGES || LANGUAGES.zh});
+export const ConfigContext = createContext<PartialConfig>({
+  language: (navigator.language.split("-")[0] as LANGUAGES) || LANGUAGES.zh,
+});
 
 type ConfigProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   config?: PartialConfig;
 };
 
@@ -48,7 +50,7 @@ export const ConfigProvider: FC<ConfigProviderProps> = ({
   config = {},
 }) => {
   const useLanguage: Config["useLanguage"] = (target) =>
-    cloneDeepWith(target, (value) => value[config.language || LANGUAGES.zh]);
+    cloneDeepWith(LanguageTextJson[target], (value) => value[config.language || LANGUAGES.zh]);
   return (
     <ConfigContext.Provider value={{ ...{ useLanguage }, ...config }}>
       {children}
@@ -56,4 +58,4 @@ export const ConfigProvider: FC<ConfigProviderProps> = ({
   );
 };
 
-export const useConfig = () => useContext(ConfigContext);
+export const useConfig = () => useContext(ConfigContext)

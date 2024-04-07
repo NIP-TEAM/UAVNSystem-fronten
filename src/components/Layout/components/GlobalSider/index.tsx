@@ -18,8 +18,7 @@ const MenuItems: MenuItem[] = menuRoutes;
 export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { useLanguage } = useConfig();
-  const GlobalMenuText = useLanguage?.(GlobalMenuJson) || {}
+  const GlobalMenuText = useConfig().useLanguage!("GlobalMenu")
 
   const [activeKey, setActiveKey] = useState(
     MenuItems[0]?.key?.toString() || "dashboard"
@@ -41,7 +40,7 @@ export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
         selectedKeys={[activeKey]}
         items={MenuItems.map(item => ({
           ...item,
-          label: GlobalMenuText[item.label]
+          label: GlobalMenuText[item.label as keyof typeof GlobalMenuJson]
         }))}
         onSelect={({ key }) => {
           setActiveKey(key);

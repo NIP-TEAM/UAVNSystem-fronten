@@ -32,22 +32,25 @@ type NetworkJsonType = typeof NetworkJson;
 export type NetworkLanguageType = TextProtocol<NetworkJsonType>;
 
 export const Network: FC<NetworkProp> = () => {
-  const { useLanguage } = useConfig();
-  const NetworkText = useLanguage!<NetworkJsonType>(NetworkJson);
+  const NetworkText = useConfig().useLanguage!("Network");
 
   const [pagination, setPagination] =
     useState<BasicPagination>(defaltPagination);
   const [filter, setFilter] = useState<string>("");
 
   return (
-    <Card style={{ margin: "0 0.5em" }}>
-      <Flex justify="space-between" align="baseline">
-        <Typography.Title level={4}>{NetworkText.moduleTitle}</Typography.Title>
-        <CreateModal NetworkText={NetworkText} />
-      </Flex>
-      <Filter {...{ setFilter, NetworkText }} />
-      <Divider />
-      <DataList {...{ pagination, setPagination, networkData, NetworkText }} />
-    </Card>
+      <Card style={{ margin: "0 0.5em" }}>
+        <Flex justify="space-between" align="baseline">
+          <Typography.Title level={4}>
+            {NetworkText.moduleTitle}
+          </Typography.Title>
+          <CreateModal NetworkText={NetworkText} />
+        </Flex>
+        <Filter {...{ setFilter, NetworkText }} />
+        <Divider />
+        <DataList
+          {...{ pagination, setPagination, networkData, NetworkText }}
+        />
+      </Card>
   );
 };
