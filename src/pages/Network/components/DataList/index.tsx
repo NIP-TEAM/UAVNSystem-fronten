@@ -10,14 +10,16 @@ export interface DataListProp {
   networkData: NetworkDataType[];
   pagination: BasicPagination;
   setPagination: Dispatch<SetStateAction<BasicPagination>>;
+  loading: boolean;
 }
 
 export const DataList: FC<DataListProp> = ({
   networkData = [],
   pagination,
   setPagination,
+  loading,
 }) => {
-  const { LanguageText } = useLanguageContext<"Network">()
+  const { LanguageText } = useLanguageContext<"Network">();
   const columns: ColumnsType<NetworkDataType> = [
     {
       title: LanguageText["id"],
@@ -66,17 +68,18 @@ export const DataList: FC<DataListProp> = ({
   const Footer = useMemo(
     () => (
       <Flex gap="1em">
-        <Typography.Text>{`${LanguageText["total"]}: ${networkData.length}`}</Typography.Text>
+        <Typography.Text>{`${LanguageText.total}: ${pagination.total}`}</Typography.Text>
         {!!selectedRowKeys.length && (
-          <Typography.Text>{`${LanguageText["select"]}: ${selectedRowKeys.length}`}</Typography.Text>
+          <Typography.Text>{`${LanguageText.select}: ${selectedRowKeys.length}`}</Typography.Text>
         )}
       </Flex>
     ),
-    [LanguageText, networkData.length, selectedRowKeys.length]
+    [LanguageText.select, LanguageText.total, pagination.total, selectedRowKeys.length]
   );
 
   return (
     <Table
+      loading={loading}
       dataSource={networkData}
       columns={columns}
       pagination={paginationProps}
