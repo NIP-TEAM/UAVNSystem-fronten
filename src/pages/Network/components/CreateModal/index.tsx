@@ -1,22 +1,21 @@
+import { useLanguageContext } from "@/hooks";
 import { Button, Modal } from "antd";
 import { FC, useState } from "react";
-import { NetworkLanguageType } from "../..";
 
-export interface CreateModalProp {
-  NetworkText: NetworkLanguageType;
-}
+export interface CreateModalProp {}
 
-export const CreateModal: FC<CreateModalProp> = ({ NetworkText }) => {
+export const CreateModal: FC<CreateModalProp> = () => {
+  const { LanguageText } = useLanguageContext<"Network">();
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Button type="primary" onClick={() => setIsOpen(true)}>
-        {NetworkText.new}
+        {LanguageText.new}
       </Button>
       <Modal
         open={isOpen}
-        okText={NetworkText.newConfirm}
-        cancelText={NetworkText.newCancel}
+        okText={LanguageText.newConfirm}
+        cancelText={LanguageText.newCancel}
         onCancel={() => setIsOpen(false)}
       >
         111

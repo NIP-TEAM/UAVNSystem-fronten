@@ -9,6 +9,8 @@ import { theme } from "antd";
 import { MapToken } from "antd/es/theme/interface";
 import { SeedToken } from "antd/es/theme/internal";
 import { LanguageJsonSet, LanguageTextJson } from "@/language";
+import { useAtomValue } from "jotai";
+import { languageAtom } from "@/store";
 
 export const ANTDLANGUAGETHEME: Readonly<Record<LANGUAGES, Locale>> = {
   [LANGUAGES.en]: enUS,
@@ -22,21 +24,24 @@ export const ANTDCOLORTHEME: Readonly<
   [THEMESNAME.light]: theme.defaultAlgorithm,
 };
 
-export type TextProtocol<T extends LanguageJsonSet> = Record<keyof typeof LanguageTextJson[T], string>;
+export type TextProtocol<T extends LanguageJsonSet> = Record<
+  keyof (typeof LanguageTextJson)[T],
+  string
+>;
 
 interface Config {
   language: LANGUAGES;
   token: string;
   httpStrategy: Record<number, () => void>;
   apiBaseUrl: string;
-  useLanguage: <T extends LanguageJsonSet >(
+  useLanguage: <T extends LanguageJsonSet>(
     languageJsonName: LanguageJsonSet
   ) => TextProtocol<T>;
 }
 
 type PartialConfig = Partial<Config>;
 
-export const ConfigContext = createContext<PartialConfig>({
+const ConfigContext = createContext<PartialConfig>({
   language: (navigator.language.split("-")[0] as LANGUAGES) || LANGUAGES.zh,
 });
 
@@ -50,7 +55,10 @@ export const ConfigProvider: FC<ConfigProviderProps> = ({
   config = {},
 }) => {
   const useLanguage: Config["useLanguage"] = (target) =>
-    cloneDeepWith(LanguageTextJson[target], (value) => value[config.language || LANGUAGES.zh]);
+    cloneDeepWith(
+      LanguageTextJson[target],
+      (value) => value[config.language || LANGUAGES.zh]
+    );
   return (
     <ConfigContext.Provider value={{ ...{ useLanguage }, ...config }}>
       {children}
@@ -58,4 +66,32 @@ export const ConfigProvider: FC<ConfigProviderProps> = ({
   );
 };
 
-export const useConfig = () => useContext(ConfigContext)
+export const useConfig = () => useContext(ConfigContext);
+
+
+type LanguageTextType<T extends LanguageJsonSet> = {LanguageText: TextProtocol<T>}
+
+const LanguageContext= createContext<LanguageTextType<LanguageJsonSet>>(
+  cloneDeepWith(LanguageTextJson.Default, (value) => value[LANGUAGES.zh])
+);
+
+export const LanguageProvider: FC<{
+  children: ReactNode;
+  textKey: LanguageJsonSet;
+}> = ({ children, textKey }) => {
+  const language = useAtomValue(languageAtom);
+  return (
+    <LanguageContext.Provider
+      value={{
+        LanguageText: cloneDeepWith(
+          LanguageTextJson[textKey],
+          (value) => value[language || LANGUAGES.zh]
+        ),
+      }}
+    >
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguageContext = <T extends LanguageJsonSet, >(): LanguageTextType<T> => useContext(LanguageContext) as LanguageTextType<T>;

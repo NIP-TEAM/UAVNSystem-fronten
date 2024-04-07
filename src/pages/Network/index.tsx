@@ -1,8 +1,8 @@
 import { NetworkDataType } from "@/service";
-import { Card, Divider, Flex, Typography } from "antd";
+import { Card, Divider } from "antd";
 import { FC, useState } from "react";
-import { CreateModal, DataList, Filter } from "./components";
-import { TextProtocol, useConfig } from "@/hooks";
+import { DataList, Filter, NetworkHeader } from "./components";
+import { LanguageProvider } from "@/hooks";
 import { BasicPagination } from "@/types";
 
 interface NetworkProp {}
@@ -26,30 +26,19 @@ const defaltPagination: BasicPagination = {
   total: networkData.length,
 };
 
-const LANGUAGEKEY = "Network"
-
-export type NetworkLanguageType = TextProtocol<typeof LANGUAGEKEY>;
-
 export const Network: FC<NetworkProp> = () => {
-  const NetworkText = useConfig().useLanguage!<typeof LANGUAGEKEY>(LANGUAGEKEY);
-
   const [pagination, setPagination] =
     useState<BasicPagination>(defaltPagination);
   const [filter, setFilter] = useState<string>("");
 
   return (
+    <LanguageProvider textKey="Network">
       <Card style={{ margin: "0 0.5em" }}>
-        <Flex justify="space-between" align="baseline">
-          <Typography.Title level={4}>
-            {NetworkText.moduleTitle}
-          </Typography.Title>
-          <CreateModal NetworkText={NetworkText} />
-        </Flex>
-        <Filter {...{ setFilter, NetworkText }} />
+        <NetworkHeader />
+        <Filter {...{ setFilter }} />
         <Divider />
-        <DataList
-          {...{ pagination, setPagination, networkData, NetworkText }}
-        />
+        <DataList {...{ pagination, setPagination, networkData }} />
       </Card>
+    </LanguageProvider>
   );
 };

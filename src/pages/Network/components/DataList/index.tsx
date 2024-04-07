@@ -1,3 +1,4 @@
+import { useLanguageContext } from "@/hooks";
 import { NetworkDataType } from "@/service/Network";
 import { BasicPagination } from "@/types";
 import { DownOutlined } from "@ant-design/icons";
@@ -7,25 +8,24 @@ import { Dispatch, FC, Key, SetStateAction, useMemo, useState } from "react";
 
 export interface DataListProp {
   networkData: NetworkDataType[];
-  NetworkText: Record<string, string>;
   pagination: BasicPagination;
   setPagination: Dispatch<SetStateAction<BasicPagination>>;
 }
 
 export const DataList: FC<DataListProp> = ({
   networkData = [],
-  NetworkText,
   pagination,
   setPagination,
 }) => {
+  const { LanguageText } = useLanguageContext<"Network">()
   const columns: ColumnsType<NetworkDataType> = [
     {
-      title: NetworkText["id"],
+      title: LanguageText["id"],
       dataIndex: "id",
       key: "id",
     },
     {
-      title: NetworkText["name"],
+      title: LanguageText["name"],
       dataIndex: "name",
       key: "name",
       align: "center",
@@ -66,13 +66,13 @@ export const DataList: FC<DataListProp> = ({
   const Footer = useMemo(
     () => (
       <Flex gap="1em">
-        <Typography.Text>{`${NetworkText["total"]}: ${networkData.length}`}</Typography.Text>
+        <Typography.Text>{`${LanguageText["total"]}: ${networkData.length}`}</Typography.Text>
         {!!selectedRowKeys.length && (
-          <Typography.Text>{`${NetworkText["select"]}: ${selectedRowKeys.length}`}</Typography.Text>
+          <Typography.Text>{`${LanguageText["select"]}: ${selectedRowKeys.length}`}</Typography.Text>
         )}
       </Flex>
     ),
-    [NetworkText, networkData.length, selectedRowKeys.length]
+    [LanguageText, networkData.length, selectedRowKeys.length]
   );
 
   return (

@@ -1,3 +1,6 @@
 {
-    
+    "defaultText": {
+        "zh": "这是默认文本",
+        "en": "This is defaultText"
+    }
 }
