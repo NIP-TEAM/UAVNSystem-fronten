@@ -11,7 +11,6 @@ export const Filter: FC<FilterProp> = ({
     setFilter,
 }) => {
   const {LanguageText} = useLanguageContext<"Network">()
-  console.log(LanguageText)
   const [form] = Form.useForm();
   return (
     <Form form={form}>
