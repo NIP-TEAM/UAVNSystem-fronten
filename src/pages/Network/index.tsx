@@ -8,19 +8,6 @@ import { AppContext } from "@/App";
 
 interface NetworkProp {}
 
-// const networkData: NetworkDataType[] = Array.from({ length: 100 }).fill({
-//   id: "1",
-//   name: "test1",
-//   status: 1,
-//   createAt: new Date().getTime().toString(),
-//   lastEdit: new Date().getTime().toString(),
-//   uavCount: 12,
-//   creator: {
-//     name: "test",
-//     id: "1",
-//   },
-// }) as NetworkDataType[];
-
 const defaltPagination: BasicPagination = {
   current: 1,
   pageSize: 10,
@@ -46,6 +33,7 @@ export const Network: FC<NetworkProp> = () => {
   }, [code, data]);
   useEffect(() => {
     fetchData?.();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination.current, pagination.pageSize, filter]);
   const { messageApi } = useContext(AppContext);
   useEffect(() => {

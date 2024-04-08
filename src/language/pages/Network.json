@@ -27,12 +27,36 @@
     "en": "Create Network",
     "zh": "创建新网络"
   },
-  "newCancel": {
+  "cancel": {
     "en": "Cancel",
     "zh": "取消"
   },
-  "newConfirm": {
+  "confirm": {
     "en": "Confirm",
     "zh": "确定"
+  },
+  "delete": {
+    "en": "Delete",
+    "zh": "删除"
+  },
+  "deleteTip": {
+    "en": "Are you sure you want to delete the selected network? This action cannot be undone!",
+    "zh": "确定删除选中的网络？此操作不可撤销！"
+  },
+  "alert": {
+    "en": "Alert",
+    "zh": "警告"
+  },
+  "action": {
+    "en": "Action",
+    "zh": "操作"
+  },
+  "detail": {
+    "en": "Detail",
+    "zh": "详情"
+  },
+  "more": {
+    "en": "More",
+    "zh": "更多"
   }
 }

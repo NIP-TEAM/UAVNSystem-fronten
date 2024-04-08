@@ -14,8 +14,8 @@ export const CreateModal: FC<CreateModalProp> = () => {
       </Button>
       <Modal
         open={isOpen}
-        okText={LanguageText.newConfirm}
-        cancelText={LanguageText.newCancel}
+        okText={LanguageText.confirm}
+        cancelText={LanguageText.cancel}
         onCancel={() => setIsOpen(false)}
       >
         111

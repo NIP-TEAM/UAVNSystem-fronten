@@ -3,8 +3,11 @@ import { NetworkDataType } from "@/service/Network";
 import { BasicPagination } from "@/types";
 import { DownOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Flex, Space, Table, Typography } from "antd";
+import { ItemType } from "antd/es/menu/hooks/useItems";
 import { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { Dispatch, FC, Key, SetStateAction, useMemo, useState } from "react";
+import { useNavigate } from "react-router";
+import { DeleteTip } from "./components";
 
 export interface DataListProp {
   networkData: NetworkDataType[];
@@ -19,7 +22,11 @@ export const DataList: FC<DataListProp> = ({
   setPagination,
   loading,
 }) => {
+  const navigate = useNavigate()
   const { LanguageText } = useLanguageContext<"Network">();
+  const items = (currentId: string):ItemType[] => [
+    { key: "1", label: <DeleteTip selectedIds={[...(new Set([...selectedRowKeys, currentId]))] as string[]}/> },
+  ]
   const columns: ColumnsType<NetworkDataType> = [
     {
       title: LanguageText["id"],
@@ -33,22 +40,20 @@ export const DataList: FC<DataListProp> = ({
       align: "center",
     },
     {
-      title: "Action",
+      title: LanguageText.action,
       key: "action",
       align: "center",
       render: (_, record) => (
         <Space size="small">
-          <Button type="link">Details</Button>
+          <Button type="link" onClick={() => navigate(`/network/${record.id}`)}>{LanguageText.detail}</Button>
           <Dropdown
+          trigger={["click"]}
             menu={{
-              items: [
-                { key: "1", label: "Action 1" },
-                { key: "2", label: "Action 2" },
-              ],
+              items: items(record.id),
             }}
           >
             <Button type="link">
-              More <DownOutlined />
+              {LanguageText.more} <DownOutlined />
             </Button>
           </Dropdown>
         </Space>
