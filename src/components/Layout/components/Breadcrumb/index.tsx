@@ -19,7 +19,7 @@ const _formateBreadcurmbItem = ({
   title: textKey,
 });
 
-type GlobalMenuJsonType = typeof GlobalMenuJson
+type GlobalMenuJsonType = typeof GlobalMenuJson;
 
 export const MyBreadcrumb: FC<BreadcrumbProp> = () => {
   const GlobalMenuText = useConfig().useLanguage!<"GlobalMenu">("GlobalMenu");
@@ -30,11 +30,14 @@ export const MyBreadcrumb: FC<BreadcrumbProp> = () => {
   useEffect(() => {
     if (breadcrumbRoutes.at(-1)?.path === location.pathname) return;
     const newRoute = findRouteByPath(location.pathname);
-    setBreadCrumbroutes([
-      ...breadcrumbRoutes.filter(({ path }) => path !== location.pathname),
-      _formateBreadcurmbItem(newRoute),
-    ]);
-  }, [location.pathname, breadcrumbRoutes]);
+    setBreadCrumbroutes(
+      [
+        ...breadcrumbRoutes.filter(({ path }) => path !== location.pathname),
+        _formateBreadcurmbItem(newRoute),
+      ].filter(({ title }) => !!title)
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
   return (
     <AntdBreadcrumb
       items={breadcrumbRoutes}

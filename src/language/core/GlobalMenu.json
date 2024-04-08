@@ -12,11 +12,15 @@
     "zh": "邮件设置"
   },
   "networkcenter": {
-    "en": "Network",
+    "en": "Network(s)",
     "zh": "网络"
   },
   "uavcenter": {
     "en": "Uavs",
     "zh": "无人机"
+  },
+  "networkdetail": {
+    "en": "Network Detail",
+    "zh": "网络详情"
   }
 }

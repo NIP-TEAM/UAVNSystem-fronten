@@ -58,5 +58,41 @@
   "more": {
     "en": "More",
     "zh": "更多"
+  },
+  "statusTitle": {
+    "en": "State",
+    "zh": "状态"
+  },
+  "errorStatus": {
+    "en": "Error",
+    "zh": "错误"
+  },
+  "initStatus": {
+    "en": "Waiting",
+    "zh": "等待中"
+  },
+  "doneStatus": {
+    "en": "No Problem",
+    "zh": "正常运行"
+  },
+  "countTitle": {
+    "en": "Uav(s) Count",
+    "zh": "无人机数量"
+  },
+  "creatorTitle": {
+    "en": "Creator",
+    "zh": "创建者"
+  },
+  "createAtTitle": {
+    "en": "Create At",
+    "zh": "创建于"
+  },
+  "lastEditTitle": {
+    "en": "Last Edit At",
+    "zh": "最后修改于"
+  },
+  "deleteSuccess": {
+    "en": "Success",
+    "zh": "成功"
   }
 }

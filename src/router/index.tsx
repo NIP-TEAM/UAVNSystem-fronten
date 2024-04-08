@@ -7,7 +7,7 @@ import {
   Forget,
   Register,
   Email,
-  Network,
+  NetworkList,
   Uav,
 } from "../pages";
 import { MenuItem, RouteItem } from "./types";
@@ -20,6 +20,7 @@ import {
 } from "@ant-design/icons";
 import { omit } from "lodash-es";
 import { _formateMenuItem } from "./utils";
+import { NetworkDetail } from "@/pages/Network";
 
 const ROUTES: readonly RouteItem[] = [
   {
@@ -61,10 +62,17 @@ const ROUTES: readonly RouteItem[] = [
   },
   {
     id: "networkcenter",
-    element: <Network />,
+    element: <NetworkList />,
     path: "/network",
     textKey: "networkcenter",
     icon: <GlobalOutlined />,
+    children: [
+      {
+        id: "networkdetail",
+        element: <NetworkDetail />,
+        path: "/network/:id",
+      }
+    ]
   },
   {
     id: "uavcenter",

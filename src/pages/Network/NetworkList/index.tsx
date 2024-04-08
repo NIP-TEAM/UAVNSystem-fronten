@@ -6,7 +6,7 @@ import { LanguageProvider } from "@/hooks";
 import { BasicPagination } from "@/types";
 import { AppContext } from "@/App";
 
-interface NetworkProp {}
+interface NetworkListProp {}
 
 const defaltPagination: BasicPagination = {
   current: 1,
@@ -14,10 +14,12 @@ const defaltPagination: BasicPagination = {
   total: 10,
 };
 
-export const Network: FC<NetworkProp> = () => {
+export const NetworkList: FC<NetworkListProp> = () => {
   const [pagination, setPagination] =
     useState<BasicPagination>(defaltPagination);
   const [filter, setFilter] = useState("");
+
+  const [timestamp, setTimestamp] = useState(0)
 
   // networkData
   const { fetchData, data, loading, error, code } = useNetworkData({
@@ -34,7 +36,7 @@ export const Network: FC<NetworkProp> = () => {
   useEffect(() => {
     fetchData?.();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination.current, pagination.pageSize, filter]);
+  }, [pagination.current, pagination.pageSize, filter, timestamp]);
   const { messageApi } = useContext(AppContext);
   useEffect(() => {
     if (!error) return;
@@ -47,7 +49,7 @@ export const Network: FC<NetworkProp> = () => {
         <NetworkHeader />
         <Filter {...{ setFilter }} />
         <Divider />
-        <DataList {...{ pagination, setPagination, networkData, loading }} />
+        <DataList {...{ pagination, setPagination, networkData, loading, setTimestamp }} />
       </Card>
     </LanguageProvider>
   );

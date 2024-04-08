@@ -1,5 +1,6 @@
 import { useHttp } from "@/hooks";
 import { BasicPagination } from "@/types";
+import { Key } from "react";
 
 export interface NetworkDataType {
   id: string;
@@ -25,3 +26,10 @@ export const useNetworkData = (data: DataControllerType) =>
     method: "get",
     data,
   });
+
+export const useDeleteNetworkData = (data: {ids: Key[]}) => 
+  useHttp({
+  url: "/network",
+  method: "delete",
+  data,
+})

@@ -32,7 +32,7 @@ export interface UseHttpState<DataType, MetaType> {
   fetchData?: () => void
 }
 
-export const useHttp = <DataType, MetaType=unknown, >({
+export const useHttp = <DataType=unknown, MetaType=unknown, >({
   url,
   method = 'get',
   data,
