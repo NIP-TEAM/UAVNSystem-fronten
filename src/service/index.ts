@@ -1,5 +1,3 @@
-export * from './Login'
-export * from './Register'
+export * from './Tenants'
 export * from './VerifyCode'
-export * from './Forget'
 export * from './Network'

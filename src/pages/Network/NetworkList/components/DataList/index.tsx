@@ -58,17 +58,20 @@ export const DataList: FC<DataListProp> = ({
       title: LanguageText.id,
       dataIndex: "id",
       key: "id",
+      ellipsis: true
     },
     {
       title: LanguageText.name,
       dataIndex: "name",
       key: "name",
       align: "center",
+      ellipsis: true
     },
     {
       title: LanguageText.statusTitle,
       key: "status",
       align: "center",
+      ellipsis: true,
       render: (_, { status }) => (
         <Flex align="center" justify="center" gap={5}>
           {StatusDescription[status].icon}
@@ -81,11 +84,13 @@ export const DataList: FC<DataListProp> = ({
       key: "countTitle",
       dataIndex: "uavCount",
       align: "center",
+      ellipsis: true
     },
     {
       title: LanguageText.creatorTitle,
       key: "creator",
       align: "center",
+      ellipsis: true,
       render: (_, { creator: { name, id } }) => (
         <Button type="link" onClick={() => navigate(`/usercenter/${id}`)}>
           @{name}
@@ -96,6 +101,7 @@ export const DataList: FC<DataListProp> = ({
       title: LanguageText.createAtTitle,
       key: "createAt",
       align: "center",
+      ellipsis: true,
       render: (_, { createAt }) => (
         <>{dayjs(Number(createAt)).format("YYYY-MM-DD HH:mm")}</>
       ),
@@ -104,6 +110,7 @@ export const DataList: FC<DataListProp> = ({
       title: LanguageText.lastEditTitle,
       key: "lastEdit",
       align: "center",
+      ellipsis: true,
       render: (_, { lastEdit }) => (
         <>{dayjs(Number(lastEdit)).format("YYYY-MM-DD HH:mm")}</>
       ),
@@ -112,6 +119,7 @@ export const DataList: FC<DataListProp> = ({
       title: LanguageText.action,
       key: "action",
       align: "center",
+      ellipsis: true,
       render: (_, record) => (
         <Flex align="center" justify="center">
           <Button type="link" onClick={() => navigate(`/network/${record.id}`)}>

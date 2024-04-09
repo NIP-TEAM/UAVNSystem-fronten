@@ -24,8 +24,11 @@ export const ANTDCOLORTHEME: Readonly<
   [THEMESNAME.light]: theme.defaultAlgorithm,
 };
 
+export type TextKeys<T extends LanguageJsonSet> = keyof typeof LanguageTextJson[T];
+
+
 export type TextProtocol<T extends LanguageJsonSet> = Record<
-  keyof (typeof LanguageTextJson)[T],
+TextKeys<T>,
   string
 >;
 

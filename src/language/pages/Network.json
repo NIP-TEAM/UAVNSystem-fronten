@@ -102,5 +102,25 @@
   "nameItem": {
     "en": "Network Name",
     "zh": "网络名称"
+  },
+  "statusFieldTitle": {
+    "en": "Network Status",
+    "zh": "网络状态"
+  },
+  "creatorFieldTitle": {
+    "en": "Creator",
+    "zh": "创建者"
+  },
+  "isQuantifier": {
+    "en": "is",
+    "zh": "是"
+  },
+  "isNotQuantifier": {
+    "en": "is not",
+    "zh": "不是"
+  },
+  "addField": {
+    "en": "Add Filter",
+    "zh": "添加筛选项"
   }
 }
