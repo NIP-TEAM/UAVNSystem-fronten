@@ -94,5 +94,13 @@
   "deleteSuccess": {
     "en": "Success",
     "zh": "成功"
+  },
+  "createTitle": {
+    "en": "Create Network",
+    "zh": "创建新网络"
+  },
+  "nameItem": {
+    "en": "Network Name",
+    "zh": "网络名称"
   }
 }
