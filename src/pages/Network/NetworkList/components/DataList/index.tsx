@@ -32,6 +32,7 @@ export interface DataListProp {
   loading: boolean;
   setTimestamp: Dispatch<SetStateAction<number>>;
   setFilter: Dispatch<SetStateAction<FilterType>>;
+  filter: FilterType
 }
 
 export const DataList: FC<DataListProp> = ({
@@ -97,7 +98,7 @@ export const DataList: FC<DataListProp> = ({
       align: "center",
       ellipsis: true,
       render: (_, { creator: { name, id } }) => (
-        <Button type="link" onClick={() => navigate(`/usercenter/${id}`)}>
+        <Button type="link" onClick={() =>navigate(`/usercenter/${id}`)}>
           @{name}
         </Button>
       ),

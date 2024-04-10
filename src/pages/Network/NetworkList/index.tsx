@@ -6,6 +6,7 @@ import { LanguageProvider } from "@/hooks";
 import { BasicPagination } from "@/types";
 import { AppContext } from "@/App";
 import { FilterType } from "./types";
+import { useNavigate } from "react-router";
 
 interface NetworkListProp {}
 
@@ -16,6 +17,7 @@ const defaltPagination: BasicPagination = {
 };
 
 export const NetworkList: FC<NetworkListProp> = () => {
+  const navigate = useNavigate()
   const [pagination, setPagination] =
     useState<BasicPagination>(defaltPagination);
   const [filter, setFilter] = useState<FilterType>({});
@@ -43,7 +45,6 @@ export const NetworkList: FC<NetworkListProp> = () => {
     if (!error) return;
     messageApi?.error(error);
   }, [error, messageApi]);
-
   return (
     <LanguageProvider textKey="Network">
       <Card style={{ margin: "0 0.5em" }}>
@@ -58,6 +59,7 @@ export const NetworkList: FC<NetworkListProp> = () => {
             loading,
             setTimestamp,
             setFilter,
+            filter,
           }}
         />
       </Card>
