@@ -32,8 +32,8 @@ export interface DataListProp {
   loading: boolean;
   setTimestamp: Dispatch<SetStateAction<number>>;
   setFilter: Dispatch<SetStateAction<FilterType>>;
-  initSorter?: Record<string, "asc" | "desc">
-  storageFunc: () => void
+  initSorter?: Record<string, "asc" | "desc">;
+  storageFunc: () => void;
 }
 
 export const DataList: FC<DataListProp> = ({
@@ -143,7 +143,7 @@ export const DataList: FC<DataListProp> = ({
             <Button
               type="link"
               onClick={() => {
-                storageFunc()
+                storageFunc();
                 navigate(`/network/${record.id}`);
               }}
             >
@@ -168,9 +168,7 @@ export const DataList: FC<DataListProp> = ({
     ...(initSorter?.[item.key as string]
       ? {
           defaultSortOrder:
-            initSorter?.[item.key as string] === "asc"
-              ? "ascend"
-              : "descend",
+            initSorter?.[item.key as string] === "asc" ? "ascend" : "descend",
         }
       : {}),
   }));
@@ -253,12 +251,14 @@ export const DataList: FC<DataListProp> = ({
       style={{ width: "100%", overflowY: "auto" }}
       onChange={(_a, _b, sort) => {
         const { order, columnKey } = sort as SorterResult<NetworkDataType>;
-        if (!order || !columnKey) return;
+        if (!columnKey) return;
         setFilter((prev) => ({
           ...prev,
-          sorter: {
-            [columnKey as string]: order === "ascend" ? "asc" : "desc",
-          },
+          sorter: order
+            ? {
+                [columnKey as string]: order === "ascend" ? "asc" : "desc",
+              }
+            : {},
         }));
         setTimestamp(new Date().getTime());
       }}
