@@ -1,8 +1,8 @@
 import { TextKeys } from "@/hooks";
 
 export enum CategoryOptions {
-    STATUS,
-    CREATOR,
+    STATUS = 'status',
+    CREATOR = 'creator',
 }
 
 type CostumeOptionsType<T> = ReadonlyArray<{labelKey: TextKeys<"Network">, value: T }>

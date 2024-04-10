@@ -122,5 +122,25 @@
   "addField": {
     "en": "Add Filter",
     "zh": "添加筛选项"
+  },
+  "meText": {
+    "en": "<< ME >>",
+    "zh": "<< 我 >>"
+  },
+  "clearFilter": {
+    "en": "Clear",
+    "zh": "清除"
+  },
+  "applyFilter": {
+    "en": "Apply",
+    "zh": "应用"
+  },
+  "quantifierEmpty": {
+    "en": "Empty quantifier is not allowed!",
+    "zh": "限定词不能为空!"
+  },
+  "contentEmpty": {
+    "en": "Empty content is not allowed!",
+    "zh": "内容不能为空!"
   }
 }

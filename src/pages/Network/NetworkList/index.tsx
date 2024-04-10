@@ -5,6 +5,7 @@ import { DataList, Filter, NetworkHeader } from "./components";
 import { LanguageProvider } from "@/hooks";
 import { BasicPagination } from "@/types";
 import { AppContext } from "@/App";
+import { FilterType } from "./types";
 
 interface NetworkListProp {}
 
@@ -17,14 +18,14 @@ const defaltPagination: BasicPagination = {
 export const NetworkList: FC<NetworkListProp> = () => {
   const [pagination, setPagination] =
     useState<BasicPagination>(defaltPagination);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState<FilterType>({});
 
-  const [timestamp, setTimestamp] = useState(0)
+  const [timestamp, setTimestamp] = useState(0);
 
   // networkData
   const { fetchData, data, loading, error, code } = useNetworkData({
     pagination,
-    filter,
+    filter: JSON.stringify(filter || {}),
   });
   const networkData = useMemo<NetworkDataType[]>(() => {
     if (code === 200 && data?.data) {
@@ -35,8 +36,8 @@ export const NetworkList: FC<NetworkListProp> = () => {
   }, [code, data]);
   useEffect(() => {
     fetchData?.();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination.current, pagination.pageSize, filter, timestamp]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination.current, pagination.pageSize, timestamp]);
   const { messageApi } = useContext(AppContext);
   useEffect(() => {
     if (!error) return;
@@ -47,9 +48,18 @@ export const NetworkList: FC<NetworkListProp> = () => {
     <LanguageProvider textKey="Network">
       <Card style={{ margin: "0 0.5em" }}>
         <NetworkHeader />
-        <Filter {...{ setFilter }} />
+        <Filter {...{ setFilter, setTimestamp }} />
         <Divider />
-        <DataList {...{ pagination, setPagination, networkData, loading, setTimestamp }} />
+        <DataList
+          {...{
+            pagination,
+            setPagination,
+            networkData,
+            loading,
+            setTimestamp,
+            setFilter,
+          }}
+        />
       </Card>
     </LanguageProvider>
   );

@@ -22,6 +22,8 @@ import {
 import { useNavigate } from "react-router";
 import { DeleteTip } from "./components";
 import dayjs from "dayjs";
+import { FilterType } from "../../types";
+import { SorterResult } from "antd/es/table/interface";
 
 export interface DataListProp {
   networkData: NetworkDataType[];
@@ -29,6 +31,7 @@ export interface DataListProp {
   setPagination: Dispatch<SetStateAction<BasicPagination>>;
   loading: boolean;
   setTimestamp: Dispatch<SetStateAction<number>>;
+  setFilter: Dispatch<SetStateAction<FilterType>>;
 }
 
 export const DataList: FC<DataListProp> = ({
@@ -36,7 +39,8 @@ export const DataList: FC<DataListProp> = ({
   pagination,
   setPagination,
   loading,
-  setTimestamp
+  setTimestamp,
+  setFilter,
 }) => {
   const navigate = useNavigate();
   const { LanguageText } = useLanguageContext<"Network">();
@@ -58,14 +62,14 @@ export const DataList: FC<DataListProp> = ({
       title: LanguageText.id,
       dataIndex: "id",
       key: "id",
-      ellipsis: true
+      ellipsis: true,
     },
     {
       title: LanguageText.name,
       dataIndex: "name",
       key: "name",
       align: "center",
-      ellipsis: true
+      ellipsis: true,
     },
     {
       title: LanguageText.statusTitle,
@@ -84,7 +88,8 @@ export const DataList: FC<DataListProp> = ({
       key: "countTitle",
       dataIndex: "uavCount",
       align: "center",
-      ellipsis: true
+      ellipsis: true,
+      sorter: true,
     },
     {
       title: LanguageText.creatorTitle,
@@ -102,6 +107,7 @@ export const DataList: FC<DataListProp> = ({
       key: "createAt",
       align: "center",
       ellipsis: true,
+      sorter: true,
       render: (_, { createAt }) => (
         <>{dayjs(Number(createAt)).format("YYYY-MM-DD HH:mm")}</>
       ),
@@ -111,6 +117,7 @@ export const DataList: FC<DataListProp> = ({
       key: "lastEdit",
       align: "center",
       ellipsis: true,
+      sorter: true,
       render: (_, { lastEdit }) => (
         <>{dayjs(Number(lastEdit)).format("YYYY-MM-DD HH:mm")}</>
       ),
@@ -215,7 +222,16 @@ export const DataList: FC<DataListProp> = ({
         onChange: (newValue) => setSelectedRowKeys(newValue),
       }}
       rowKey={(record) => record.id}
-      style={{width: '100%', overflowY: 'auto'}}
+      style={{ width: "100%", overflowY: "auto" }}
+      onChange={(_a, _b, sort) => {
+        const { order, columnKey } = sort as SorterResult<NetworkDataType>;
+        if (!order || !columnKey) return;
+        setFilter((prev) => ({
+          ...prev,
+          sorter: { [columnKey as string]: order === "ascend" ? "asc" : "desc" },
+        }));
+        setTimestamp(new Date().getTime())
+      }}
     />
   );
 };

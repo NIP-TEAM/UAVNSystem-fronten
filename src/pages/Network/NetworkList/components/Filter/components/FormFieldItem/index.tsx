@@ -19,13 +19,15 @@ import { userAtom } from "@/store";
 import { AppContext } from "@/App";
 import { useAtomValue } from "jotai";
 
-interface FormFieldItemProp {}
+interface FormFieldItemProp {
+  name: number;
+}
 
 const fieldInputStyle: CSSProperties = {
-  width: "20%",
+  width: "calc(100% /3)",
 };
 
-export const FormFieldItem: FC<FormFieldItemProp> = () => {
+export const FormFieldItem: FC<FormFieldItemProp> = ({ name }) => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Network">();
   const [catagorySelect, setCatagorySelect] = useState<CategoryOptions>();
@@ -36,6 +38,7 @@ export const FormFieldItem: FC<FormFieldItemProp> = () => {
     error: usersError,
     data: usersData,
     code: usersCode,
+    loading: usersLoading,
   } = useGetUsers();
   useEffect(() => {
     fetchUsersData?.();
@@ -47,15 +50,25 @@ export const FormFieldItem: FC<FormFieldItemProp> = () => {
   const creatorsOptions = useMemo(() => {
     if (usersCode === 200 && usersData?.data)
       return usersData.data.map(({ name, id }) => ({
-        label: name === userInfo?.name ? "<< ME >>" : name,
+        label: name === userInfo?.name ? LanguageText.meText : name,
         value: id,
       }));
     return [];
-  }, [userInfo?.name, usersCode, usersData?.data]);
+  }, [LanguageText.meText, userInfo?.name, usersCode, usersData?.data]);
+  const quantifierOptionsMemo = useMemo(
+    () =>
+      quantifierOptions[catagorySelect || CategoryOptions.CREATOR].map(
+        ({ labelKey, ...rest }) => ({
+          label: LanguageText[labelKey],
+          ...rest,
+        })
+      ),
+    [LanguageText, catagorySelect]
+  );
 
   return (
-    <Flex align="center" gap={5} style={{ width: "100%" }}>
-      <Form.Item name="catagory" noStyle>
+    <Flex align="center" gap={5} style={{ width: "60%" }}>
+      <Form.Item name={[name, "catagory"]} noStyle>
         <Select
           style={fieldInputStyle}
           value={catagorySelect}
@@ -66,20 +79,29 @@ export const FormFieldItem: FC<FormFieldItemProp> = () => {
           }))}
         />
       </Form.Item>
-      <Form.Item name="quantifier" noStyle>
+      <Form.Item
+        name={[name, "quantifier"]}
+        noStyle
+        rules={[{ required: true, message: LanguageText.quantifierEmpty }]}
+      >
         <Select
+          disabled={!catagorySelect}
           style={fieldInputStyle}
-          options={quantifierOptions[
-            catagorySelect || CategoryOptions.CREATOR
-          ].map(({ labelKey, ...rest }) => ({
-            label: LanguageText[labelKey],
-            ...rest,
-          }))}
+          options={quantifierOptionsMemo}
         />
       </Form.Item>
-      <Form.Item name="content" noStyle>
+      <Form.Item
+        name={[name, "content"]}
+        noStyle
+        rules={[{ required: true, message: LanguageText.contentEmpty }]}
+      >
         <Select
+          disabled={
+            !catagorySelect ||
+            (catagorySelect === CategoryOptions.CREATOR && usersLoading)
+          }
           style={fieldInputStyle}
+          loading={catagorySelect === CategoryOptions.CREATOR && usersLoading}
           options={
             catagorySelect === CategoryOptions.CREATOR
               ? creatorsOptions
