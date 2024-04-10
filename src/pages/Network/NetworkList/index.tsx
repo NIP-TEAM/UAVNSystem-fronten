@@ -6,9 +6,14 @@ import { LanguageProvider } from "@/hooks";
 import { BasicPagination } from "@/types";
 import { AppContext } from "@/App";
 import { FilterType } from "./types";
-import { useNavigate } from "react-router";
+import { SessionKeys, getSessionStorageUtil, sessionStorageUtil } from "@/utils";
 
 interface NetworkListProp {}
+
+interface StorageProtocol {
+  filter: FilterType;
+  pagination: BasicPagination;
+}
 
 const defaltPagination: BasicPagination = {
   current: 1,
@@ -16,11 +21,15 @@ const defaltPagination: BasicPagination = {
   total: 10,
 };
 
+const sessionKey = SessionKeys.NETWORK
+
 export const NetworkList: FC<NetworkListProp> = () => {
-  const navigate = useNavigate()
-  const [pagination, setPagination] =
-    useState<BasicPagination>(defaltPagination);
-  const [filter, setFilter] = useState<FilterType>({});
+  const [pagination, setPagination] = useState<BasicPagination>(
+    getSessionStorageUtil<StorageProtocol>(sessionKey).pagination || defaltPagination
+  );
+  const [filter, setFilter] = useState<FilterType>(
+    getSessionStorageUtil<StorageProtocol>(sessionKey).filter
+  );
 
   const [timestamp, setTimestamp] = useState(0);
 
@@ -45,11 +54,19 @@ export const NetworkList: FC<NetworkListProp> = () => {
     if (!error) return;
     messageApi?.error(error);
   }, [error, messageApi]);
+
+  useEffect(() => {
+    sessionStorage.removeItem("network-filter");
+  }, []);
+
+  const storageFunc = () =>
+    sessionStorageUtil(sessionKey, { filter, pagination });
+
   return (
     <LanguageProvider textKey="Network">
       <Card style={{ margin: "0 0.5em" }}>
         <NetworkHeader />
-        <Filter {...{ setFilter, setTimestamp }} />
+        <Filter {...{ setFilter, setTimestamp, initParams: filter }} />
         <Divider />
         <DataList
           {...{
@@ -59,7 +76,8 @@ export const NetworkList: FC<NetworkListProp> = () => {
             loading,
             setTimestamp,
             setFilter,
-            filter,
+            initSorter: filter?.sorter,
+            storageFunc,
           }}
         />
       </Card>

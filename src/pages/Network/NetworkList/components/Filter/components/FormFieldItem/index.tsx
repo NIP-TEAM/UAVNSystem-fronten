@@ -68,7 +68,7 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({ name }) => {
 
   return (
     <Flex align="center" gap={5} style={{ width: "60%" }}>
-      <Form.Item name={[name, "catagory"]} noStyle>
+      <Form.Item name={[name, "category"]} noStyle>
         <Select
           style={fieldInputStyle}
           value={catagorySelect}

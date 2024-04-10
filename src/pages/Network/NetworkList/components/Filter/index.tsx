@@ -7,15 +7,15 @@ import { FilterType } from "../../types";
 import { categoryOptions } from "./components/FormFieldItem/selectOptions";
 
 export interface FilterProp {
-  initParams?: string;
+  initParams?: FilterType;
   setFilter: Dispatch<SetStateAction<FilterType>>;
   setTimestamp: Dispatch<SetStateAction<number>>;
 }
 
 type FormListProtocol = {
-  catagory: string;
+  category: string;
   quantifier: string;
-  content: string;
+  content: string | number;
 }[];
 
 interface FormItemProtocol {
@@ -23,7 +23,11 @@ interface FormItemProtocol {
   filters: FormListProtocol;
 }
 
-export const Filter: FC<FilterProp> = ({ setFilter, setTimestamp }) => {
+export const Filter: FC<FilterProp> = ({
+  setFilter,
+  setTimestamp,
+  initParams,
+}) => {
   const { LanguageText } = useLanguageContext<"Network">();
   const [form] = Form.useForm<FormItemProtocol>();
   const formFilters = Form.useWatch("filters", form);
@@ -35,9 +39,9 @@ export const Filter: FC<FilterProp> = ({ setFilter, setTimestamp }) => {
       } = {};
       formFilters
         ?.filter((item) => !!item)
-        .forEach(({ catagory, quantifier, content }) => {
-          if (!catagory || !quantifier || !content) return;
-          requestFilters[catagory] = {
+        .forEach(({ category, quantifier, content }) => {
+          if (!category || !quantifier || !content) return;
+          requestFilters[category] = {
             quantifier,
             content,
           };
@@ -52,6 +56,21 @@ export const Filter: FC<FilterProp> = ({ setFilter, setTimestamp }) => {
   const handleOk = () => {
     setTimestamp(new Date().getTime());
   };
+
+  useEffect(() => {
+    const { searchKey, filters } = initParams || {};
+    form.setFieldsValue({
+      searchKey,
+      filters: Object.entries(filters || {}).map(
+        ([key, { quantifier, content = "" }]) => ({
+          category: key,
+          quantifier: quantifier as string,
+          content,
+        })
+      ),
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Form form={form} onFinish={handleOk}>

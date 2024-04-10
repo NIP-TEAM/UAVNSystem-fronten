@@ -32,7 +32,8 @@ export interface DataListProp {
   loading: boolean;
   setTimestamp: Dispatch<SetStateAction<number>>;
   setFilter: Dispatch<SetStateAction<FilterType>>;
-  filter: FilterType
+  initSorter?: Record<string, "asc" | "desc">
+  storageFunc: () => void
 }
 
 export const DataList: FC<DataListProp> = ({
@@ -42,6 +43,8 @@ export const DataList: FC<DataListProp> = ({
   loading,
   setTimestamp,
   setFilter,
+  initSorter,
+  storageFunc,
 }) => {
   const navigate = useNavigate();
   const { LanguageText } = useLanguageContext<"Network">();
@@ -58,95 +61,119 @@ export const DataList: FC<DataListProp> = ({
       ),
     },
   ];
-  const columns: ColumnsType<NetworkDataType> = [
-    {
-      title: LanguageText.id,
-      dataIndex: "id",
-      key: "id",
-      ellipsis: true,
-    },
-    {
-      title: LanguageText.name,
-      dataIndex: "name",
-      key: "name",
-      align: "center",
-      ellipsis: true,
-    },
-    {
-      title: LanguageText.statusTitle,
-      key: "status",
-      align: "center",
-      ellipsis: true,
-      render: (_, { status }) => (
-        <Flex align="center" justify="center" gap={5}>
-          {StatusDescription[status].icon}
-          {StatusDescription[status].description}
-        </Flex>
-      ),
-    },
-    {
-      title: LanguageText.countTitle,
-      key: "countTitle",
-      dataIndex: "uavCount",
-      align: "center",
-      ellipsis: true,
-      sorter: true,
-    },
-    {
-      title: LanguageText.creatorTitle,
-      key: "creator",
-      align: "center",
-      ellipsis: true,
-      render: (_, { creator: { name, id } }) => (
-        <Button type="link" onClick={() =>navigate(`/usercenter/${id}`)}>
-          @{name}
-        </Button>
-      ),
-    },
-    {
-      title: LanguageText.createAtTitle,
-      key: "createAt",
-      align: "center",
-      ellipsis: true,
-      sorter: true,
-      render: (_, { createAt }) => (
-        <>{dayjs(Number(createAt)).format("YYYY-MM-DD HH:mm")}</>
-      ),
-    },
-    {
-      title: LanguageText.lastEditTitle,
-      key: "lastEdit",
-      align: "center",
-      ellipsis: true,
-      sorter: true,
-      render: (_, { lastEdit }) => (
-        <>{dayjs(Number(lastEdit)).format("YYYY-MM-DD HH:mm")}</>
-      ),
-    },
-    {
-      title: LanguageText.action,
-      key: "action",
-      align: "center",
-      ellipsis: true,
-      render: (_, record) => (
-        <Flex align="center" justify="center">
-          <Button type="link" onClick={() => navigate(`/network/${record.id}`)}>
-            {LanguageText.detail}
-          </Button>
-          <Dropdown
-            trigger={["click"]}
-            menu={{
-              items: items(record.id),
+  const columns = [
+    ...([
+      {
+        title: LanguageText.id,
+        dataIndex: "id",
+        key: "id",
+        ellipsis: true,
+      },
+      {
+        title: LanguageText.name,
+        dataIndex: "name",
+        key: "name",
+        align: "center",
+        ellipsis: true,
+      },
+      {
+        title: LanguageText.statusTitle,
+        key: "status",
+        align: "center",
+        ellipsis: true,
+        render: (_, { status }) => (
+          <Flex align="center" justify="center" gap={5}>
+            {StatusDescription[status].icon}
+            {StatusDescription[status].description}
+          </Flex>
+        ),
+      },
+      {
+        title: LanguageText.countTitle,
+        key: "countTitle",
+        dataIndex: "uavCount",
+        align: "center",
+        ellipsis: true,
+        sorter: true,
+      },
+      {
+        title: LanguageText.creatorTitle,
+        key: "creator",
+        align: "center",
+        ellipsis: true,
+        render: (_, { creator: { name, id } }) => (
+          <Button
+            type="link"
+            onClick={() => {
+              storageFunc();
+              navigate(`/usercenter/${id}`);
             }}
           >
-            <Button type="link">
-              {LanguageText.more} <DownOutlined />
+            @{name}
+          </Button>
+        ),
+      },
+      {
+        title: LanguageText.createAtTitle,
+        key: "createAt",
+        align: "center",
+        ellipsis: true,
+        sorter: true,
+        render: (_, { createAt }) => (
+          <>{dayjs(Number(createAt)).format("YYYY-MM-DD HH:mm")}</>
+        ),
+      },
+      {
+        title: LanguageText.lastEditTitle,
+        key: "lastEdit",
+        align: "center",
+        ellipsis: true,
+        sorter: true,
+        render: (_, { lastEdit }) => (
+          <>{dayjs(Number(lastEdit)).format("YYYY-MM-DD HH:mm")}</>
+        ),
+      },
+      {
+        title: LanguageText.action,
+        key: "action",
+        align: "center",
+        ellipsis: true,
+        render: (_, record) => (
+          <Flex align="center" justify="center">
+            <Button
+              type="link"
+              onClick={() => {
+                storageFunc()
+                navigate(`/network/${record.id}`);
+              }}
+            >
+              {LanguageText.detail}
             </Button>
-          </Dropdown>
-        </Flex>
-      ),
-    },
-  ];
+            <Dropdown
+              trigger={["click"]}
+              menu={{
+                items: items(record.id),
+              }}
+            >
+              <Button type="link">
+                {LanguageText.more} <DownOutlined />
+              </Button>
+            </Dropdown>
+          </Flex>
+        ),
+      },
+    ] as ColumnsType<NetworkDataType>),
+  ].map((item) => ({
+    ...item,
+    ...(initSorter?.[item.key as string]
+      ? {
+          defaultSortOrder:
+            initSorter?.[item.key as string] === "asc"
+              ? "ascend"
+              : "descend",
+        }
+      : {}),
+  }));
 
   const paginationProps: TablePaginationConfig = {
     ...pagination,
@@ -215,7 +242,7 @@ export const DataList: FC<DataListProp> = ({
     <Table
       loading={loading}
       dataSource={networkData}
-      columns={columns}
+      columns={columns as ColumnsType<NetworkDataType>}
       pagination={paginationProps}
       footer={() => Footer}
       rowSelection={{
@@ -229,9 +256,11 @@ export const DataList: FC<DataListProp> = ({
         if (!order || !columnKey) return;
         setFilter((prev) => ({
           ...prev,
-          sorter: { [columnKey as string]: order === "ascend" ? "asc" : "desc" },
+          sorter: {
+            [columnKey as string]: order === "ascend" ? "asc" : "desc",
+          },
         }));
-        setTimestamp(new Date().getTime())
+        setTimestamp(new Date().getTime());
       }}
     />
   );
