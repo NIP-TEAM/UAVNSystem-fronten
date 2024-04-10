@@ -4,7 +4,7 @@ import { Button, Flex, Form, Input, Typography } from "antd";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { FormFieldItem } from "./components";
 import { FilterType } from "../../types";
-import { categoryOptions } from "./components/FormFieldItem/selectOptions";
+import { CategoryOptions, categoryOptions } from "./components/FormFieldItem/selectOptions";
 
 export interface FilterProp {
   initParams?: FilterType;
@@ -31,6 +31,8 @@ export const Filter: FC<FilterProp> = ({
   const { LanguageText } = useLanguageContext<"Network">();
   const [form] = Form.useForm<FormItemProtocol>();
   const formFilters = Form.useWatch("filters", form);
+
+  const checkOptionDisable = (target: CategoryOptions) => !!formFilters?.find((item) => item?.category === target)
 
   useEffect(() => {
     setFilter((prev) => {
@@ -98,7 +100,7 @@ export const Filter: FC<FilterProp> = ({
             {fields.map(({ key, name, ...restfeild }, index) => (
               <Form.Item key={key} {...restfeild}>
                 <Flex gap={5} align="center">
-                  <FormFieldItem name={name} />
+                  <FormFieldItem name={name} checkOptionDisable={checkOptionDisable} />
                   <Typography.Text
                     style={{ cursor: "pointer" }}
                     type="danger"

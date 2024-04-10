@@ -21,13 +21,14 @@ import { useAtomValue } from "jotai";
 
 interface FormFieldItemProp {
   name: number;
+  checkOptionDisable: (target: CategoryOptions) => boolean
 }
 
 const fieldInputStyle: CSSProperties = {
   width: "calc(100% /3)",
 };
 
-export const FormFieldItem: FC<FormFieldItemProp> = ({ name }) => {
+export const FormFieldItem: FC<FormFieldItemProp> = ({ name, checkOptionDisable }) => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Network">();
   const [catagorySelect, setCatagorySelect] = useState<CategoryOptions>();
@@ -73,8 +74,10 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({ name }) => {
           style={fieldInputStyle}
           value={catagorySelect}
           onSelect={(newValue) => setCatagorySelect(newValue)}
-          options={categoryOptions.map(({ labelKey, ...rest }) => ({
+          options={categoryOptions.map(({ labelKey, value, ...rest }) => ({
             label: LanguageText[labelKey],
+            value,
+            disabled: checkOptionDisable(value),
             ...rest,
           }))}
         />
