@@ -1,5 +1,5 @@
 import { useLanguageContext } from "@/hooks";
-import { Flex, Select } from "antd";
+import { Flex, Form, Select } from "antd";
 import {
   CSSProperties,
   FC,
@@ -55,37 +55,43 @@ export const FormFieldItem: FC<FormFieldItemProp> = () => {
 
   return (
     <Flex align="center" gap={5} style={{ width: "100%" }}>
-      <Select
-        style={fieldInputStyle}
-        value={catagorySelect}
-        onSelect={(newValue) => setCatagorySelect(newValue)}
-        options={categoryOptions.map(({ labelKey, ...rest }) => ({
-          label: LanguageText[labelKey],
-          ...rest,
-        }))}
-      />
-      <Select
-        style={fieldInputStyle}
-        options={quantifierOptions[
-          catagorySelect || CategoryOptions.CREATOR
-        ].map(({ labelKey, ...rest }) => ({
-          label: LanguageText[labelKey],
-          ...rest,
-        }))}
-      />
-      <Select
-        style={fieldInputStyle}
-        options={
-          catagorySelect === CategoryOptions.CREATOR
-            ? creatorsOptions
-            : contentOptions[catagorySelect || CategoryOptions.STATUS].map(
-                ({ labelKey, value }) => ({
-                  label: LanguageText[labelKey],
-                  value,
-                })
-              )
-        }
-      />
+      <Form.Item name="catagory" noStyle>
+        <Select
+          style={fieldInputStyle}
+          value={catagorySelect}
+          onSelect={(newValue) => setCatagorySelect(newValue)}
+          options={categoryOptions.map(({ labelKey, ...rest }) => ({
+            label: LanguageText[labelKey],
+            ...rest,
+          }))}
+        />
+      </Form.Item>
+      <Form.Item name="quantifier" noStyle>
+        <Select
+          style={fieldInputStyle}
+          options={quantifierOptions[
+            catagorySelect || CategoryOptions.CREATOR
+          ].map(({ labelKey, ...rest }) => ({
+            label: LanguageText[labelKey],
+            ...rest,
+          }))}
+        />
+      </Form.Item>
+      <Form.Item name="content" noStyle>
+        <Select
+          style={fieldInputStyle}
+          options={
+            catagorySelect === CategoryOptions.CREATOR
+              ? creatorsOptions
+              : contentOptions[catagorySelect || CategoryOptions.STATUS].map(
+                  ({ labelKey, value }) => ({
+                    label: LanguageText[labelKey],
+                    value,
+                  })
+                )
+          }
+        />
+      </Form.Item>
       <div>{catagorySelect === CategoryOptions.CREATOR}</div>
     </Flex>
   );

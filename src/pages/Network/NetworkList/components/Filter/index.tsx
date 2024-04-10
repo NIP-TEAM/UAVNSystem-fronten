@@ -1,11 +1,7 @@
 import { useLanguageContext } from "@/hooks";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Flex, Form, Typography } from "antd";
-import {
-  Dispatch,
-  FC,
-  SetStateAction,
-} from "react";
+import { Button, Flex, Form, Input, Typography } from "antd";
+import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { FormFieldItem } from "./components";
 
 export interface FilterProp {
@@ -26,10 +22,22 @@ interface FormItemProtocol {
 export const Filter: FC<FilterProp> = ({ setFilter }) => {
   const { LanguageText } = useLanguageContext<"Network">();
   const [form] = Form.useForm<FormItemProtocol>();
+  const formFilters = Form.useWatch("filters", form);
+
+  useEffect(() => {
+    console.log(formFilters);
+  }, [formFilters]);
 
   return (
     <Form form={form}>
-      <Typography.Title level={5}>{LanguageText.filterTitle}</Typography.Title>
+      <Flex align="baseline" justify="space-between">
+        <Typography.Title level={5}>
+          {LanguageText.filterTitle}
+        </Typography.Title>
+        <Form.Item<FormItemProtocol> noStyle name="searchKey">
+          <Input.Search style={{width: "30%"}}/>
+        </Form.Item>
+      </Flex>
       <Form.List name="filters">
         {(fields, { add, remove }) => (
           <>
