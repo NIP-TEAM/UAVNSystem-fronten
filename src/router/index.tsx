@@ -8,7 +8,7 @@ import {
   Register,
   Email,
   NetworkList,
-  Uav,
+  UavList,
 } from "../pages";
 import { MenuItem, RouteItem } from "./types";
 import {
@@ -76,7 +76,7 @@ const ROUTES: readonly RouteItem[] = [
   },
   {
     id: "uavcenter",
-    element: <Uav />,
+    element: <UavList />,
     path: "/uavs",
     textKey: "uavcenter",
     icon: <ClusterOutlined />,

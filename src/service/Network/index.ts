@@ -15,7 +15,7 @@ export interface NetworkDataType {
   };
 }
 
-export interface DataControllerType {
+export type DataControllerType = {
   pagination: BasicPagination;
   filter: string;
 }

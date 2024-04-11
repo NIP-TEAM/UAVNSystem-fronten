@@ -1,15 +1,23 @@
 import { useHttp } from "@/hooks";
+import { BasicPagination } from "@/types";
 
-export interface UavDataType {
-    id: string,
-    name: string,
-    uploadSpeed: number,
-    downloadSpeed: number,
+export type UavDataType = {
+  id: string;
+  name: string;
+  uploadSpeed: number;
+  downloadSpeed: number;
+  netWorkId: number;
 }
 
-export const useUavData = (data: Partial<UavDataType>) =>
-  useHttp<UavDataType>({
-    url: "/tenants/register",
-    method: "post",
+export type UavControllerType = {
+  networkId: number;
+  pagination: BasicPagination;
+  filter: string;
+};
+
+export const useUavData = (data: UavControllerType) =>
+  useHttp<UavDataType[], { pagination: BasicPagination }>({
+    url: "/uav",
+    method: "get",
     data,
   });
