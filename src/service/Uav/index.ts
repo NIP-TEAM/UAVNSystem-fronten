@@ -10,7 +10,6 @@ export type UavDataType = {
 }
 
 export type UavControllerType = {
-  networkId: number;
   pagination: BasicPagination;
   filter: string;
 };

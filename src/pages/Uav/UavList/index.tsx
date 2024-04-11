@@ -1,60 +1,95 @@
-import { Card, Spin, Tabs, Tooltip } from "antd";
-import { FC, useContext, useEffect, useMemo } from "react";
-import { ItemList, UavHeader } from "./components";
+import { Card } from "antd";
+import { FC, useContext, useEffect, useMemo, useState } from "react";
+import { DataList, Filter, UavHeader } from "./components";
 import { LanguageProvider } from "@/hooks";
-import { NetworkDataType, useNetworkData } from "@/service";
 import { AppContext } from "@/App";
+import { FilterType } from "@/pages/Network/NetworkList/types";
+import { useUavData, UavDataType } from "@/service/Uav";
+import { BasicPagination } from "@/types";
+import {
+  SessionKeys,
+  getSessionStorageUtil,
+  sessionStorageUtil,
+} from "@/utils";
 
 interface UavListProp {}
 
-export const UavList: FC<UavListProp> = () => {
-  const { messageApi } = useContext(AppContext)
-  // TODO: optimized this api
-  const {
-    fetchData: fetchNetworkData,
-    loading: networkLoading,
-    error: networkError,
-    data: networkData,
-    code: networkCode,
-  } = useNetworkData({
-    pagination: { pageSize: 1000, current: 1, total: 0 },
-    filter: "",
-  });
-  useEffect(() => {
-    fetchNetworkData?.();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const networksData = useMemo<NetworkDataType[]>(() => {
-    if (networkCode === 200 && networkData?.data) return networkData.data;
-    return [];
-  }, [networkCode, networkData?.data]);
-  useEffect(() => {
-    if(networkError) messageApi?.error(networkError)
-  }, [messageApi, networkError])
+interface StorageProtocol {
+  filter: FilterType;
+  pagination: BasicPagination;
+}
 
+const defaltPagination: BasicPagination = {
+  current: 1,
+  pageSize: 10,
+  total: 10,
+};
+
+const sessionKey = SessionKeys.UAV;
+
+export const UavList: FC<UavListProp> = () => {
+  const { messageApi } = useContext(AppContext);
+
+  const [pagination, setPagination] = useState<BasicPagination>(
+    getSessionStorageUtil<StorageProtocol>(sessionKey).pagination ||
+      defaltPagination
+  );
+  const [filter, setFilter] = useState<FilterType>(
+    getSessionStorageUtil<StorageProtocol>(sessionKey).filter
+  );
+
+  const [timestamp, setTimestamp] = useState(0);
+
+  // networkData
+  const {
+    fetchData: fetchUavData,
+    data: uavData,
+    loading: uavLoading,
+    error: uavError,
+    code: uavCode,
+  } = useUavData({
+    pagination,
+    filter: JSON.stringify(filter || {}),
+  });
+  const uavListData = useMemo<UavDataType[]>(() => {
+    if (uavCode === 200 && uavData?.data) {
+      setPagination((prev) => ({ ...prev, ...uavData.meta.pagination }));
+      return uavData.data;
+    }
+    return [];
+  }, [uavCode, uavData]);
+  useEffect(() => {
+    fetchUavData?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pagination.current, pagination.pageSize, timestamp]);
+  useEffect(() => {
+    if (!uavError) return;
+    messageApi?.error(uavError);
+  }, [uavError, messageApi]);
+
+  useEffect(() => {
+    sessionStorage.removeItem(sessionKey);
+  }, []);
+
+  const storageFunc = () =>
+    sessionStorageUtil(sessionKey, { filter, pagination });
 
   return (
     <LanguageProvider textKey="Uav">
       <Card>
         <UavHeader />
-        <Spin spinning={networkLoading}>
-          <Tabs
-            destroyInactiveTabPane
-            items={networksData.map(({ id, name }) => ({
-              key: id,
-              label: (
-                <>
-                  {name.length > 20 ? (
-                    <Tooltip title={name}>{`${name.slice(0, 20)}...`}</Tooltip>
-                  ) : (
-                    name
-                  )}
-                </>
-              ),
-              children: <ItemList {...{ id }} />,
-            }))}
-          />
-        </Spin>
+        <Filter />
+        <DataList
+          {...{
+            uavLoading,
+            uavListData,
+            storageFunc,
+            setFilter,
+            pagination,
+            setTimestamp,
+            setPagination,
+          }}
+        />
       </Card>
     </LanguageProvider>
   );
