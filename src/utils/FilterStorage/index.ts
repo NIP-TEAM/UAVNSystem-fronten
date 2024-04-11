@@ -1,5 +1,6 @@
 export enum SessionKeys {
-    NETWORK = 'network-filter'
+    NETWORK = 'network-filter',
+    UAV='uav-filter'
 }
 
 export const sessionStorageUtil = <T = unknown>(key: SessionKeys, value: T) => {
