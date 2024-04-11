@@ -1,13 +1,15 @@
-import { Card, Tabs, Tooltip } from "antd";
-import { FC, useEffect, useMemo } from "react";
+import { Card, Spin, Tabs, Tooltip } from "antd";
+import { FC, useContext, useEffect, useMemo } from "react";
 import { ItemList, UavHeader } from "./components";
 import { LanguageProvider } from "@/hooks";
 import { NetworkDataType, useNetworkData } from "@/service";
+import { AppContext } from "@/App";
 
 interface UavListProp {}
 
 export const UavList: FC<UavListProp> = () => {
-  // TODO: optimized this
+  const { messageApi } = useContext(AppContext)
+  // TODO: optimized this api
   const {
     fetchData: fetchNetworkData,
     loading: networkLoading,
@@ -26,30 +28,33 @@ export const UavList: FC<UavListProp> = () => {
     if (networkCode === 200 && networkData?.data) return networkData.data;
     return [];
   }, [networkCode, networkData?.data]);
+  useEffect(() => {
+    if(networkError) messageApi?.error(networkError)
+  }, [messageApi, networkError])
+
 
   return (
     <LanguageProvider textKey="Uav">
       <Card>
         <UavHeader />
-        {/* <Filter /> */}
-        <Tabs
-          destroyInactiveTabPane
-          items={networksData.map(({id, name}) => ({
-            key: id,
-            label: <>
-            {
-              name.length > 20
-                ? (
-                  <Tooltip title={name}>
-                    {`${name.slice(0, 20)}...`}
-                  </Tooltip>
-                )
-                : name
-            }
-          </>,
-            children: <ItemList {...{ id }} />,
-          }))}
-        />
+        <Spin spinning={networkLoading}>
+          <Tabs
+            destroyInactiveTabPane
+            items={networksData.map(({ id, name }) => ({
+              key: id,
+              label: (
+                <>
+                  {name.length > 20 ? (
+                    <Tooltip title={name}>{`${name.slice(0, 20)}...`}</Tooltip>
+                  ) : (
+                    name
+                  )}
+                </>
+              ),
+              children: <ItemList {...{ id }} />,
+            }))}
+          />
+        </Spin>
       </Card>
     </LanguageProvider>
   );
