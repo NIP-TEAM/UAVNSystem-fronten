@@ -12,6 +12,10 @@ interface Form extends Record<"uavGroups", FormItem> {}
 
 export const CreateUavForm: FC<CreateUavFormProp> = () => {
   const [form] = Form.useForm<FormItem[]>();
+
+  const uavGroups = Form.useWatch('uavGroups', form);
+  console.log(uavGroups)
+
   return (
     <Form form={form}>
       <Form.List name="uavGroups">
@@ -23,10 +27,16 @@ export const CreateUavForm: FC<CreateUavFormProp> = () => {
                 groupIndex
               ) => (
                 <div key={groupKey}>
-                  <Form.Item label="选择所属网络" name="networkId">
-                    <Select />
+                  <Form.Item label="选择所属网络" name={[groupName, "networkId"]} {...restGroupfeild}>
+                    <Select options={[{label: 'test', value: 1}]} />
                   </Form.Item>
-                  <Form.List name="uavItem" key={groupKey} {...restGroupfeild}>
+                  {groupName}
+
+                  <Form.List
+                    name={groupName}
+                    key={groupKey}
+                    {...restGroupfeild}
+                  >
                     {(uavFields, { add: addUav, remove: removeUav }) => (
                       <>
                         {uavFields.map(
