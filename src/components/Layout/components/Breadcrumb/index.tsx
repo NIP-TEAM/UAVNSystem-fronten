@@ -4,7 +4,7 @@ import { Breadcrumb as AntdBreadcrumb, Typography } from "antd";
 import { useConfig } from "@/hooks";
 import GlobalMenuJson from "@/language/core/GlobalMenu.json";
 import { ItemType } from "antd/es/breadcrumb/Breadcrumb";
-import { findRouteByPath } from "@/router/utils";
+import { findActiveRoute, findRouteByPath } from "@/router/utils";
 import { RouteItem } from "@/router/types";
 
 interface BreadcrumbProp {}
@@ -29,12 +29,12 @@ export const MyBreadcrumb: FC<BreadcrumbProp> = () => {
   const location = useLocation();
   useEffect(() => {
     if (breadcrumbRoutes.at(-1)?.path === location.pathname) return;
-    const newRoute = findRouteByPath(location.pathname);
+    const newRoute = findActiveRoute(location.pathname) || findRouteByPath('/error')
     setBreadCrumbroutes(
       [
-        ...breadcrumbRoutes.filter(({ path }) => path !== location.pathname),
+        ...breadcrumbRoutes.filter(({ path }) => path !== newRoute.path),
         _formateBreadcurmbItem(newRoute),
-      ].filter(({ title }) => !!title)
+      ]
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);

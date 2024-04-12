@@ -6,5 +6,13 @@
     "filterTitle": {
         "en": "Filted by",
         "zh": "筛选器"
+    },
+    "createNew": {
+        "en": "New Uav(s)",
+        "zh": "添加无人机"
+    },
+    "importButton": {
+        "en": "Import from Csv",
+        "zh": "从Csv导入"
     }
 }

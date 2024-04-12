@@ -16,7 +16,7 @@ export type UavControllerType = {
 
 export const useUavData = (data: UavControllerType) =>
   useHttp<UavDataType[], { pagination: BasicPagination }>({
-    url: "/uav",
+    url: "/plane",
     method: "get",
     data,
   });

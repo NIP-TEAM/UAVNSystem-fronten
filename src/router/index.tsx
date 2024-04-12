@@ -21,6 +21,7 @@ import {
 import { omit } from "lodash-es";
 import { _formateMenuItem } from "./utils";
 import { NetworkDetail } from "@/pages/Network";
+import { CreateUav } from "@/pages/Uav";
 
 const ROUTES: readonly RouteItem[] = [
   {
@@ -71,8 +72,8 @@ const ROUTES: readonly RouteItem[] = [
         id: "networkdetail",
         element: <NetworkDetail />,
         path: "/network/:id",
-      }
-    ]
+      },
+    ],
   },
   {
     id: "uavcenter",
@@ -80,6 +81,9 @@ const ROUTES: readonly RouteItem[] = [
     path: "/uavs",
     textKey: "uavcenter",
     icon: <ClusterOutlined />,
+    children: [
+      { id: "createUav", element: <CreateUav />, path: "/uavs/create" },
+    ],
   },
   {
     id: "email-center",

@@ -7,6 +7,6 @@ interface DashBoardProp {}
 export const DashBoard: FC<DashBoardProp> = () => {
     const navigate = useNavigate()
     return <div style={{height: 1000}}>
-        <Button onClick={() => navigate('/usercenter')}> test </Button>
+        <Button onClick={() => navigate('/uavs/create')}> test </Button>
     </div>
 }

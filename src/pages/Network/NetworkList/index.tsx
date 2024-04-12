@@ -1,5 +1,5 @@
 import { NetworkDataType, useNetworkData } from "@/service";
-import { Card, Divider } from "antd";
+import { Divider } from "antd";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { DataList, Filter, NetworkHeader } from "./components";
 import { LanguageProvider } from "@/hooks";
@@ -7,6 +7,7 @@ import { BasicPagination } from "@/types";
 import { AppContext } from "@/App";
 import { FilterType } from "./types";
 import { SessionKeys, getSessionStorageUtil, sessionStorageUtil } from "@/utils";
+import { BasicCard } from "@/components";
 
 interface NetworkListProp {}
 
@@ -64,7 +65,7 @@ export const NetworkList: FC<NetworkListProp> = () => {
 
   return (
     <LanguageProvider textKey="Network">
-      <Card style={{ margin: "0 0.5em" }}>
+      <BasicCard>
         <NetworkHeader />
         <Filter {...{ setFilter, setTimestamp, initParams: filter }} />
         <Divider />
@@ -80,7 +81,7 @@ export const NetworkList: FC<NetworkListProp> = () => {
             storageFunc,
           }}
         />
-      </Card>
+      </BasicCard>
     </LanguageProvider>
   );
 };

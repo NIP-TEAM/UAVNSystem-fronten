@@ -1,4 +1,3 @@
-import { Card } from "antd";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { DataList, Filter, UavHeader } from "./components";
 import { LanguageProvider } from "@/hooks";
@@ -11,6 +10,7 @@ import {
   getSessionStorageUtil,
   sessionStorageUtil,
 } from "@/utils";
+import { BasicCard } from "@/components";
 
 interface UavListProp {}
 
@@ -76,7 +76,7 @@ export const UavList: FC<UavListProp> = () => {
 
   return (
     <LanguageProvider textKey="Uav">
-      <Card>
+      <BasicCard>
         <UavHeader />
         <Filter />
         <DataList
@@ -90,7 +90,7 @@ export const UavList: FC<UavListProp> = () => {
             setPagination,
           }}
         />
-      </Card>
+      </BasicCard>
     </LanguageProvider>
   );
 };

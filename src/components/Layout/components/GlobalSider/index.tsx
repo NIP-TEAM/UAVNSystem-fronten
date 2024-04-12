@@ -3,9 +3,8 @@ import { FC, useEffect, useState } from "react";
 import { SiderStyle } from "./style";
 import { flatRoutes, menuRoutes } from "@/router";
 import { useLocation, useNavigate } from "react-router";
-import GlobalMenuJson from '@/language/core/GlobalMenu.json'
-import { useConfig } from "@/hooks";
-import { findActiveKey } from "@/router/utils";
+import { TextKeys, useConfig } from "@/hooks";
+import { findActiveRoute } from "@/router/utils";
 import { MenuItem } from "@/router/types";
 
 interface GlobalSiderProp {
@@ -25,7 +24,7 @@ export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
   );
 
   useEffect(() => {
-    setActiveKey(findActiveKey(location.pathname) || 'dashboard');
+    setActiveKey(findActiveRoute(location.pathname)?.id || 'dashboard');
   }, [location.pathname]);
 
   return (
@@ -40,7 +39,7 @@ export const GlobalSider: FC<GlobalSiderProp> = ({ collapse, background }) => {
         selectedKeys={[activeKey]}
         items={MenuItems.map(item => ({
           ...item,
-          label: GlobalMenuText[item.label as keyof typeof GlobalMenuJson]
+          label: GlobalMenuText[item.label as TextKeys<"GlobalMenu">]
         }))}
         onSelect={({ key }) => {
           setActiveKey(key);

@@ -1,10 +1,10 @@
 import { flatRoutes } from ".";
 import { MenuItem, RouteItem } from "./types";
 
-export const findActiveKey = (target: string): string | undefined => {
+export const findActiveRoute = (target: string): RouteItem | undefined => {
   const result = flatRoutes.find(({ path }) => path === target);
-  if (result && result?.textKey) return result.id;
-  return findActiveKey(target.split("/").slice(0, -1).join("/"));
+  if (result && result?.textKey) return result;
+  return findActiveRoute(target.split("/").slice(0, -1).join("/"));
 };
 
 export const findActivePath = (target: string): string => flatRoutes.find(({id}) => id === target)?.path || flatRoutes[0].path
