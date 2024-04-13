@@ -7,6 +7,7 @@ export type UavDataType = {
   uploadSpeed: number;
   downloadSpeed: number;
   netWorkId: number;
+  status: number
 }
 
 export type UavControllerType = {
