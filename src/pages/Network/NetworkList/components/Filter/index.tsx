@@ -4,7 +4,10 @@ import { Button, Flex, Form, Input, Typography } from "antd";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { FormFieldItem } from "./components";
 import { FilterType } from "../../types";
-import { CategoryOptions, categoryOptions } from "./components/FormFieldItem/selectOptions";
+import {
+  CategoryOptions,
+  categoryOptions,
+} from "./components/FormFieldItem/selectOptions";
 
 export interface FilterProp {
   initParams?: FilterType;
@@ -32,7 +35,8 @@ export const Filter: FC<FilterProp> = ({
   const [form] = Form.useForm<FormItemProtocol>();
   const formFilters = Form.useWatch("filters", form);
 
-  const checkOptionDisable = (target: CategoryOptions) => !!formFilters?.find((item) => item?.category === target)
+  const checkOptionDisable = (target: CategoryOptions) =>
+    !!formFilters?.find((item) => item?.category === target);
 
   useEffect(() => {
     setFilter((prev) => {
@@ -71,7 +75,7 @@ export const Filter: FC<FilterProp> = ({
         })
       ),
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -100,14 +104,16 @@ export const Filter: FC<FilterProp> = ({
             {fields.map(({ key, name, ...restfeild }, index) => (
               <Form.Item key={key} {...restfeild}>
                 <Flex gap={5} align="center">
-                  <FormFieldItem name={name} checkOptionDisable={checkOptionDisable} />
-                  <Typography.Text
-                    style={{ cursor: "pointer" }}
-                    type="danger"
+                  <FormFieldItem
+                    name={name}
+                    checkOptionDisable={checkOptionDisable}
+                  />
+                  <Button
+                    type="link"
+                    danger
+                    icon={<DeleteOutlined />}
                     onClick={() => remove(index)}
-                  >
-                    <DeleteOutlined />
-                  </Typography.Text>
+                  />
                 </Flex>
               </Form.Item>
             ))}

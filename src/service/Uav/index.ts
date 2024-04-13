@@ -6,7 +6,7 @@ export type UavDataType = {
   name: string;
   uploadSpeed: number;
   downloadSpeed: number;
-  netWorkId: number;
+  networkId: number;
   status: number
 }
 
@@ -19,5 +19,12 @@ export const useUavData = (data: UavControllerType) =>
   useHttp<UavDataType[], { pagination: BasicPagination }>({
     url: "/plane",
     method: "get",
+    data,
+  });
+
+export const useCreateUav = (data: Partial<UavDataType>[]) => 
+  useHttp({
+    url: '/plane',
+    method: 'post',
     data,
   });

@@ -14,5 +14,53 @@
     "importButton": {
         "en": "Import from Csv",
         "zh": "从Csv导入"
+    },
+    "groupTempTitle": {
+        "en": "new group",
+        "zh": "新建无人机组"
+    },
+    "groupLabel": {
+        "en": "Belong to",
+        "zh": "所属网络"
+    },
+    "groupEmpty": {
+        "en": "Network name is required!",
+        "zh": "请输入所属网络!"
+    },
+    "uavTitle": {
+        "en": "Uav",
+        "zh": "无人机"
+    },
+    "addUav": {
+        "en": "Add Uav",
+        "zh": "添加无人机"
+    },
+    "nameLabel": {
+        "en": "Uav Name",
+        "zh": "名称"
+    },
+    "confirmTitle": {
+        "en": "Warning",
+        "zh": "警告"
+    },
+    "confirmAlert": {
+        "en": "Are you sure you want to delete?",
+        "zh": "确定执行删除操作?"
+    },
+    "submitTitle": {
+        "en": "Submit",
+        "zh": "提交"
+    },
+    "addSuccess": {
+        "en": "Add success!",
+        "zh": "成功添加"
+    },
+    "clearLabel": {
+        "en": "Clear",
+        "zh": "清除"
+    },
+    "clearAlert": {
+        "en": "Are you sure you want to reset?",
+        "zh": "确定重置表格?"
     }
 }
