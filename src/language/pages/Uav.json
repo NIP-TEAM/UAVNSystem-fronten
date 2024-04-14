@@ -146,5 +146,45 @@
   "more": {
     "en": "More",
     "zh": "更多"
+  },
+  "clearFilter": {
+    "en": "Clear",
+    "zh": "清除"
+  },
+  "applyFilter": {
+    "en": "Apply",
+    "zh": "应用"
+  },
+  "addField": {
+    "en": "Add Filter",
+    "zh": "添加筛选项"
+  },
+  "statusFieldTitle": {
+    "en": "Network Status",
+    "zh": "网络状态"
+  },
+  "creatorFieldTitle": {
+    "en": "Creator",
+    "zh": "创建者"
+  },
+  "isQuantifier": {
+    "en": "is",
+    "zh": "是"
+  },
+  "isNotQuantifier": {
+    "en": "is not",
+    "zh": "不是"
+  },
+  "meText": {
+    "en": "<< ME >>",
+    "zh": "<< 我 >>"
+  },
+  "quantifierEmpty": {
+    "en": "Empty quantifier is not allowed!",
+    "zh": "限定词不能为空!"
+  },
+  "contentEmpty": {
+    "en": "Empty content is not allowed!",
+    "zh": "内容不能为空!"
   }
 }
