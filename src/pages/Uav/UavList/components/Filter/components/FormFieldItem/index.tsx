@@ -14,7 +14,7 @@ import {
   contentOptions,
   quantifierOptions,
 } from "./selectOptions";
-import { useGetUsers } from "@/service";
+import { useGetUsers, useNetworkData } from "@/service";
 import { userAtom } from "@/store";
 import { AppContext } from "@/App";
 import { useAtomValue } from "jotai";
@@ -34,7 +34,7 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
 }) => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Uav">();
-  const [catagorySelect, setCatagorySelect] = useState<CategoryOptions>();
+  const [categorySelect, setCategorySelect] = useState<CategoryOptions>();
 
   const { userInfo } = useAtomValue(userAtom);
   const {
@@ -59,24 +59,66 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
       }));
     return [];
   }, [LanguageText.meText, userInfo?.name, usersCode, usersData?.data]);
-  const quantifierOptionsMemo = useMemo(
-    () =>
-      quantifierOptions[catagorySelect || CategoryOptions.CREATOR].map(
-        ({ labelKey, ...rest }) => ({
-          label: LanguageText[labelKey],
-          ...rest,
-        })
-      ),
-    [LanguageText, catagorySelect]
-  );
+
+  const {
+    fetchData: fetchNetworkData,
+    data: networkData,
+    loading: networkLoading,
+    error: networkError,
+    code: networkCode,
+  } = useNetworkData({
+    filter: "",
+    pagination: { pageSize: 1000, current: 1, total: 1000 },
+  });
+  useEffect(() => {
+    fetchNetworkData?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (networkError) messageApi?.error(networkError);
+  }, [messageApi, networkError]);
+  const networksOptions = useMemo(() => {
+    if (networkCode === 200 && networkData?.data)
+      return networkData.data.map(({ name, id }) => ({
+        label: name,
+        value: id,
+      }));
+    return [];
+  }, [networkCode, networkData?.data]);
+
+  const formatedContentOptions = useMemo(() => {
+    switch (categorySelect) {
+      case CategoryOptions.CREATOR:
+        return creatorsOptions;
+      case CategoryOptions.NETWORK:
+        return networksOptions;
+      default:
+        return contentOptions[categorySelect || CategoryOptions.STATUS].map(
+          ({ labelKey, value }) => ({
+            label: LanguageText[labelKey],
+            value,
+          })
+        );
+    }
+  }, [LanguageText, categorySelect, creatorsOptions, networksOptions]);
+  const contentLoading = useMemo(() => {
+    switch (categorySelect) {
+      case CategoryOptions.CREATOR:
+        return usersLoading;
+      case CategoryOptions.NETWORK:
+        return networkLoading;
+      default:
+        return false;
+    }
+  }, [categorySelect, networkLoading, usersLoading]);
 
   return (
     <Flex align="center" gap={5} style={{ width: "60%" }}>
       <Form.Item name={[name, "category"]} noStyle>
         <Select
           style={fieldInputStyle}
-          value={catagorySelect}
-          onSelect={(newValue) => setCatagorySelect(newValue)}
+          value={categorySelect}
+          onSelect={(newValue) => setCategorySelect(newValue)}
           options={categoryOptions.map(({ labelKey, value, ...rest }) => ({
             label: LanguageText[labelKey],
             value,
@@ -91,9 +133,14 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
         rules={[{ required: true, message: LanguageText.quantifierEmpty }]}
       >
         <Select
-          disabled={!catagorySelect}
+          disabled={!categorySelect}
           style={fieldInputStyle}
-          options={quantifierOptionsMemo}
+          options={quantifierOptions[
+            categorySelect || CategoryOptions.CREATOR
+          ].map(({ labelKey, ...rest }) => ({
+            label: LanguageText[labelKey],
+            ...rest,
+          }))}
         />
       </Form.Item>
       <Form.Item
@@ -105,25 +152,12 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
           mode="multiple"
           allowClear
           maxTagCount="responsive"
-          disabled={
-            !catagorySelect ||
-            (catagorySelect === CategoryOptions.CREATOR && usersLoading)
-          }
+          disabled={!categorySelect || contentLoading}
           style={fieldInputStyle}
-          loading={catagorySelect === CategoryOptions.CREATOR && usersLoading}
-          options={
-            catagorySelect === CategoryOptions.CREATOR
-              ? creatorsOptions
-              : contentOptions[catagorySelect || CategoryOptions.STATUS].map(
-                  ({ labelKey, value }) => ({
-                    label: LanguageText[labelKey],
-                    value,
-                  })
-                )
-          }
+          loading={contentLoading}
+          options={formatedContentOptions as { label: string; value: string }[]}
         />
       </Form.Item>
-      <div>{catagorySelect === CategoryOptions.CREATOR}</div>
     </Flex>
   );
 };

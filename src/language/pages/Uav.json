@@ -160,12 +160,16 @@
     "zh": "添加筛选项"
   },
   "statusFieldTitle": {
-    "en": "Network Status",
-    "zh": "网络状态"
+    "en": "Uav Status",
+    "zh": "无人机状态"
   },
   "creatorFieldTitle": {
     "en": "Creator",
     "zh": "创建者"
+  },
+  "networkFieldTitle": {
+    "en": "Network",
+    "zh": "所属网络"
   },
   "isQuantifier": {
     "en": "is",

@@ -34,7 +34,7 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
 }) => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Network">();
-  const [catagorySelect, setCatagorySelect] = useState<CategoryOptions>();
+  const [categorySelect, setcategorySelect] = useState<CategoryOptions>();
 
   const { userInfo } = useAtomValue(userAtom);
   const {
@@ -59,24 +59,14 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
       }));
     return [];
   }, [LanguageText.meText, userInfo?.name, usersCode, usersData?.data]);
-  const quantifierOptionsMemo = useMemo(
-    () =>
-      quantifierOptions[catagorySelect || CategoryOptions.CREATOR].map(
-        ({ labelKey, ...rest }) => ({
-          label: LanguageText[labelKey],
-          ...rest,
-        })
-      ),
-    [LanguageText, catagorySelect]
-  );
 
   return (
     <Flex align="center" gap={5} style={{ width: "60%" }}>
       <Form.Item name={[name, "category"]} noStyle>
         <Select
           style={fieldInputStyle}
-          value={catagorySelect}
-          onSelect={(newValue) => setCatagorySelect(newValue)}
+          value={categorySelect}
+          onSelect={(newValue) => setcategorySelect(newValue)}
           options={categoryOptions.map(({ labelKey, value, ...rest }) => ({
             label: LanguageText[labelKey],
             value,
@@ -91,9 +81,14 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
         rules={[{ required: true, message: LanguageText.quantifierEmpty }]}
       >
         <Select
-          disabled={!catagorySelect}
+          disabled={!categorySelect}
           style={fieldInputStyle}
-          options={quantifierOptionsMemo}
+          options={quantifierOptions[
+            categorySelect || CategoryOptions.CREATOR
+          ].map(({ labelKey, ...rest }) => ({
+            label: LanguageText[labelKey],
+            ...rest,
+          }))}
         />
       </Form.Item>
       <Form.Item
@@ -106,15 +101,15 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
           allowClear
           maxTagCount="responsive"
           disabled={
-            !catagorySelect ||
-            (catagorySelect === CategoryOptions.CREATOR && usersLoading)
+            !categorySelect ||
+            (categorySelect === CategoryOptions.CREATOR && usersLoading)
           }
           style={fieldInputStyle}
-          loading={catagorySelect === CategoryOptions.CREATOR && usersLoading}
+          loading={categorySelect === CategoryOptions.CREATOR && usersLoading}
           options={
-            catagorySelect === CategoryOptions.CREATOR
+            categorySelect === CategoryOptions.CREATOR
               ? creatorsOptions
-              : contentOptions[catagorySelect || CategoryOptions.STATUS].map(
+              : contentOptions[categorySelect || CategoryOptions.STATUS].map(
                   ({ labelKey, value }) => ({
                     label: LanguageText[labelKey],
                     value,
@@ -123,7 +118,6 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
           }
         />
       </Form.Item>
-      <div>{catagorySelect === CategoryOptions.CREATOR}</div>
     </Flex>
   );
 };
