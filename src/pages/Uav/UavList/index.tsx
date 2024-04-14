@@ -78,7 +78,7 @@ export const UavList: FC<UavListProp> = () => {
     <LanguageProvider textKey="Uav">
       <BasicCard>
         <UavHeader />
-        <Filter />
+        <Filter {...{ setTimestamp, setFilter }} />
         <DataList
           {...{
             uavLoading,

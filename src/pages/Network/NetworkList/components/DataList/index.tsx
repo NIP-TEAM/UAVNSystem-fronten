@@ -90,11 +90,10 @@ export const DataList: FC<DataListProp> = ({
       },
       {
         title: LanguageText.countTitle,
-        key: "countTitle",
+        key: "count",
         dataIndex: "uavCount",
         align: "center",
         ellipsis: true,
-        sorter: true,
       },
       {
         title: LanguageText.creatorTitle,
