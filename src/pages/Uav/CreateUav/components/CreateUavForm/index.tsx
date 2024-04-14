@@ -7,6 +7,7 @@ import { AppContext } from "@/App";
 import StickyBox from "react-sticky-box";
 import { UavDataType, useCreateUav } from "@/service/Uav";
 import { SessionKeys, getSessionStorageUtil } from "@/utils";
+import { useNavigate } from "react-router";
 
 export interface CreateUavFormProp {}
 
@@ -25,6 +26,7 @@ export const CreateUavForm: FC<CreateUavFormProp> = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const navigate = useNavigate();
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Uav">();
   const [form] = Form.useForm<FormItem[]>();
@@ -86,8 +88,12 @@ export const CreateUavForm: FC<CreateUavFormProp> = () => {
     loading: createLoading,
   } = useCreateUav(submitData);
   useEffect(() => {
-    if (createCode === 200) messageApi?.success(LanguageText.addSuccess);
-  }, [LanguageText.addSuccess, createCode, messageApi]);
+    if (createCode === 200) {
+      messageApi?.success(LanguageText.addSuccess);
+      form.resetFields();
+      navigate('/uavs')
+    }
+  }, [LanguageText.addSuccess, createCode, messageApi, form, navigate]);
   useEffect(() => {
     if (createError) messageApi?.error(createError);
   }, [createError, messageApi]);

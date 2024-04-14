@@ -8,6 +8,7 @@ export type UavDataType = {
   downloadSpeed: number;
   status: number;
   createAt: string;
+  networkId: number;
   creatorInfo: {
     name: string;
     id: number;
