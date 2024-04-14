@@ -5,7 +5,8 @@ export const LanguageTextJson = {
   Forget: (await import("./pages/Forget.json")).default,
   GlobalMenu: (await import("./core/GlobalMenu.json")).default,
   Network: (await import("./pages/Network.json")).default,
-  Uav: (await import("./pages/Uav.json")).default
+  Uav: (await import("./pages/Uav.json")).default,
+  NetworkDetail: (await import("./pages/NetworkDetail.json")).default,
 } as const;
 
 export type LanguageJsonSet = keyof typeof LanguageTextJson;

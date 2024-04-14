@@ -36,3 +36,8 @@ export const useDeleteNetworkData = (data: { ids: Key[] }) =>
     method: "delete",
     data,
   });
+
+export const useNetworkDetail = (id: string) => useHttp<NetworkDataType>({
+  url: "/network/" + id,
+  method: "get"
+})
