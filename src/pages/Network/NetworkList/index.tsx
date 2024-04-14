@@ -66,7 +66,7 @@ export const NetworkList: FC<NetworkListProp> = () => {
   return (
     <LanguageProvider textKey="Network">
       <BasicCard>
-        <NetworkHeader />
+        <NetworkHeader refreshNetwork={setTimestamp} />
         <Filter {...{ setFilter, setTimestamp, initParams: filter }} />
         <Divider />
         <DataList

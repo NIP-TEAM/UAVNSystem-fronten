@@ -18,7 +18,10 @@ export interface NetworkDataType {
 export type DataControllerType = {
   pagination: BasicPagination;
   filter: string;
-}
+};
+
+export const useCreateNetwork = (data: Partial<NetworkDataType>) =>
+  useHttp({ url: "/network", method: "post", data });
 
 export const useNetworkData = (data: DataControllerType) =>
   useHttp<NetworkDataType[], { pagination: BasicPagination }>({
@@ -27,9 +30,9 @@ export const useNetworkData = (data: DataControllerType) =>
     data,
   });
 
-export const useDeleteNetworkData = (data: {ids: Key[]}) => 
+export const useDeleteNetworkData = (data: { ids: Key[] }) =>
   useHttp({
-  url: "/network",
-  method: "delete",
-  data,
-})
+    url: "/network",
+    method: "delete",
+    data,
+  });

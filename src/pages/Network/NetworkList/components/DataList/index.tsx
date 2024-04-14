@@ -139,9 +139,10 @@ export const DataList: FC<DataListProp> = ({
         align: "center",
         ellipsis: true,
         render: (_, record) => (
-          <Flex align="center" justify="center">
+          <Flex align="center" justify="center" gap="small">
             <Button
               type="link"
+              style={{ margin: 0, padding: 0 }}
               onClick={() => {
                 storageFunc();
                 navigate(`/network/${record.id}`);
@@ -155,7 +156,7 @@ export const DataList: FC<DataListProp> = ({
                 items: items(record.id),
               }}
             >
-              <Button type="link">
+              <Button type="link" style={{ margin: 0, padding: 0 }}>
                 {LanguageText.more} <DownOutlined />
               </Button>
             </Dropdown>

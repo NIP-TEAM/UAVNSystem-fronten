@@ -1,66 +1,150 @@
 {
-    "headerTitle": {
-        "en": "Uav(s)",
-        "zh": "无人机管理"
-    },
-    "filterTitle": {
-        "en": "Filted by",
-        "zh": "筛选器"
-    },
-    "createNew": {
-        "en": "New Uav(s)",
-        "zh": "添加无人机"
-    },
-    "importButton": {
-        "en": "Import from Csv",
-        "zh": "从Csv导入"
-    },
-    "groupTempTitle": {
-        "en": "new group",
-        "zh": "新建无人机组"
-    },
-    "groupLabel": {
-        "en": "Belong to",
-        "zh": "所属网络"
-    },
-    "groupEmpty": {
-        "en": "Network name is required!",
-        "zh": "请输入所属网络!"
-    },
-    "uavTitle": {
-        "en": "Uav",
-        "zh": "无人机"
-    },
-    "addUav": {
-        "en": "Add Uav",
-        "zh": "添加无人机"
-    },
-    "nameLabel": {
-        "en": "Uav Name",
-        "zh": "名称"
-    },
-    "confirmTitle": {
-        "en": "Warning",
-        "zh": "警告"
-    },
-    "confirmAlert": {
-        "en": "Are you sure you want to delete?",
-        "zh": "确定执行删除操作?"
-    },
-    "submitTitle": {
-        "en": "Submit",
-        "zh": "提交"
-    },
-    "addSuccess": {
-        "en": "Add success!",
-        "zh": "成功添加"
-    },
-    "clearLabel": {
-        "en": "Clear",
-        "zh": "清除"
-    },
-    "clearAlert": {
-        "en": "Are you sure you want to reset?",
-        "zh": "确定重置表格?"
-    }
+  "headerTitle": {
+    "en": "Uav(s)",
+    "zh": "无人机管理"
+  },
+  "filterTitle": {
+    "en": "Filted by",
+    "zh": "筛选器"
+  },
+  "createNew": {
+    "en": "New Uav(s)",
+    "zh": "添加无人机"
+  },
+  "importButton": {
+    "en": "Import from Csv",
+    "zh": "从Csv导入"
+  },
+  "groupTempTitle": {
+    "en": "new group",
+    "zh": "新建无人机组"
+  },
+  "groupLabel": {
+    "en": "Belong to",
+    "zh": "所属网络"
+  },
+  "groupEmpty": {
+    "en": "Network name is required!",
+    "zh": "请输入所属网络!"
+  },
+  "uavTitle": {
+    "en": "Uav",
+    "zh": "无人机"
+  },
+  "addUav": {
+    "en": "Add Uav",
+    "zh": "添加无人机"
+  },
+  "nameLabel": {
+    "en": "Uav Name",
+    "zh": "名称"
+  },
+  "confirmTitle": {
+    "en": "Warning",
+    "zh": "警告"
+  },
+  "confirmAlert": {
+    "en": "Are you sure you want to delete?",
+    "zh": "确定执行删除操作?"
+  },
+  "submitTitle": {
+    "en": "Submit",
+    "zh": "提交"
+  },
+  "addSuccess": {
+    "en": "Add success!",
+    "zh": "成功添加"
+  },
+  "clearLabel": {
+    "en": "Clear",
+    "zh": "清除"
+  },
+  "clearAlert": {
+    "en": "Are you sure you want to reset?",
+    "zh": "确定重置表格?"
+  },
+  "idLabel": {
+    "en": "Id",
+    "zh": "编号"
+  },
+  "nameTableLabel": {
+    "en": "Name",
+    "zh": "名称"
+  },
+  "networkLabel": {
+    "en": "Network Name",
+    "zh": "所属网络"
+  },
+  "statusLabel": {
+    "en": "Status",
+    "zh": "状态"
+  },
+  "creatorLabel": {
+    "en": "Creator",
+    "zh": "创建者"
+  },
+  "speedLabel": {
+    "en": "Uav Speed",
+    "zh": "网络传输速度"
+  },
+  "errorStatus": {
+    "en": "Error",
+    "zh": "错误"
+  },
+  "initStatus": {
+    "en": "Waiting",
+    "zh": "等待中"
+  },
+  "doneStatus": {
+    "en": "No Problem",
+    "zh": "正常运行"
+  },
+  "total": {
+    "en": "Total Count",
+    "zh": "数据总数"
+  },
+  "select": {
+    "en": "Been Choosen",
+    "zh": "已选择"
+  },
+  "createAtTitle": {
+    "en": "Create At",
+    "zh": "创建于"
+  },
+  "cancel": {
+    "en": "Cancel",
+    "zh": "取消"
+  },
+  "confirm": {
+    "en": "Confirm",
+    "zh": "确定"
+  },
+  "delete": {
+    "en": "Delete",
+    "zh": "删除"
+  },
+  "alert": {
+    "en": "Alert",
+    "zh": "警告"
+  },
+  "deleteSuccess": {
+    "en": "Success",
+    "zh": "成功"
+  },
+  "deleteTip": {
+    "en": "Are you sure you want to delete the selected network? This action cannot be undone!",
+    "zh": "确定删除选中的网络？此操作不可撤销！"
+  },
+  "action": {
+    "en": "Action",
+    "zh": "操作"
+  },
+  "detail": {
+    "en": "Detail",
+    "zh": "详情"
+  },
+  "more": {
+    "en": "More",
+    "zh": "更多"
+  }
 }

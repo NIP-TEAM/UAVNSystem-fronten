@@ -142,5 +142,9 @@
   "contentEmpty": {
     "en": "Empty content is not allowed!",
     "zh": "内容不能为空!"
+  },
+  "createSuccess": {
+    "en": "Create success!",
+    "zh": "创建成功!"
   }
 }

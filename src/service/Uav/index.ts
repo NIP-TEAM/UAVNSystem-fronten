@@ -6,9 +6,17 @@ export type UavDataType = {
   name: string;
   uploadSpeed: number;
   downloadSpeed: number;
-  networkId: number;
-  status: number
-}
+  status: number;
+  createAt: string;
+  creatorInfo: {
+    name: string;
+    id: number;
+  };
+  networkInfo: {
+    name: string;
+    id: number;
+  };
+};
 
 export type UavControllerType = {
   pagination: BasicPagination;
@@ -22,9 +30,16 @@ export const useUavData = (data: UavControllerType) =>
     data,
   });
 
-export const useCreateUav = (data: Partial<UavDataType>[]) => 
+export const useCreateUav = (data: Partial<UavDataType>[]) =>
   useHttp({
-    url: '/plane',
-    method: 'post',
+    url: "/plane",
+    method: "post",
+    data,
+  });
+
+export const useDeleteUav = (data: { ids: string[] }) =>
+  useHttp({
+    url: "/plane",
+    method: "delete",
     data,
   });
