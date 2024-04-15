@@ -77,7 +77,6 @@ export const ROUTES: readonly RouteItem[] = [
         element: <NetworkList />,
         path: "/network/center",
         textKey: "networkcenter",
-        icon: <GlobalOutlined />,
       },
       {
         id: "networktype",

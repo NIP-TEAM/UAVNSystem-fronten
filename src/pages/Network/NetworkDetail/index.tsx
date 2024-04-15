@@ -36,7 +36,7 @@ export const NetworkDetail: FC<NetworkDetailProp> = () => {
   return (
     <LanguageProvider textKey="NetworkDetail">
       <BasicCard loading={detailLoading}>
-        <Form form={form}>
+        <Form form={form} onFinish={(value) => console.log(value)} initialValues={networkInfo}>
         <NetworkDetailHeader
           {...{ name: networkInfo?.name, editing, setEditing }}
         />

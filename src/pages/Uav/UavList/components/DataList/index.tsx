@@ -25,9 +25,9 @@ import {
   QuestionCircleFilled,
 } from "@ant-design/icons";
 import { SorterResult } from "antd/es/table/interface";
-import dayjs from "dayjs";
 import { ItemType } from "antd/es/menu/hooks/useItems";
 import { DeleteModal } from "./components";
+import { basicTimeFormate } from "@/utils";
 
 export interface DataListProp {
   uavLoading: boolean;
@@ -193,7 +193,7 @@ export const DataList: FC<DataListProp> = ({
       ellipsis: true,
       sorter: true,
       render: (_, { createAt }) => (
-        <>{dayjs(Number(createAt)).format("YYYY-MM-DD HH:mm")}</>
+        <>{basicTimeFormate(createAt)}</>
       ),
     },
     {
