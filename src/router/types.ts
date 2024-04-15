@@ -10,11 +10,3 @@ export interface RouteItem {
   children?: RouteItem[]
   breadcrumbForbidden?: boolean
 }
-
-export interface MenuItem {
-  label: string;
-  key: string;
-  icon?: ReactNode;
-  children?: MenuItem[];
-  path: string;
-}

@@ -10,7 +10,7 @@ import {
   NetworkList,
   UavList,
 } from "../pages";
-import { MenuItem, RouteItem } from "./types";
+import { RouteItem } from "./types";
 import {
   ClusterOutlined,
   GlobalOutlined,
@@ -19,11 +19,10 @@ import {
   SettingFilled,
 } from "@ant-design/icons";
 import { omit } from "lodash-es";
-import { _formateMenuItem } from "./utils";
-import { NetworkDetail } from "@/pages/Network";
+import { NetworkDetail, NetworkType } from "@/pages/Network";
 import { CreateUav } from "@/pages/Uav";
 
-const ROUTES: readonly RouteItem[] = [
+export const ROUTES: readonly RouteItem[] = [
   {
     id: "not-found",
     path: "*",
@@ -62,16 +61,29 @@ const ROUTES: readonly RouteItem[] = [
     breadcrumbForbidden: true,
   },
   {
-    id: "networkcenter",
-    element: <NetworkList />,
+    id: "network",
+    element: <Navigate to="/network/center" />,
     path: "/network",
-    textKey: "networkcenter",
+    textKey: "network",
     icon: <GlobalOutlined />,
     children: [
       {
         id: "networkdetail",
         element: <NetworkDetail />,
         path: "/network/:id",
+      },
+      {
+        id: "networkcenter",
+        element: <NetworkList />,
+        path: "/network/center",
+        textKey: "networkcenter",
+        icon: <GlobalOutlined />,
+      },
+      {
+        id: "networktype",
+        element: <NetworkType />,
+        path: "/network/type",
+        textKey: "ffdfadf",
       },
     ],
   },
@@ -113,9 +125,6 @@ export const flatRoutes: RouteItem[] = (() => {
   return result;
 })();
 
-export const menuRoutes: MenuItem[] = ROUTES.filter(
-  ({ textKey }) => !!textKey
-).map((item) => _formateMenuItem(item));
 
 export const pageTypes = {
   noFrame: ["", "login", "register", "forget"],

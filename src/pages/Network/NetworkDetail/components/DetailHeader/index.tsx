@@ -1,17 +1,42 @@
 import { useLanguageContext } from "@/hooks";
-import { Typography } from "antd";
-import { FC } from "react";
+import { Button, Flex, Typography } from "antd";
+import { SetStateAction } from "jotai";
+import { Dispatch, FC } from "react";
 
 export interface NetworkDetailHeaderProp {
-    name?: string
+  name?: string;
+  editing: boolean;
+  setEditing: Dispatch<SetStateAction<boolean>>;
 }
 
-export const NetworkDetailHeader: FC<NetworkDetailHeaderProp> = ({name}) => {
+export const NetworkDetailHeader: FC<NetworkDetailHeaderProp> = ({
+  name,
+  editing,
+  setEditing,
+}) => {
   const { LanguageText } = useLanguageContext<"NetworkDetail">();
 
   return (
-    <Typography.Title level={4}>
-      {LanguageText.detailTitle}: {name}
-    </Typography.Title>
+    <Flex justify="space-between" align="baseline">
+      <Typography.Title level={4}>
+        {LanguageText.detailTitle}: {name}
+      </Typography.Title>
+      <Flex justify="center" align="center" gap="small">
+        {editing ? (
+          <>
+            <Button onClick={() => setEditing(false)} htmlType="reset">
+              {LanguageText.editingCancel}
+            </Button>
+            <Button type="primary" htmlType="submit">
+              {LanguageText.editingConfirm}
+            </Button>
+          </>
+        ) : (
+          <Button type="primary" onClick={() => setEditing(true)}>
+            {LanguageText.editingButton}
+          </Button>
+        )}
+      </Flex>
+    </Flex>
   );
 };

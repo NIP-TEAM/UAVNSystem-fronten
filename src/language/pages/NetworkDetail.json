@@ -6,5 +6,41 @@
     "nameLabel": {
         "en": "Name",
         "zh": "名称"
-    }
+    },
+    "idLabel": {
+        "en": "Id",
+        "zh": "识别码"
+    },
+    "statusLabel": {
+        "en": "Status",
+        "zh": "网络状态"
+    },
+    "createAtLabel": {
+        "en": "Create At",
+        "zh": "创建于"
+    },
+    "creatorLabel": {
+        "en": "Create By",
+        "zh": "创建者"
+    },
+    "uavCountLabel": {
+        "en": "Uav(s) Count",
+        "zh": "无人机总数"
+    },
+    "typeLabel": {
+        "en": "Network Type",
+        "zh": "网络类型"
+    },
+    "editingButton": {
+        "en": "Edit",
+        "zh": "编辑"
+    },
+    "editingCancel": {
+        "en": "Cancel",
+        "zh": "取消"
+    },
+    "editingConfirm": {
+        "en": "Confirm",
+        "zh": "确定"
+    }   
 }

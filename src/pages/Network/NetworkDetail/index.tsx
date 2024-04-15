@@ -1,11 +1,11 @@
 import { BasicCard } from "@/components";
 import { LanguageProvider } from "@/hooks";
-import { FC, useContext, useEffect, useMemo } from "react";
+import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { DetailDescription, NetworkDetailHeader } from "./components";
-import { useNetworkDetail } from "@/service";
+import { NetworkDataType, useNetworkDetail } from "@/service";
 import { useParams } from "react-router";
 import { AppContext } from "@/App";
-import { Divider } from "antd";
+import { Divider, Form } from "antd";
 
 interface NetworkDetailProp {}
 
@@ -30,12 +30,19 @@ export const NetworkDetail: FC<NetworkDetailProp> = () => {
     if (detailCode === 200 && detailData?.data) return detailData?.data;
   }, [detailCode, detailData?.data]);
 
+  const [editing, setEditing] = useState(false);
+  const [form] = Form.useForm<Partial<NetworkDataType>>()
+
   return (
     <LanguageProvider textKey="NetworkDetail">
       <BasicCard loading={detailLoading}>
-        <NetworkDetailHeader name={networkInfo?.name} />
+        <Form form={form}>
+        <NetworkDetailHeader
+          {...{ name: networkInfo?.name, editing, setEditing }}
+        />
         <Divider />
-        <DetailDescription networkInfo={networkInfo} />
+        <DetailDescription {...{ networkInfo, editing }} />
+        </Form>
       </BasicCard>
     </LanguageProvider>
   );
