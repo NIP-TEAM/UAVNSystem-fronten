@@ -2,5 +2,10 @@
     "detailTitle": {
         "en": "Network Detail",
         "zh": "网络详情"
-    }
+    },
+    "nameLabel": {
+        "en": "Name",
+        "zh": "名称"
+    },
+    
 }

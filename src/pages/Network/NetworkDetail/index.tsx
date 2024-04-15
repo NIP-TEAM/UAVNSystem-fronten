@@ -1,10 +1,11 @@
 import { BasicCard } from "@/components";
 import { LanguageProvider } from "@/hooks";
 import { FC, useContext, useEffect, useMemo } from "react";
-import { NetworkDetailHeader } from "./components";
+import { DetailDescription, NetworkDetailHeader } from "./components";
 import { useNetworkDetail } from "@/service";
 import { useParams } from "react-router";
 import { AppContext } from "@/App";
+import { Divider } from "antd";
 
 interface NetworkDetailProp {}
 
@@ -33,6 +34,8 @@ export const NetworkDetail: FC<NetworkDetailProp> = () => {
     <LanguageProvider textKey="NetworkDetail">
       <BasicCard loading={detailLoading}>
         <NetworkDetailHeader name={networkInfo?.name} />
+        <Divider />
+        <DetailDescription networkInfo={networkInfo} />
       </BasicCard>
     </LanguageProvider>
   );
