@@ -2,11 +2,14 @@ import { NetworkDataType, useNetworkData } from "@/service";
 import { Divider } from "antd";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { DataList, Filter, NetworkHeader } from "./components";
-import { LanguageProvider } from "@/hooks";
 import { BasicPagination } from "@/types";
 import { AppContext } from "@/App";
 import { FilterType } from "./types";
-import { SessionKeys, getSessionStorageUtil, sessionStorageUtil } from "@/utils";
+import {
+  SessionKeys,
+  getSessionStorageUtil,
+  sessionStorageUtil,
+} from "@/utils";
 import { BasicCard } from "@/components";
 
 interface NetworkListProp {}
@@ -22,11 +25,12 @@ const defaltPagination: BasicPagination = {
   total: 10,
 };
 
-const sessionKey = SessionKeys.NETWORK
+const sessionKey = SessionKeys.NETWORK;
 
 export const NetworkList: FC<NetworkListProp> = () => {
   const [pagination, setPagination] = useState<BasicPagination>(
-    getSessionStorageUtil<StorageProtocol>(sessionKey).pagination || defaltPagination
+    getSessionStorageUtil<StorageProtocol>(sessionKey).pagination ||
+      defaltPagination
   );
   const [filter, setFilter] = useState<FilterType>(
     getSessionStorageUtil<StorageProtocol>(sessionKey).filter
@@ -64,24 +68,22 @@ export const NetworkList: FC<NetworkListProp> = () => {
     sessionStorageUtil(sessionKey, { filter, pagination });
 
   return (
-    <LanguageProvider textKey="Network">
-      <BasicCard>
-        <NetworkHeader refreshNetwork={setTimestamp} />
-        <Filter {...{ setFilter, setTimestamp, initParams: filter }} />
-        <Divider />
-        <DataList
-          {...{
-            pagination,
-            setPagination,
-            networkData,
-            loading,
-            setTimestamp,
-            setFilter,
-            initSorter: filter?.sorter,
-            storageFunc,
-          }}
-        />
-      </BasicCard>
-    </LanguageProvider>
+    <BasicCard>
+      <NetworkHeader refreshNetwork={setTimestamp} />
+      <Filter {...{ setFilter, setTimestamp, initParams: filter }} />
+      <Divider />
+      <DataList
+        {...{
+          pagination,
+          setPagination,
+          networkData,
+          loading,
+          setTimestamp,
+          setFilter,
+          initSorter: filter?.sorter,
+          storageFunc,
+        }}
+      />
+    </BasicCard>
   );
 };

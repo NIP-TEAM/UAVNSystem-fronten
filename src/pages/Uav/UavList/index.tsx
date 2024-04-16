@@ -1,6 +1,5 @@
 import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { DataList, Filter, UavHeader } from "./components";
-import { LanguageProvider } from "@/hooks";
 import { AppContext } from "@/App";
 import { FilterType } from "@/pages/Network/NetworkList/types";
 import { useUavData, UavDataType } from "@/service/Uav";
@@ -75,7 +74,6 @@ export const UavList: FC<UavListProp> = () => {
     sessionStorageUtil(sessionKey, { filter, pagination });
 
   return (
-    <LanguageProvider textKey="Uav">
       <BasicCard>
         <UavHeader />
         <Filter {...{ setTimestamp, setFilter }} />
@@ -91,6 +89,5 @@ export const UavList: FC<UavListProp> = () => {
           }}
         />
       </BasicCard>
-    </LanguageProvider>
   );
 };

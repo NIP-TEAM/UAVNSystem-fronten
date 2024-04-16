@@ -39,50 +39,57 @@ export const ROUTES: readonly RouteItem[] = [
     element: <Login />,
     path: "/login",
     isPublic: true,
+    textKey: "Login"
   },
   {
     id: "forget",
     element: <Forget />,
     path: "/forget",
     isPublic: true,
+    textKey: "Forget"
   },
   {
     id: "register",
     element: <Register />,
     path: "/register",
     isPublic: true,
+    textKey: "Register"
   },
   {
     id: "dashboard",
     element: <DashBoard />,
     path: "/dashboard",
-    textKey: "dashboard",
+    labelKey: "dashboard",
     icon: <PieChartFilled />,
     breadcrumbForbidden: true,
+    // textKey: "Dashboard"
   },
   {
     id: "network",
     element: <Navigate to="/network/center" />,
     path: "/network",
-    textKey: "network",
+    labelKey: "network",
     icon: <GlobalOutlined />,
     children: [
       {
         id: "networkdetail",
         element: <NetworkDetail />,
         path: "/network/:id",
+        textKey: "NetworkDetail",
       },
       {
         id: "networkcenter",
         element: <NetworkList />,
         path: "/network/center",
-        textKey: "networkcenter",
+        labelKey: "networkcenter",
+        textKey: "Network"
       },
       {
-        id: "networktype",
+        id: "networkstructure",
         element: <NetworkType />,
-        path: "/network/type",
-        textKey: "ffdfadf",
+        path: "/network/structure",
+        labelKey: "networkstructure",
+        textKey: "NetworkStructure"
       },
     ],
   },
@@ -90,7 +97,8 @@ export const ROUTES: readonly RouteItem[] = [
     id: "uavcenter",
     element: <UavList />,
     path: "/uavs",
-    textKey: "uavcenter",
+    labelKey: "uavcenter",
+    textKey: "Uav",
     icon: <ClusterOutlined />,
     children: [
       { id: "createUav", element: <CreateUav />, path: "/uavs/create" },
@@ -101,14 +109,16 @@ export const ROUTES: readonly RouteItem[] = [
     element: <Email />,
     path: "/emailcenter",
     icon: <MailFilled />,
-    textKey: "emailcenter",
+    labelKey: "emailcenter",
+    // textKey: "Email"
   },
   {
     id: "user-center",
     element: <UserCenter />,
     path: "/usercenter",
-    textKey: "usercenter",
+    labelKey: "usercenter",
     icon: <SettingFilled />,
+    // textKey: "Usercenter"
   },
 ];
 
@@ -123,7 +133,6 @@ export const flatRoutes: RouteItem[] = (() => {
   flat([...ROUTES]);
   return result;
 })();
-
 
 export const pageTypes = {
   noFrame: ["", "login", "register", "forget"],

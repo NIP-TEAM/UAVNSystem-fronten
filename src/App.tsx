@@ -8,7 +8,12 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import { ANTDCOLORTHEME, ANTDLANGUAGETHEME, ConfigProvider } from "./hooks";
+import {
+  ANTDCOLORTHEME,
+  ANTDLANGUAGETHEME,
+  ConfigProvider,
+  LanguageProvider,
+} from "./hooks";
 import { AppLayout } from "./components";
 import { flatRoutes, pageTypes } from "./router";
 import { useAtomValue } from "jotai";
@@ -83,14 +88,17 @@ function App() {
                   key={route.id}
                   path={route.path}
                   element={
-                    token || route.isPublic ? (
-                      <>
-                        {!route.breadcrumbForbidden && memoPageType !== 'noFrame' && <MyBreadcrumb />}
-                        {route.element}
-                      </>
-                    ) : (
-                      <Navigate to="/login" />
-                    )
+                    <LanguageProvider textKey={route.textKey || "Default"}>
+                      {token || route.isPublic ? (
+                        <>
+                          {!route.breadcrumbForbidden &&
+                            memoPageType !== "noFrame" && <MyBreadcrumb />}
+                          {route.element}
+                        </>
+                      ) : (
+                        <Navigate to="/login" />
+                      )}
+                    </LanguageProvider>
                   }
                 />
               ))}

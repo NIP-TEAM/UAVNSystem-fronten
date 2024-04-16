@@ -1,6 +1,6 @@
 import { Button, Card, Flex, Form, Input } from "antd";
 import { FC, useContext, useEffect, useState } from "react";
-import { useConfig } from "@/hooks";
+import { useLanguageContext } from "@/hooks";
 import { ForgetCardStyle } from "./style";
 import { Rule } from "rc-field-form/lib/interface";
 import { AppContext } from "@/App";
@@ -21,20 +21,20 @@ export const Forget: FC<ForgetProp> = () => {
     Number(localStorage.getItem(SECOUNDKEY) || 0)
   );
   const navigate = useNavigate();
-  const ForgetText = useConfig().useLanguage!<"Forget">("Forget");
+  const { LanguageText } = useLanguageContext<"Forget">()
 
   const rules: Record<string, Rule[]> = {
     email: [
-      { required: true, message: ForgetText.emailEmpty },
+      { required: true, message: LanguageText.emailEmpty },
       {
         pattern:
           /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
-        message: ForgetText.emailInvalid,
+        message: LanguageText.emailInvalid,
       },
     ],
     verify: [
-      { required: true, message: ForgetText.verifyCodeEmpty },
-      { pattern: /^\d+$/, message: ForgetText.verifyCodeInvalid },
+      { required: true, message: LanguageText.verifyCodeEmpty },
+      { pattern: /^\d+$/, message: LanguageText.verifyCodeInvalid },
     ],
   };
 
@@ -46,10 +46,10 @@ export const Forget: FC<ForgetProp> = () => {
   } = useVerifyCode({ email: forgetInfo.email });
   useEffect(() => {
     if (verificationCode === 200) {
-      messageApi?.success(ForgetText.verifySendFeedback);
+      messageApi?.success(LanguageText.verifySendFeedback);
       setHoldSecound(60);
     }
-  }, [verificationCode, messageApi, ForgetText.verifySendFeedback]);
+  }, [verificationCode, messageApi, LanguageText.verifySendFeedback]);
 
   useEffect(() => {
     if (verificationError) messageApi?.error(verificationError);
@@ -64,22 +64,22 @@ export const Forget: FC<ForgetProp> = () => {
 
   useEffect(() => {
     if (forgetInfoCode === 200) {
-      messageApi?.success(ForgetText.forgetSuccess);
+      messageApi?.success(LanguageText.forgetSuccess);
       setHoldSecound(0);
       setTimeout(() => navigate("/login"), 5000);
     }
-  }, [ForgetText.forgetSuccess, messageApi, navigate, forgetInfoCode]);
+  }, [LanguageText.forgetSuccess, messageApi, navigate, forgetInfoCode]);
 
   useEffect(() => {
     if (forgetInfoError) messageApi?.error(forgetInfoError);
   }, [forgetInfoError, messageApi]);
 
   const handleVerify = () => {
-    if (!forgetInfo.email) messageApi?.error(ForgetText.emailEmpty);
+    if (!forgetInfo.email) messageApi?.error(LanguageText.emailEmpty);
     else {
       const fieldErrors = form.getFieldsError(["email"]);
       if (fieldErrors.some((error) => error.errors.length > 0))
-        messageApi?.error(ForgetText.emailInvalid);
+        messageApi?.error(LanguageText.emailInvalid);
       else postVerification?.();
     }
   };
@@ -107,7 +107,7 @@ export const Forget: FC<ForgetProp> = () => {
 
   return (
     <Card style={ForgetCardStyle}>
-      <h1>{ForgetText.title}</h1>
+      <h1>{LanguageText.title}</h1>
       <Form
         form={form}
         onValuesChange={(_, newValue) => setForgetInfo(newValue)}
@@ -116,14 +116,14 @@ export const Forget: FC<ForgetProp> = () => {
         onFinish={onFinish}
       >
         <Form.Item
-          label={ForgetText.emailTitle}
+          label={LanguageText.emailTitle}
           name="email"
           rules={rules.email}
         >
           <Input style={{ width: "100%" }} />
         </Form.Item>
         <Form.Item
-          label={ForgetText.verifyTitle}
+          label={LanguageText.verifyTitle}
           name="verifyCode"
           rules={rules.verify}
         >
@@ -136,20 +136,20 @@ export const Forget: FC<ForgetProp> = () => {
               loading={verificationLoading}
             >
               {verificationLoading
-                ? ForgetText.verifySending
+                ? LanguageText.verifySending
                 : !holdSecond
-                ? ForgetText.verifySend
-                : `${ForgetText.verifyResend} ${holdSecond}s`}
+                ? LanguageText.verifySend
+                : `${LanguageText.verifyResend} ${holdSecond}s`}
             </Button>
           </Flex>
         </Form.Item>
        
         <Flex gap={3}>
           <Button type="primary" htmlType="submit" loading={forgetInfoLoading}>
-            {ForgetText.submitButton}
+            {LanguageText.submitButton}
           </Button>
           <Button type="link" onClick={() => navigate("/login")}>
-            {ForgetText.loginButton}
+            {LanguageText.loginButton}
           </Button>
         </Flex>
       </Form>

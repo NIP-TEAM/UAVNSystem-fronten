@@ -17,7 +17,7 @@ export const useMenuRoutes = (): MenuItem[] => {
     const _formateMenuItem = ({
       id,
       icon,
-      textKey,
+      labelKey,
       path,
       children,
     }: RouteItem): MenuItem => {
@@ -29,13 +29,13 @@ export const useMenuRoutes = (): MenuItem[] => {
       return {
         key: id,
         icon,
-        label: GlobalMenuText[textKey as TextKeys<"GlobalMenu">],
+        label: GlobalMenuText[labelKey as TextKeys<"GlobalMenu">],
         path,
         children: childrenFormate.length ? childrenFormate : undefined,
       };
     }
   
-    return ROUTES.filter(({ textKey }) => !!textKey).map((item) =>
+    return ROUTES.filter(({ labelKey }) => !!labelKey).map((item) =>
       _formateMenuItem(item)
     );
   };

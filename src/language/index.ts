@@ -7,6 +7,7 @@ export const LanguageTextJson = {
   Network: (await import("./pages/Network.json")).default,
   Uav: (await import("./pages/Uav.json")).default,
   NetworkDetail: (await import("./pages/NetworkDetail.json")).default,
+  NetworkStructure: (await import("./pages/NetworkStructure.json")).default,
 } as const;
 
 export type LanguageJsonSet = keyof typeof LanguageTextJson;

@@ -3,7 +3,7 @@ import { RouteItem } from "./types";
 
 export const findActiveRoute = (target: string): RouteItem | undefined => {
   const result = flatRoutes.find(({ path }) => path === target);
-  if (result && result?.textKey) return result;
+  if (result && result?.labelKey) return result;
   return findActiveRoute(target.split("/").slice(0, -1).join("/"));
 };
 

@@ -1,5 +1,4 @@
 import { BasicCard } from "@/components";
-import { LanguageProvider } from "@/hooks";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { DetailDescription, NetworkDetailHeader } from "./components";
 import { NetworkDataType, useNetworkDetail } from "@/service";
@@ -31,19 +30,21 @@ export const NetworkDetail: FC<NetworkDetailProp> = () => {
   }, [detailCode, detailData?.data]);
 
   const [editing, setEditing] = useState(false);
-  const [form] = Form.useForm<Partial<NetworkDataType>>()
+  const [form] = Form.useForm<Partial<NetworkDataType>>();
 
   return (
-    <LanguageProvider textKey="NetworkDetail">
-      <BasicCard loading={detailLoading}>
-        <Form form={form} onFinish={(value) => console.log(value)} initialValues={networkInfo}>
+    <BasicCard loading={detailLoading}>
+      <Form
+        form={form}
+        onFinish={(value) => console.log(value)}
+        initialValues={networkInfo}
+      >
         <NetworkDetailHeader
           {...{ name: networkInfo?.name, editing, setEditing }}
         />
         <Divider />
         <DetailDescription {...{ networkInfo, editing }} />
-        </Form>
-      </BasicCard>
-    </LanguageProvider>
+      </Form>
+    </BasicCard>
   );
 };
