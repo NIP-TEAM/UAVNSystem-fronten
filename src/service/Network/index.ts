@@ -27,7 +27,7 @@ export interface NetworkStructureProtocal {
     | "DSR"
     | "AODV"
     | "customer";
-  network?: {name: string, id: number}
+  networks?: {name: string, id: number}[]
   createAt: string
   updateAt: string
   creator?: {name: string, id: number}
