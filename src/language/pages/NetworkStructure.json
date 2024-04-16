@@ -2,5 +2,10 @@
     "structureTitle": {
         "en": "Network Structure",
         "zh": "网络结构"
+    },
+    "moreButton": {
+        "en": "More",
+        "zh": "更多"
     }
+    
 }

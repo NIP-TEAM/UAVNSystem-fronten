@@ -1,6 +1,6 @@
 import { DescriptionsProps } from "antd/es/descriptions";
 import { Button, Descriptions, Form, Input, Typography } from "antd";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useLanguageContext } from "@/hooks";
 import { NetworkDataType } from "@/service";
 import { useStatusDescription } from "@/pages/Network/hook";

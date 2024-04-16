@@ -19,7 +19,7 @@ import {
   SettingFilled,
 } from "@ant-design/icons";
 import { omit } from "lodash-es";
-import { NetworkDetail, NetworkType } from "@/pages/Network";
+import { NetworkDetail, NetworkStructure } from "@/pages/Network";
 import { CreateUav } from "@/pages/Uav";
 
 export const ROUTES: readonly RouteItem[] = [
@@ -86,7 +86,7 @@ export const ROUTES: readonly RouteItem[] = [
       },
       {
         id: "networkstructure",
-        element: <NetworkType />,
+        element: <NetworkStructure />,
         path: "/network/structure",
         labelKey: "networkstructure",
         textKey: "NetworkStructure"

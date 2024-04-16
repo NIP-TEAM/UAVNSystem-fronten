@@ -1,9 +1,9 @@
-import { useHttp } from "@/hooks";
+import { TextKeys, useHttp } from "@/hooks";
 import { BasicPagination } from "@/types";
 import { Key } from "react";
 
 export interface NetworkDataType {
-  id: string;
+  id: number;
   name: string;
   status: number;
   createAt: string;
@@ -13,6 +13,25 @@ export interface NetworkDataType {
     name: string;
     id: string;
   };
+}
+
+export interface NetworkStructureProtocal {
+  id: number;
+  name: string;
+  type:
+    | "LCAD"
+    | "DCR"
+    | "TBRPF"
+    | "OLSR"
+    | "DSDV"
+    | "DSR"
+    | "AODV"
+    | "customer";
+  network?: {name: string, id: number}
+  createAt: string
+  updateAt: string
+  creator?: {name: string, id: number}
+  feature: TextKeys<"StructureFeature">[]
 }
 
 export type DataControllerType = {
@@ -37,7 +56,15 @@ export const useDeleteNetworkData = (data: { ids: Key[] }) =>
     data,
   });
 
-export const useNetworkDetail = (id: string) => useHttp<NetworkDataType>({
-  url: "/network/" + id,
-  method: "get"
-})
+export const useNetworkDetail = (id: string) =>
+  useHttp<NetworkDataType>({
+    url: "/network/" + id,
+    method: "get",
+  });
+
+export const useNetworkStructure = (data: DataControllerType) =>
+  useHttp<NetworkStructureProtocal>({
+    url: "/network/structure",
+    method: "get",
+    data,
+  });

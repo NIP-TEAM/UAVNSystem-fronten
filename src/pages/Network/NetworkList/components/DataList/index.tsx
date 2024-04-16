@@ -36,7 +36,7 @@ export const DataList: FC<DataListProp> = ({
 }) => {
   const navigate = useNavigate();
   const { LanguageText } = useLanguageContext<"Network">();
-  const items = (currentId: string): ItemType[] => [
+  const items = (currentId: number): ItemType[] => [
     {
       key: "1",
       label: (

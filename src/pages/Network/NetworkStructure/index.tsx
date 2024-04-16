@@ -1,8 +1,14 @@
 import { BasicCard } from "@/components";
 import { FC } from "react";
+import { StructureHeader, StructureList } from "./components";
 
 export interface NetworkTypeProp {}
 
-export const NetworkType: FC<NetworkTypeProp> = () => {
-  return <BasicCard>111</BasicCard>;
+export const NetworkStructure: FC<NetworkTypeProp> = () => {
+  return (
+    <BasicCard>
+      <StructureHeader />
+      <StructureList />
+    </BasicCard>
+  );
 };
