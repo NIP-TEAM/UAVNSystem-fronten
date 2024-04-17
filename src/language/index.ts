@@ -4,6 +4,7 @@ export const LanguageTextJson = {
   Register: (await import("./pages/Register.json")).default,
   Forget: (await import("./pages/Forget.json")).default,
   GlobalMenu: (await import("./core/GlobalMenu.json")).default,
+  Dashboard: (await import("./pages/Dashboard.json")).default,
   Network: (await import("./pages/Network.json")).default,
   Uav: (await import("./pages/Uav.json")).default,
   NetworkDetail: (await import("./pages/NetworkDetail.json")).default,

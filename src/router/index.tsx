@@ -62,7 +62,7 @@ export const ROUTES: readonly RouteItem[] = [
     labelKey: "dashboard",
     icon: <PieChartFilled />,
     breadcrumbForbidden: true,
-    // textKey: "Dashboard"
+    textKey: "Dashboard"
   },
   {
     id: "network",

@@ -13,6 +13,11 @@ export interface NetworkDataType {
     name: string;
     id: string;
   };
+  connectMaps: string
+  protocol: {
+    name: string,
+    id: number
+  }
 }
 
 export interface ProtocolDataType {
@@ -68,13 +73,13 @@ export const useNetworkDetail = (id: string) =>
 
 export const useProtocolDataType = (data: DataControllerType) =>
   useHttp<BasicMetaType[], BasicMetaType>({
-    url: "/network/protocal",
+    url: "/protocal",
     method: "get",
     data,
   });
 
 export const useDeleteProtocal = (data: {id: number}) => useHttp({
-  url: "/network/protocal",
+  url: "/protocal",
   method: 'delete',
   data,
 })

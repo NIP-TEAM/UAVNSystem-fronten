@@ -1,12 +1,13 @@
-import { Button } from "antd";
 import { FC } from "react";
 import { useNavigate } from "react-router";
+import { NetworksStructure } from "./components";
 
 interface DashBoardProp {}
 
 export const DashBoard: FC<DashBoardProp> = () => {
     const navigate = useNavigate()
-    return <div style={{height: 1000}}>
-        <Button onClick={() => navigate('/uavs/create')}> test </Button>
-    </div>
+    return <>
+        DASHBOARD
+        <NetworksStructure />
+    </>
 }
