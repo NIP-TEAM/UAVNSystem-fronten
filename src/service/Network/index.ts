@@ -15,7 +15,7 @@ export interface NetworkDataType {
   };
 }
 
-export interface NetworkProtocal {
+export interface ProtocolDataType {
   id: number;
   name: string;
   type:
@@ -34,6 +34,10 @@ export interface NetworkProtocal {
   feature: TextKeys<"ProtocolFeature">[]
 }
 
+interface BasicMetaType {
+  pagination: BasicPagination
+}
+
 export type DataControllerType = {
   pagination: BasicPagination;
   filter: string;
@@ -43,7 +47,7 @@ export const useCreateNetwork = (data: Partial<NetworkDataType>) =>
   useHttp({ url: "/network", method: "post", data });
 
 export const useNetworkData = (data: DataControllerType) =>
-  useHttp<NetworkDataType[], { pagination: BasicPagination }>({
+  useHttp<NetworkDataType[], BasicMetaType>({
     url: "/network",
     method: "get",
     data,
@@ -62,8 +66,8 @@ export const useNetworkDetail = (id: string) =>
     method: "get",
   });
 
-export const useNetworkProtocol = (data: DataControllerType) =>
-  useHttp<NetworkProtocal>({
+export const useProtocolDataType = (data: DataControllerType) =>
+  useHttp<BasicMetaType[], BasicMetaType>({
     url: "/network/protocal",
     method: "get",
     data,

@@ -42,5 +42,17 @@
     "protocalTitle": {
         "en": "Protocal",
         "zh": "协议"
+    },
+    "defaultType": {
+        "en": "Defualt Protocol",
+        "zh": "内置协议"
+    },
+    "customerType": {
+        "en": "Custom Protocol",
+        "zh": "自定义协议"
+    },
+    "typePlaceholder": {
+        "en": "Type of protocol",
+        "zh": "协议类型"
     }
 }

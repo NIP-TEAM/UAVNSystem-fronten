@@ -1,46 +1,34 @@
 import { useLanguageContext } from "@/hooks";
-import { NetworkProtocal } from "@/service";
-import { Flex, Card, Dropdown, Typography, MenuProps } from "antd";
-import { FC } from "react";
+import { ProtocolDataType } from "@/service";
+import {
+  Flex,
+  Card,
+  Dropdown,
+  Typography,
+  MenuProps,
+  Spin,
+  Pagination,
+  Empty,
+} from "antd";
+import { Dispatch, FC } from "react";
 import { useNavigate } from "react-router";
-import { DeleteModal } from "./components";
+import { DeleteModal, Feature } from "./components";
+import { BasicPagination } from "@/types";
+import { SetStateAction } from "jotai";
 
-export interface ProtocolListProp {}
+export interface ProtocolListProp {
+  protocolData: ProtocolDataType[];
+  loading: boolean;
+  pagination: BasicPagination;
+  setPagination: Dispatch<SetStateAction<BasicPagination>>;
+}
 
-const protocolData: NetworkProtocal[] = [
-  {
-    id: 1,
-    name: "test",
-    type: "customer",
-    createAt: new Date().getTime().toString(),
-    updateAt: new Date().getTime().toString(),
-    networks: [
-      { name: "test1", id: 1 },
-      { name: "test2", id: 2 },
-      { name: "test3", id: 3 },
-    ],
-    creator: { name: "creator1", id: 1 },
-    feature: ["feature1"],
-  },
-  {
-    id: 2,
-    name: "test1",
-    type: "DCR",
-    createAt: new Date().getTime().toString(),
-    updateAt: new Date().getTime().toString(),
-    feature: ["feature1"],
-  },
-  {
-    id: 3,
-    name: "test2",
-    type: "LCAD",
-    createAt: new Date().getTime().toString(),
-    updateAt: new Date().getTime().toString(),
-    feature: ["feature1"],
-  },
-];
-
-export const ProtocolList: FC<ProtocolListProp> = () => {
+export const ProtocolList: FC<ProtocolListProp> = ({
+  protocolData,
+  loading,
+  pagination,
+  setPagination,
+}) => {
   const navigate = useNavigate();
   const { LanguageText } = useLanguageContext<"NetworkProtocol">();
   const actionItems = (currentId: number): MenuProps["items"] => [
@@ -56,55 +44,79 @@ export const ProtocolList: FC<ProtocolListProp> = () => {
   ];
 
   return (
-    <Flex
-      align="center"
-      justify="flex-start"
-      wrap="wrap"
-      gap="large"
-      style={{ minWidth: 1024 }}
-    >
-      {protocolData.map((item) => (
-        <Card
-          key={item.id}
-          title={LanguageText.protocalTitle + " : " + item.name}
-          style={{
-            width: "calc(94% /3)",
-          }}
-          hoverable
-          cover={
-            <div
+    <Spin spinning={loading}>
+      <Flex
+        align="center"
+        justify="flex-start"
+        wrap="wrap"
+        gap="large"
+        style={{ minWidth: 1024, marginBottom: 10 }}
+      >
+        {protocolData.length ? (
+          protocolData.map((item) => (
+            <Card
+              key={item.id}
+              title={LanguageText.protocalTitle + " : " + item.name}
               style={{
-                overflow: "auto",
-                padding: "0.5em 1.5em",
+                width: "calc(94% /3)",
               }}
-            >
-              <Typography>
-                <Typography.Text strong>
-                  {LanguageText.usageNework}
-                </Typography.Text>
-                {item?.networks?.map((networkItem, index) => (
-                  <Typography.Link onClick={() => navigate('/network/' + networkItem.id)}>
-                    {networkItem.name}
-                    {index !== (item?.networks?.length || 0) - 1 ? ", " : " "}
-                  </Typography.Link>
-                ))}
-              </Typography>
-            </div>
-          }
-          extra={
-            <>
-              <Dropdown
-                menu={{
-                  items: actionItems(item.id),
-                }}
-                trigger={["click"]}
-              >
-                <Typography.Link>{LanguageText.moreButton}</Typography.Link>
-              </Dropdown>
-            </>
-          }
-        />
-      ))}
-    </Flex>
+              hoverable
+              cover={
+                <div
+                  style={{
+                    overflow: "auto",
+                    padding: "0.5em 1.5em",
+                  }}
+                >
+                  <Typography>
+                    <Typography.Text strong>
+                      {LanguageText.usageNework}
+                    </Typography.Text>
+                    {item?.networks?.map((networkItem, index) => (
+                      <Typography.Link
+                        key={networkItem.id}
+                        onClick={() => navigate("/network/" + networkItem.id)}
+                      >
+                        {networkItem.name}
+                        {index !== (item?.networks?.length || 0) - 1
+                          ? ", "
+                          : " "}
+                      </Typography.Link>
+                    ))}
+                  </Typography>
+                  <Feature featureList={item.feature || []} />
+                </div>
+              }
+              extra={
+                <>
+                  <Dropdown
+                    menu={{
+                      items: actionItems(item.id),
+                    }}
+                    trigger={["click"]}
+                  >
+                    <Typography.Link>{LanguageText.moreButton}</Typography.Link>
+                  </Dropdown>
+                </>
+              }
+            />
+          ))
+        ) : (
+          <Empty />
+        )}
+      </Flex>
+      <Pagination
+        pageSizeOptions={[5, 10, 20, 50]}
+        {...pagination}
+        showSizeChanger
+        onChange={(current, pageSize) =>
+          setPagination((prev) => ({
+            ...prev,
+            current,
+            pageSize,
+          }))
+        }
+      />
+    </Spin>
   );
 };
