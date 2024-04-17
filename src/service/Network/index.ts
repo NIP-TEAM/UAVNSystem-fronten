@@ -15,7 +15,7 @@ export interface NetworkDataType {
   };
 }
 
-export interface NetworkStructureProtocal {
+export interface NetworkProtocal {
   id: number;
   name: string;
   type:
@@ -31,7 +31,7 @@ export interface NetworkStructureProtocal {
   createAt: string
   updateAt: string
   creator?: {name: string, id: number}
-  feature: TextKeys<"StructureFeature">[]
+  feature: TextKeys<"ProtocolFeature">[]
 }
 
 export type DataControllerType = {
@@ -62,9 +62,15 @@ export const useNetworkDetail = (id: string) =>
     method: "get",
   });
 
-export const useNetworkStructure = (data: DataControllerType) =>
-  useHttp<NetworkStructureProtocal>({
-    url: "/network/structure",
+export const useNetworkProtocol = (data: DataControllerType) =>
+  useHttp<NetworkProtocal>({
+    url: "/network/protocal",
     method: "get",
     data,
   });
+
+export const useDeleteProtocal = (data: {id: number}) => useHttp({
+  url: "/network/protocal",
+  method: 'delete',
+  data,
+})

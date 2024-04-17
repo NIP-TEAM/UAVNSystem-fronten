@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 import { DeleteTip } from "./components";
 import { FilterType } from "../../types";
 import { SorterResult } from "antd/es/table/interface";
-import { useStatusDescription } from "@/pages/Network/hook";
+import { useStatusDescription } from "@/pages/Network/hooks";
 import { basicTimeFormate } from "@/utils";
 
 export interface DataListProp {

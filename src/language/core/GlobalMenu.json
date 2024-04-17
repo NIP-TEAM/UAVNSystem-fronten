@@ -27,8 +27,8 @@
     "en": "Network Detail",
     "zh": "网络详情"
   },
-  "networkstructure": {
-    "en": "Structure",
-    "zh": "结构"
+  "networkprotocol": {
+    "en": "Protocol",
+    "zh": "协议"
   }
 }

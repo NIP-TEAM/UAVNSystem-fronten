@@ -1,3 +1,3 @@
 export * from './NetworkDetail'
 export * from './NetworkList'
-export * from './NetworkStructure'
+export * from './NetworkProtocol'

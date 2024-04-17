@@ -19,7 +19,7 @@ import {
   SettingFilled,
 } from "@ant-design/icons";
 import { omit } from "lodash-es";
-import { NetworkDetail, NetworkStructure } from "@/pages/Network";
+import { NetworkDetail, NetworkProtocol } from "@/pages/Network";
 import { CreateUav } from "@/pages/Uav";
 
 export const ROUTES: readonly RouteItem[] = [
@@ -39,21 +39,21 @@ export const ROUTES: readonly RouteItem[] = [
     element: <Login />,
     path: "/login",
     isPublic: true,
-    textKey: "Login"
+    textKey: "Login",
   },
   {
     id: "forget",
     element: <Forget />,
     path: "/forget",
     isPublic: true,
-    textKey: "Forget"
+    textKey: "Forget",
   },
   {
     id: "register",
     element: <Register />,
     path: "/register",
     isPublic: true,
-    textKey: "Register"
+    textKey: "Register",
   },
   {
     id: "dashboard",
@@ -82,14 +82,14 @@ export const ROUTES: readonly RouteItem[] = [
         element: <NetworkList />,
         path: "/network/center",
         labelKey: "networkcenter",
-        textKey: "Network"
+        textKey: "Network",
       },
       {
-        id: "networkstructure",
-        element: <NetworkStructure />,
-        path: "/network/structure",
-        labelKey: "networkstructure",
-        textKey: "NetworkStructure"
+        id: "networkProtocol",
+        element: <NetworkProtocol />,
+        path: "/network/protocol",
+        labelKey: "networkprotocol",
+        textKey: "NetworkProtocol",
       },
     ],
   },
@@ -101,7 +101,12 @@ export const ROUTES: readonly RouteItem[] = [
     textKey: "Uav",
     icon: <ClusterOutlined />,
     children: [
-      { id: "createUav", element: <CreateUav />, path: "/uavs/create" },
+      {
+        id: "createUav",
+        element: <CreateUav />,
+        path: "/uavs/create",
+        textKey: "Uav",
+      },
     ],
   },
   {

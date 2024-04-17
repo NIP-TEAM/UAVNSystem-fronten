@@ -3,7 +3,7 @@ import { Button, Descriptions, Form, Input, Typography } from "antd";
 import { FC } from "react";
 import { useLanguageContext } from "@/hooks";
 import { NetworkDataType } from "@/service";
-import { useStatusDescription } from "@/pages/Network/hook";
+import { useStatusDescription } from "@/pages/Network/hooks";
 import { basicTimeFormate } from "@/utils";
 import { useNavigate } from "react-router";
 
