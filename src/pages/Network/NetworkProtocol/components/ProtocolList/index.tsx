@@ -94,6 +94,7 @@ export const ProtocolList: FC<ProtocolListProp> = ({
                       items: actionItems(item.id),
                     }}
                     trigger={["click"]}
+                    disabled={item.type !== 'customer'}
                   >
                     <Typography.Link>{LanguageText.moreButton}</Typography.Link>
                   </Dropdown>
