@@ -17,11 +17,17 @@ export const NetworksStructure: FC<NetworksStructureProp> = () => {
   const [pagination, setPagination] = useState();
   return (
     <BasicCard>
-      <Typography.Title level={5} style={{ margin: 0 }}>
+      <Typography.Title level={5} style={{ marginTop: 0 }}>
         {LanguageText.structureTitle}
       </Typography.Title>
-      <Flex style={{ width: "100%", overflowX: "auto" }} gap="small">
-        <BasicCard>
+      <Flex style={{ width: "100%", overflowX: "auto", padding: '1em 0' }} gap="small">
+        <BasicCard hoverable>
+            <NetworkStructure
+              {...{ connectMap: "[[1,2],[2,3],[3,4],[1,4],[0,1],[2,1]]", style: {width: '24em', height: '10em'} }}
+            />
+          name
+        </BasicCard>
+        {/* <BasicCard>
           name
           <NetworkStructure
             {...{ connectMap: "[[1,2],[2,3],[3,4],[1,4],[0,1],[2,1]]" }}
@@ -62,13 +68,7 @@ export const NetworksStructure: FC<NetworksStructureProp> = () => {
           <NetworkStructure
             {...{ connectMap: "[[1,2],[2,3],[3,4],[1,4],[0,1],[2,1]]" }}
           />
-        </BasicCard>
-        <BasicCard>
-          name
-          <NetworkStructure
-            {...{ connectMap: "[[1,2],[2,3],[3,4],[1,4],[0,1],[2,1]]" }}
-          />
-        </BasicCard>
+        </BasicCard> */}
       </Flex>
     </BasicCard>
   );
