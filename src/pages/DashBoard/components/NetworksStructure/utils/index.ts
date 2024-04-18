@@ -1,5 +1,8 @@
 import { shuffle } from "lodash-es";
 
+const _generateRandomNumber = (min: number = -25, max: number = 25): number =>
+  Math.random() * (max - min + 1) + min;
+
 // TODO: optimized this
 export const mytest = (total: number) => {
   let currentPointCount = 3;
@@ -13,8 +16,8 @@ export const mytest = (total: number) => {
       const angle = ((Math.PI / 6) * 5) / currentPointCount;
       for (let i = 1; i <= currentPointCount; i++) {
         dataArray.push({
-          x: -radius * Math.cos(i * angle),
-          y: -radius * Math.sin(i * angle),
+          x: _generateRandomNumber() - radius * Math.cos(i * angle),
+          y: _generateRandomNumber() - radius * Math.sin(i * angle),
         });
       }
       circle++;
@@ -22,5 +25,5 @@ export const mytest = (total: number) => {
       dataArray = shuffle(dataArray);
     } while (sum < total);
   }
-  return (index: number) => dataArray[index]
+  return (index: number) => dataArray[index];
 };
