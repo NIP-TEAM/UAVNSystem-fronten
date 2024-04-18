@@ -1,22 +1,26 @@
-const _normalization = (
-  target: number,
-  max: number,
-  min: number,
-  rate: number = 100
-) => ((target - min) / (max - min)) * rate;
+import { shuffle } from "lodash-es";
 
-export const positionFormate = (
-  currentPos: [number, number],
-  maxPos: [number, number],
-  minPos: [number, number]
-) => {
-  if (currentPos[0] === 0)
-    return {
-      x: _normalization((maxPos[0] - minPos[0]) / 2, maxPos[0], minPos[0]),
-      y: _normalization((maxPos[1] - minPos[1]) / 2, maxPos[1], minPos[1])
-    };
-  return {
-    x: _normalization(currentPos[0], maxPos[0], minPos[0]),
-    y: _normalization(currentPos[1], maxPos[1], minPos[1]),
-  };
+// TODO: optimized this
+export const mytest = (total: number) => {
+  let currentPointCount = 3;
+  let sum = 0;
+  const initRadius = 300;
+  let circle = 1;
+  let dataArray: { x: number; y: number }[] = [];
+  if (dataArray.length === 0) {
+    do {
+      const radius = initRadius * circle;
+      const angle = ((Math.PI / 6) * 5) / currentPointCount;
+      for (let i = 1; i <= currentPointCount; i++) {
+        dataArray.push({
+          x: -radius * Math.cos(i * angle),
+          y: -radius * Math.sin(i * angle),
+        });
+      }
+      circle++;
+      sum += currentPointCount++;
+      dataArray = shuffle(dataArray);
+    } while (sum < total);
+  }
+  return (index: number) => dataArray[index]
 };
