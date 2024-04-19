@@ -3,8 +3,7 @@ import { shuffle } from "lodash-es";
 const _generateRandomNumber = (min: number = -25, max: number = 25): number =>
   Math.random() * (max - min + 1) + min;
 
-// TODO: optimized this
-export const mytest = (total: number) => {
+export const PositionInit = (total: number) => {
   let currentPointCount = 3;
   let sum = 0;
   const initRadius = 300;

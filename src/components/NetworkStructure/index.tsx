@@ -1,29 +1,55 @@
-import { CSSProperties, FC } from "react";
+import { CSSProperties, FC, useContext, useEffect, useMemo } from "react";
 import { EChartsOption } from "echarts";
 import ReactCharts from "echarts-for-react";
-import { mytest } from "@/pages/DashBoard/components/NetworksStructure/utils";
+import { PositionInit } from "@/pages/DashBoard/components/NetworksStructure/utils";
+import { useNavigate } from "react-router";
+import { Spin } from "antd";
+import { EntityDatatype, useGetEntity } from "@/service/Entity";
+import { AppContext } from "@/App";
+import { GraphNodeItemOption } from "echarts/types/src/chart/graph/GraphSeries.js";
+import { useConfig } from "@/hooks";
+import { useAtomValue } from "jotai";
+import { THEMESNAME, themeAtom } from "@/store/Theme";
 
 export interface NetworkStructureProp {
-  title?: string;
   style?: CSSProperties;
   connectMap: string;
   uavs: { name: string; id: number }[];
+  showDetail?: boolean;
 }
 
 export const NetworkStructure: FC<NetworkStructureProp> = ({
   connectMap,
   style,
-  title,
   uavs,
+  showDetail,
 }) => {
-  const connectArray: [number, number][] = JSON.parse(connectMap || "[]");
+  const { messageApi } = useContext(AppContext);
+  const theme = useAtomValue(themeAtom)
+  const LanguageText = useConfig?.().useLanguage!<"NetworkStructure">("NetworkStructure")
+  const navigete = useNavigate();
+  const getPosition = PositionInit(uavs.length);
 
-  const getPosition = mytest(uavs.length);
+  const {
+    fetchData: fetchEntityData,
+    code: entityCode,
+    loading: entityLoading,
+    data: entityDataData,
+    error: entityError,
+  } = useGetEntity({ maps: connectMap });
+  useEffect(() => {
+    if (entityError) messageApi?.error(entityError);
+  }, [messageApi, entityError]);
+  useEffect(() => {
+    fetchEntityData?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const entityData = useMemo<EntityDatatype[]>(() => {
+    if (entityDataData?.data && entityCode === 200) return entityDataData.data;
+    return [];
+  }, [entityCode, entityDataData?.data]);
 
   const option: EChartsOption = {
-    title: {
-      text: title,
-    },
     series: [
       {
         type: "graph",
@@ -32,95 +58,75 @@ export const NetworkStructure: FC<NetworkStructureProp> = ({
         label: {
           show: true,
         },
-        edgeSymbol: ["circle", "arrow"],
-        edgeSymbolSize: [4, 10],
+        roam: !!showDetail,
+        edgeSymbol: ["arrow"],
+        edgeSymbolSize: [4],
         edgeLabel: {
-          fontSize: 20,
+          fontSize: 10,
+          formatter: ({ value }) =>
+            showDetail ? value?.toString() + "kb/s" || "" : "",
         },
         data: [
           {
-            name: "base",
+            name: LanguageText.BaseName,
             x: 0,
             y: 0,
             id: "0",
+            symbol: `image://base${theme === THEMESNAME.dark ? '.black' : ''}.svg`,
             symbolSize: 20,
-            fixed: true,
+            label: {
+                position: 'right'
+            }
           },
           ...uavs.map((item, index) => ({
             ...item,
             id: item.id.toString(),
             ...getPosition(index),
-            symbolSize: 20,
-            fixed: true,
-          })),
+            label: {
+                position: 'bottom',
+                distance: 0
+            },
+            symbol: `image://uav${theme === THEMESNAME.dark ? '.black' : ''}.svg`,
+            symbolSize: 32,
+          } as GraphNodeItemOption)),
         ],
-        links: 
-          // {
-          //   source: '0',
-          //   target: '1',
-          // },
-          // {
-          //   source: '0',
-          //   target: '3',
-          // },
-          connectArray.map(([from, to]) => ({
-            source: from.toString(),
-            target: to.toString(),
-          }))
-        ,
-        // data: [
-        //   {
-        //     name: 'Node 1',
-        //     x: 300,
-        //     y: 300
-        //   },
-        //   {
-        //     name: 'Node 2',
-        //     x: 800,
-        //     y: 300
-        //   },
-        //   {
-        //     name: 'Node 3',
-        //     x: 550,
-        //     y: 100
-        //   },
-        //   {
-        //     name: 'Node 4',
-        //     x: 550,
-        //     y: 500
-        //   }
-        // ],
-        // // links: [],
-        // links: [
-        //   {
-        //     source: 0,
-        //     target: 1,
-            
-        //   },
-        //   {
-        //     source: 'Node 2',
-        //     target: 'Node 1',
-        //   },
-        //   {
-        //     source: 'Node 1',
-        //     target: 'Node 3'
-        //   },
-        //   {
-        //     source: 'Node 2',
-        //     target: 'Node 3'
-        //   },
-        //   {
-        //     source: 'Node 2',
-        //     target: 'Node 4'
-        //   },
-        //   {
-        //     source: 'Node 1',
-        //     target: 'Node 4'
-        //   }
-        // ],
-      }
+        links: entityData.map(({ map: [from, to], status, speed }) => ({
+          target: from.toString(),
+          source: to.toString(),
+          lineStyle: {
+            ...(status ? {} : { color: "red" }),
+            curveness: 0.03,
+          },
+          value: speed,
+          label: {
+            show: status,
+          },
+        })),
+      },
     ],
   };
 
-  return <ReactCharts option={option} style={style} />;
+  const click = ({
+    data: { id },
+    event: { event },
+  }: {
+    data: { id: string };
+    event: { event: PointerEvent };
+  }) => {
+    event.stopPropagation();
+    if (!Number(id)) return;
+    navigete("/uavs/" + id);
+  };
+
+  return (
+    <Spin spinning={entityLoading}>
+      <ReactCharts
+        option={option}
+        style={style}
+        onEvents={{
+          click,
+        }}
+      />
+    </Spin>
+  );
 };

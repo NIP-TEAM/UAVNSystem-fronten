@@ -208,7 +208,7 @@ export const DataList: FC<DataListProp> = ({
             style={{ margin: 0, padding: 0 }}
             onClick={() => {
               storageFunc();
-              navigate(`/network/${record.id}`);
+              navigate(`/uavs/${record.id}`);
             }}
           >
             {LanguageText.detail}

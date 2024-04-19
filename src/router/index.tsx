@@ -20,7 +20,7 @@ import {
 } from "@ant-design/icons";
 import { omit } from "lodash-es";
 import { NetworkDetail, NetworkProtocol } from "@/pages/Network";
-import { CreateUav } from "@/pages/Uav";
+import { CreateUav, UavDetail } from "@/pages/Uav";
 
 export const ROUTES: readonly RouteItem[] = [
   {
@@ -107,6 +107,12 @@ export const ROUTES: readonly RouteItem[] = [
         path: "/uavs/create",
         textKey: "Uav",
       },
+      {
+        id: "uavdetail",
+        element: <UavDetail />,
+        path: "/uavs/:id",
+        // textKey: "UavDetail"
+      }
     ],
   },
   {

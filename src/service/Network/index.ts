@@ -13,7 +13,8 @@ export interface NetworkDataType {
     name: string;
     id: string;
   };
-  connectMaps: string
+  connectMap: string;
+  uavs: {name: string, id: number}[]
   protocol: {
     name: string,
     id: number
@@ -46,6 +47,7 @@ interface BasicMetaType {
 export type DataControllerType = {
   pagination: BasicPagination;
   filter: string;
+  selectKeys?: string;
 };
 
 export const useCreateNetwork = (data: Partial<NetworkDataType>) =>
