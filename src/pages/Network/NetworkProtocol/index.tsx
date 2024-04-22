@@ -6,8 +6,15 @@ import { ProtocolDataType, useNetworkProtocol } from "@/service";
 import { BasicPagination } from "@/types";
 import { AppContext } from "@/App";
 import { FilterType } from "./types";
+import {
+  SessionKeys,
+  getSessionStorageUtil,
+  sessionStorageUtil,
+} from "@/utils";
 
 export interface NetworkTypeProp {}
+
+const sessionKey = SessionKeys.PROTOCOL;
 
 const protocolData: ProtocolDataType[] = [
   {
@@ -48,14 +55,14 @@ const defaltPagination: BasicPagination = {
   total: 10,
 } as const;
 
-const loading = false
+const loading = false;
 
 export const NetworkProtocol: FC<NetworkTypeProp> = () => {
-  const [filter, setFilter] = useState<FilterType>({
-    searchKey: '',
-    type: '',
-  });
-  const [pagination, setPagination] = useState<BasicPagination>(defaltPagination)
+  const [filter, setFilter] = useState<FilterType>(
+    getSessionStorageUtil<FilterType>(SessionKeys.PROTOCOL) || {}
+  );
+  const [pagination, setPagination] =
+    useState<BasicPagination>(defaltPagination);
   // const { fetchData, data, loading, error, code } = useNetworkProtocol({
   //   pagination,
   //   filter: JSON.stringify(filter || {}),
@@ -76,12 +83,19 @@ export const NetworkProtocol: FC<NetworkTypeProp> = () => {
   //   if (!error) return;
   //   messageApi?.error(error);
   // }, [error, messageApi]);
+  const storageFunc = () => sessionStorageUtil(sessionKey, filter);
+
+  useEffect(() => {
+    sessionStorage.removeItem(SessionKeys.PROTOCOL)
+  }, [])
 
   return (
     <BasicCard style={{ overflowX: "auto" }}>
-      <ProtocolHeader {...{setFilter }} />
+      <ProtocolHeader {...{ setFilter }} />
       <Divider />
-      <ProtocolList {...{ protocolData, pagination, setPagination, loading }} />
+      <ProtocolList
+        {...{ protocolData, pagination, setPagination, loading, storageFunc }}
+      />
     </BasicCard>
   );
 };

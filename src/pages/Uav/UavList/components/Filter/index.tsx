@@ -8,6 +8,7 @@ import {
   CategoryOptions,
   categoryOptions,
 } from "./components/FormFieldItem/selectOptions";
+import { SessionKeys } from "@/utils";
 
 export interface FilterProp {
   initParams?: FilterType;
@@ -75,6 +76,7 @@ export const Filter: FC<FilterProp> = ({
         })
       ),
     });
+    sessionStorage.removeItem(SessionKeys.UAV)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

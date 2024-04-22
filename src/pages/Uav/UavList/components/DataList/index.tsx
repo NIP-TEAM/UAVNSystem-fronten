@@ -125,7 +125,10 @@ export const DataList: FC<DataListProp> = ({
       render: (_, { networkInfo }) => (
         <Button
           type="link"
-          onClick={() => navigate("/network/" + networkInfo.id)}
+          onClick={() => {
+            storageFunc();
+            navigate("/network/" + networkInfo.id);
+          }}
         >
           {networkInfo.name}
         </Button>
@@ -192,9 +195,7 @@ export const DataList: FC<DataListProp> = ({
       align: "center",
       ellipsis: true,
       sorter: true,
-      render: (_, { createAt }) => (
-        <>{basicTimeFormate(createAt)}</>
-      ),
+      render: (_, { createAt }) => <>{basicTimeFormate(createAt)}</>,
     },
     {
       title: LanguageText.action,

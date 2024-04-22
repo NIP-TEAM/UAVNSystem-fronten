@@ -30,11 +30,11 @@ export const UavList: FC<UavListProp> = () => {
   const { messageApi } = useContext(AppContext);
 
   const [pagination, setPagination] = useState<BasicPagination>(
-    getSessionStorageUtil<StorageProtocol>(sessionKey).pagination ||
+    getSessionStorageUtil<StorageProtocol>(sessionKey)?.pagination ||
       defaltPagination
   );
   const [filter, setFilter] = useState<FilterType>(
-    getSessionStorageUtil<StorageProtocol>(sessionKey).filter
+    getSessionStorageUtil<StorageProtocol>(sessionKey)?.filter || {}
   );
 
   const [timestamp, setTimestamp] = useState(0);

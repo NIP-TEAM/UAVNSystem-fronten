@@ -21,6 +21,7 @@ export interface ProtocolListProp {
   loading: boolean;
   pagination: BasicPagination;
   setPagination: Dispatch<SetStateAction<BasicPagination>>;
+  storageFunc: () => void;
 }
 
 export const ProtocolList: FC<ProtocolListProp> = ({
@@ -28,6 +29,7 @@ export const ProtocolList: FC<ProtocolListProp> = ({
   loading,
   pagination,
   setPagination,
+  storageFunc,
 }) => {
   const navigate = useNavigate();
   const { LanguageText } = useLanguageContext<"NetworkProtocol">();
@@ -39,7 +41,10 @@ export const ProtocolList: FC<ProtocolListProp> = ({
     {
       key: "edit",
       label: LanguageText.editLink,
-      onClick: () => navigate("/network/Protocol/edit"),
+      onClick: () => {
+        storageFunc();
+        navigate("/network/Protocol/edit");
+      },
     },
   ];
 
@@ -75,7 +80,10 @@ export const ProtocolList: FC<ProtocolListProp> = ({
                     {item?.networks?.map((networkItem, index) => (
                       <Typography.Link
                         key={networkItem.id}
-                        onClick={() => navigate("/network/" + networkItem.id)}
+                        onClick={() => {
+                          storageFunc();
+                          navigate("/network/" + networkItem.id);
+                        }}
                       >
                         {networkItem.name}
                         {index !== (item?.networks?.length || 0) - 1
@@ -94,7 +102,7 @@ export const ProtocolList: FC<ProtocolListProp> = ({
                       items: actionItems(item.id),
                     }}
                     trigger={["click"]}
-                    disabled={item.type !== 'customer'}
+                    disabled={item.type !== "customer"}
                   >
                     <Typography.Link>{LanguageText.moreButton}</Typography.Link>
                   </Dropdown>

@@ -29,11 +29,11 @@ const sessionKey = SessionKeys.NETWORK;
 
 export const NetworkList: FC<NetworkListProp> = () => {
   const [pagination, setPagination] = useState<BasicPagination>(
-    getSessionStorageUtil<StorageProtocol>(sessionKey).pagination ||
+    getSessionStorageUtil<StorageProtocol>(sessionKey)?.pagination ||
       defaltPagination
   );
   const [filter, setFilter] = useState<FilterType>(
-    getSessionStorageUtil<StorageProtocol>(sessionKey).filter
+    getSessionStorageUtil<StorageProtocol>(sessionKey)?.filter || {}
   );
 
   const [timestamp, setTimestamp] = useState(0);
