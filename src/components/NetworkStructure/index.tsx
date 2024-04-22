@@ -3,7 +3,7 @@ import { EChartsOption } from "echarts";
 import ReactCharts from "echarts-for-react";
 import { PositionInit } from "@/pages/DashBoard/components/NetworksStructure/utils";
 import { useNavigate } from "react-router";
-import { Spin } from "antd";
+import { Empty, Spin } from "antd";
 import { EntityDatatype, useGetEntity } from "@/service/Entity";
 import { AppContext } from "@/App";
 import { GraphNodeItemOption } from "echarts/types/src/chart/graph/GraphSeries.js";
@@ -19,14 +19,15 @@ export interface NetworkStructureProp {
 }
 
 export const NetworkStructure: FC<NetworkStructureProp> = ({
-  connectMap,
+  connectMap = "",
   style,
-  uavs,
+  uavs = [],
   showDetail,
 }) => {
   const { messageApi } = useContext(AppContext);
-  const theme = useAtomValue(themeAtom)
-  const LanguageText = useConfig?.().useLanguage!<"NetworkStructure">("NetworkStructure")
+  const theme = useAtomValue(themeAtom);
+  const LanguageText =
+    useConfig?.().useLanguage!<"NetworkStructure">("NetworkStructure");
   const navigete = useNavigate();
   const getPosition = PositionInit(uavs.length);
 
@@ -72,23 +73,30 @@ export const NetworkStructure: FC<NetworkStructureProp> = ({
             x: 0,
             y: 0,
             id: "0",
-            symbol: `image://base${theme === THEMESNAME.dark ? '.black' : ''}.svg`,
+            symbol: `image://base${
+              theme === THEMESNAME.dark ? ".black" : ""
+            }.svg`,
             symbolSize: 20,
             label: {
-                position: 'right'
-            }
-          },
-          ...uavs.map((item, index) => ({
-            ...item,
-            id: item.id.toString(),
-            ...getPosition(index),
-            label: {
-                position: 'bottom',
-                distance: 0
+              position: "right",
             },
-            symbol: `image://uav${theme === THEMESNAME.dark ? '.black' : ''}.svg`,
-            symbolSize: 32,
-          } as GraphNodeItemOption)),
+          },
+          ...uavs.map(
+            (item, index) =>
+              ({
+                ...item,
+                id: item.id.toString(),
+                ...getPosition(index),
+                label: {
+                  position: "bottom",
+                  distance: 0,
+                },
+                symbol: `image://uav${
+                  theme === THEMESNAME.dark ? ".black" : ""
+                }.svg`,
+                symbolSize: 32,
+              } as GraphNodeItemOption)
+          ),
         ],
         links: entityData.map(({ map: [from, to], status, speed }) => ({
           target: from.toString(),
@@ -120,13 +128,17 @@ export const NetworkStructure: FC<NetworkStructureProp> = ({
 
   return (
     <Spin spinning={entityLoading}>
-      <ReactCharts
-        option={option}
-        style={style}
-        onEvents={{
-          click,
-        }}
-      />
+      {uavs?.length ? (
+        <ReactCharts
+          option={option}
+          style={style}
+          onEvents={{
+            click,
+          }}
+        />
+      ) : (
+        <Empty />
+      )}
     </Spin>
   );
 };

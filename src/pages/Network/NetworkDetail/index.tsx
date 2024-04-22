@@ -1,10 +1,10 @@
-import { BasicCard } from "@/components";
+import { BasicCard, NetworkStructure } from "@/components";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { DetailDescription, NetworkDetailHeader } from "./components";
 import { NetworkDataType, useNetworkDetail } from "@/service";
 import { useParams } from "react-router";
 import { AppContext } from "@/App";
-import { Divider, Form } from "antd";
+import { Card, Divider, Form } from "antd";
 
 interface NetworkDetailProp {}
 
@@ -45,6 +45,9 @@ export const NetworkDetail: FC<NetworkDetailProp> = () => {
         <Divider />
         <DetailDescription {...{ networkInfo, editing }} />
       </Form>
+      <Card>
+        <NetworkStructure {...networkInfo!} />
+      </Card>
     </BasicCard>
   );
 };

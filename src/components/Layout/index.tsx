@@ -1,5 +1,5 @@
 import { FC, ReactNode, useState } from "react";
-import { Button, Flex, Layout, theme } from "antd";
+import { Button, Layout, theme } from "antd";
 import { LoginLayoutStyle } from "./style";
 import { LanguageSwitch } from "@/components";
 import { TranslationOutlined } from "@ant-design/icons";
@@ -27,19 +27,15 @@ export const AppLayout: FC<AppLayoutProp> = ({ children, pageType }) => {
       </Layout>
     </Layout>
   ) : (
-    <Layout.Content style={LoginLayoutStyle}>
-      <div>
-        {children}
-        <Flex justify="center">
-          <LanguageSwitch>
-            <Button
-              type="link"
-              icon={<TranslationOutlined />}
-              title="Switch language"
-            />
-          </LanguageSwitch>
-        </Flex>
-      </div>
-    </Layout.Content>
+    <Layout style={LoginLayoutStyle}>
+      {children}
+      <LanguageSwitch>
+        <Button
+          type="link"
+          icon={<TranslationOutlined />}
+          title="Switch language"
+        />
+      </LanguageSwitch>
+    </Layout>
   );
 };
