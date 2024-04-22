@@ -2,27 +2,16 @@ import { AppContext } from "@/App";
 import { BasicCard, NetworkStructure } from "@/components";
 import { useLanguageContext } from "@/hooks";
 import { NetworkDataType, useNetworkData } from "@/service";
-import { BasicPagination } from "@/types";
-import { Flex, Typography } from "antd";
-import { FC, useContext, useEffect, useMemo, useState } from "react";
+import { Empty, Flex, Typography } from "antd";
+import { FC, useContext, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router";
 
 export interface NetworksStructureProp {}
-
-const defaultPagination: BasicPagination = {
-  current: 1,
-  pageSize: 10,
-  total: 10,
-} as const;
-
-const pageSize = 10;
 
 export const NetworksStructure: FC<NetworksStructureProp> = () => {
   const { messageApi } = useContext(AppContext);
   const navigate = useNavigate();
   const { LanguageText } = useLanguageContext<"Dashboard">();
-
-  const [pagination, setPagination] = useState(defaultPagination);
 
   const {
     fetchData: fetchNetworkData,
@@ -31,8 +20,13 @@ export const NetworksStructure: FC<NetworksStructureProp> = () => {
     data: networkDataData,
     loading: networkLoading,
   } = useNetworkData({
-    pagination,
-    filter: "",
+    pagination: { pageSize: 8, current: 1, total: 8 },
+    filter: JSON.stringify({
+      filters: {
+        connectMap: { quantifier: "isNot", content: ["empty"] },
+        uavs: { quantifier: "isNot", content: ["empty"] },
+      },
+    }),
     selectKeys: JSON.stringify([
       "uavs",
       "connectMap",
@@ -64,7 +58,7 @@ export const NetworksStructure: FC<NetworksStructureProp> = () => {
         style={{ width: "100%", overflowX: "auto", padding: "1em 0" }}
         gap="small"
       >
-        {networkData.map(({ connectMap, uavs, id, name }) => (
+        {networkData?.length ? networkData.map(({ connectMap, uavs, id, name }) => (
           <BasicCard
             key={id}
             hoverable
@@ -82,7 +76,7 @@ export const NetworksStructure: FC<NetworksStructureProp> = () => {
               }}
             />
           </BasicCard>
-        ))}
+        )) : <Empty description={LanguageText.visualDataEmpty} />}
       </Flex>
     </BasicCard>
   );

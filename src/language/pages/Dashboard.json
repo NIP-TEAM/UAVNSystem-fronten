@@ -2,5 +2,9 @@
     "structureTitle": {
         "en": "Network Map",
         "zh": "网络可视化"
+    },
+    "visualDataEmpty": {
+        "en": "No visual data available",
+        "zh": "暂无可视化数据"
     }
 }
