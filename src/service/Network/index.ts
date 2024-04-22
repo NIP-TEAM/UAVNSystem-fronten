@@ -7,7 +7,7 @@ export interface NetworkDataType {
   name: string;
   status: number;
   createAt: string;
-  uavsCount: number;
+  uavCount: number;
   lastEdit: string;
   creator: {
     name: string;

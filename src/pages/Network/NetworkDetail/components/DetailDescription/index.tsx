@@ -92,7 +92,7 @@ export const DetailDescription: FC<DetailDescriptionProp> = ({
     {
       key: "uavCount",
       label: LanguageText.uavCountLabel,
-      children: networkInfo?.uavsCount || 0,
+      children: networkInfo?.uavCount || 0,
     },
   ];
   return <Descriptions items={items} layout="vertical" />;
