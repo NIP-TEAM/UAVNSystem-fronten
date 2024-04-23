@@ -81,7 +81,7 @@ export const useHttp = <DataType = unknown, MetaType = unknown>({
       };
       console.log(networkError);
 
-      httpStrategy?.[networkError?.status]?.();
+      httpStrategy?.[networkError?.status || 401]?.();
 
       let errorMsg = "";
       try {
@@ -99,10 +99,10 @@ export const useHttp = <DataType = unknown, MetaType = unknown>({
       setState({
         loading: false,
         error: typeof errorMsg === "string" ? errorMsg : errorMsg[language!],
-        code: networkError.response.status,
+        code: networkError.response?.status || 0,
         data: null,
       });
-      httpStrategy?.[networkError.response.status]?.();
+      httpStrategy?.[networkError.response?.status || 401]?.();
     }
   };
 

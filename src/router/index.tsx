@@ -121,7 +121,7 @@ export const ROUTES: readonly RouteItem[] = [
     path: "/emailcenter",
     icon: <MailFilled />,
     labelKey: "emailcenter",
-    // textKey: "Email"
+    textKey: "Email"
   },
   {
     id: "user-center",
