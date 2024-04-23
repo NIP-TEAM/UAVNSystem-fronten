@@ -6,7 +6,7 @@ import {
   DashBoard,
   Forget,
   Register,
-  Email,
+  Contact,
   NetworkList,
   UavList,
 } from "../pages";
@@ -116,12 +116,12 @@ export const ROUTES: readonly RouteItem[] = [
     ],
   },
   {
-    id: "email-center",
-    element: <Email />,
-    path: "/emailcenter",
+    id: "contact",
+    element: <Contact />,
+    path: "/contact",
     icon: <MailFilled />,
-    labelKey: "emailcenter",
-    textKey: "Email"
+    labelKey: "contact",
+    textKey: "Contact"
   },
   {
     id: "user-center",

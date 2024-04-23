@@ -7,9 +7,9 @@
     "en": "About Me",
     "zh": "账户设置"
   },
-  "emailcenter": {
-    "en": "Email Setting",
-    "zh": "邮件设置"
+  "contact": {
+    "en": "Contact List",
+    "zh": "联系人列表"
   },
   "network": {
     "en": "Network(s)",

@@ -1,6 +1,7 @@
 export enum SessionKeys {
   NETWORK = "network-filter",
   UAV = "uav-filter",
+  EMAIL = 'email-filter',
   CREATEUAV = "create-uav",
   PROTOCOL = "protocol-filter"
 }

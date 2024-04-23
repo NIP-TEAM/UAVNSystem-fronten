@@ -34,10 +34,14 @@ export type ContactListDataType = {
   };
   updator: {
     name: string;
-    id: string;
+    id: number;
   };
   networkInfo: { name: string; id: number }[];
   contactList: ContactDataType[];
+  _count: {
+    networkInfo: number,
+    contactList: number,
+  }
 };
 
 export type DataControllerType = {

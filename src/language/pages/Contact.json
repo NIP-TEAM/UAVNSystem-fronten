@@ -1,0 +1,14 @@
+{
+  "emailTitle": {
+    "en": "Contact List",
+    "zh": "联系列表"
+  },
+  "filterTitle": {
+    "en": "Filter by",
+    "zh": "筛选器"
+  },
+  "toDetail":{
+    "en": "Detail",
+    "zh": "详情"
+  }
+}
