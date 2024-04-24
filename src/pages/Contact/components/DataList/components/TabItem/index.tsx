@@ -3,16 +3,14 @@ import { Table } from "antd";
 import { FC } from "react";
 import { TabItemHeaderProp, TabItemHeader } from "./components";
 
-export interface TabItemProp extends TabItemHeaderProp {
-  contacts: ContactDataType[];
-}
+export interface TabItemProp extends TabItemHeaderProp {}
 
-export const TabItem: FC<TabItemProp> = ({ contactListId, contacts }) => {
-    console.log(contacts)
+export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
+    // console.log(contacts)
   return (
     <div style={{ padding: 5 }}>
       <TabItemHeader {...{contactListId}} />
-      <Table dataSource={contacts} />
+      {/* <Table dataSource={contacts} /> */}
     </div>
   );
 };

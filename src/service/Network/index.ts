@@ -44,7 +44,7 @@ interface BasicMetaType {
   pagination: BasicPagination
 }
 
-export type DataControllerType = {
+export type NetworkDataControllerType = {
   pagination: BasicPagination;
   filter: string;
   selectKeys?: string;
@@ -53,7 +53,7 @@ export type DataControllerType = {
 export const useCreateNetwork = (data: Partial<NetworkDataType>) =>
   useHttp({ url: "/network", method: "post", data });
 
-export const useNetworkData = (data: DataControllerType) =>
+export const useNetworkData = (data: NetworkDataControllerType) =>
   useHttp<NetworkDataType[], BasicMetaType>({
     url: "/network",
     method: "get",
@@ -73,7 +73,7 @@ export const useNetworkDetail = (id: string) =>
     method: "get",
   });
 
-export const useProtocolDataType = (data: DataControllerType) =>
+export const useProtocolDataType = (data: NetworkDataControllerType) =>
   useHttp<BasicMetaType[], BasicMetaType>({
     url: "/protocal",
     method: "get",

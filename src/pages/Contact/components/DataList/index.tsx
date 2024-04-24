@@ -1,15 +1,15 @@
-import { ContactListDataType } from "@/service/Email";
-import { Tabs, TabsProps, theme } from "antd";
 
+import { Tabs, TabsProps, theme } from "antd";
 import { FC, useMemo } from "react";
 import StickyBox from "react-sticky-box";
-import { TabItem } from "./components/TabItem/TabItem";
+import { TabItem } from "./components/TabItem";
+import { ContactListDataType } from "@/service";
 
 export interface DataListProp {
-  contactList: ContactListDataType[];
+  contactListData: ContactListDataType[];
 }
 
-export const DataList: FC<DataListProp> = ({ contactList }) => {
+export const DataList: FC<DataListProp> = ({ contactListData }) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -20,12 +20,12 @@ export const DataList: FC<DataListProp> = ({ contactList }) => {
   );
   const items = useMemo<TabsProps["items"]>(
     () =>
-      contactList.map(({ id, name, contactList }) => ({
+      contactListData.map(({ id, name }) => ({
         label: name,
         key: id.toString(),
-        children: <TabItem contactListId={id} contacts={contactList} />,
+        children: <TabItem contactListId={id} />,
       })),
-    [contactList]
+    [contactListData]
   );
 
   return <Tabs renderTabBar={renderTabBar} items={items} />;

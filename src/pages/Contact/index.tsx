@@ -1,11 +1,16 @@
 import { BasicCard } from "@/components";
 import { useLanguageContext } from "@/hooks";
-import { ContactListDataType } from "@/service/Email";
 import { SessionKeys, getSessionStorageUtil } from "@/utils";
-import { Typography } from "antd";
-import { FC, useState } from "react";
+import { Spin, Typography } from "antd";
+import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { FilterType } from "../Network/NetworkList/types";
 import { DataList, Filter } from "./components";
+import {
+  ContactListDataControllerType,
+  ContactListDataType,
+  useGetContactList,
+} from "@/service";
+import { AppContext } from "@/App";
 
 interface EmailProp {}
 
@@ -26,12 +31,7 @@ interface EmailProp {}
 //     contactList: ContactDataType[];
 //   };
 
-interface StorageProtocol {
-  searchKey: string;
-  filter: FilterType;
-}
-
-const contactList: ContactListDataType[] = [
+const contactListData: ContactListDataType[] = [
   {
     id: 1,
     name: "test",
@@ -46,29 +46,47 @@ const contactList: ContactListDataType[] = [
       id: 1,
     },
     networkInfo: [{ name: "1", id: 1 }],
-    contactList: [],
-    _count: {
-      networkInfo: 1,
-      contactList: 0,
-    },
   },
 ];
 
-const sessionKey = SessionKeys.EMAIL;
+const sessionKey = SessionKeys.CONTACTLIST;
 
 export const Contact: FC<EmailProp> = () => {
+  const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
-  const [filter, setFilter] = useState<FilterType>(
-    getSessionStorageUtil<StorageProtocol>(sessionKey)?.filter || {}
-  );
-
+  const [dataController, setDataController] =
+    useState<ContactListDataControllerType>(
+      getSessionStorageUtil<ContactListDataControllerType>(sessionKey) || {}
+    );
   const [timestamp, setTimestamp] = useState(0);
+
+  // contactListData
+  const {
+    fetchData: fetchContactList,
+    code: contactListCode,
+    error: contactListError,
+    data: contactListDataData,
+    loading: contactListLoading,
+  } = useGetContactList(dataController);
+  useEffect(() => {
+    if (contactListError) messageApi?.error(contactListError);
+  }, [contactListError, messageApi]);
+  const contactListData = useMemo<ContactListDataType[]>(() => {
+    if (contactListCode === 200 && contactListDataData?.data)
+      return contactListDataData.data;
+    return [];
+  }, [contactListCode, contactListDataData?.data]);
+  useEffect(() => {
+    fetchContactList?.()
+  }, [])
 
   return (
     <BasicCard>
       <Typography.Title level={4}>{LanguageText.emailTitle}</Typography.Title>
-      <Filter {...{setTimestamp, setFilter}} />
-      <DataList {...{contactList}}/>
+      <Filter {...{ setTimestamp, setDataController }} />
+      <Spin spinning={contactListLoading}>
+        <DataList {...{ contactListData }} />
+      </Spin>
     </BasicCard>
   );
 };

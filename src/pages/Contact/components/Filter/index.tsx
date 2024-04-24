@@ -6,21 +6,16 @@ import { SetStateAction } from "jotai";
 import { Dispatch, FC, useEffect } from "react";
 import { FormFieldItem } from "./components";
 import { CategoryOptions } from "./components/FormFieldItem/selectOptions";
-
-type FilterType = {
-  searchKey?: string;
-  filters?: Record<string, Record<string, string | number>>;
-  sorter?: Record<string, "asc" | "desc">;
-};
+import { ContactListDataControllerType } from "@/service";
 
 export interface FilterProp {
-  initParams?: FilterType;
-  setFilter: Dispatch<SetStateAction<FilterType>>;
+  initParams?: ContactListDataControllerType;
+  setDataController: Dispatch<SetStateAction<ContactListDataControllerType>>;
   setTimestamp: Dispatch<SetStateAction<number>>;
 }
 
 export const Filter: FC<FilterProp> = ({
-  setFilter,
+  setDataController,
   setTimestamp,
   initParams,
 }) => {
