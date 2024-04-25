@@ -1,5 +1,4 @@
-export const LanguageTextJson = {
-  Default: (await import("./core/Default.json")).default,
+export const LanguageTextJson = {  Error: (await import("./core/Error.json")).default,
   NetworkStructure: (await import("./core/NetworkStructure.json")).default,
   Login: (await import("./pages/Login.json")).default,
   Register: (await import("./pages/Register.json")).default,

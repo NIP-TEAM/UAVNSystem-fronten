@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useConfig } from "../useConfig";
 import { AppContext } from "@/App";
+import { useNavigate } from "react-router";
 
 export interface UseHttpProps {
   url: string;
@@ -34,7 +35,8 @@ export const useHttp = <DataType = unknown, MetaType = unknown>({
   isLocal = true,
 }: UseHttpProps): UseHttpState<DataType, MetaType> => {
   const { messageApi } = useContext(AppContext);
-  const { token, apiBaseUrl, httpStrategy, language } = useConfig();
+  const navigate = useNavigate();
+  const { token, apiBaseUrl, language } = useConfig();
   const [state, setState] = useState<UseHttpState<DataType, MetaType>>({
     loading: false,
     error: null,
@@ -73,17 +75,19 @@ export const useHttp = <DataType = unknown, MetaType = unknown>({
         data: response.data as ApiResponseData<DataType, MetaType>,
       });
     } catch (error) {
+      const httpStrategy: {[key: number]: () => void} = {
+        401: () => {
+          navigate('/login')
+        }
+      }
+
       const networkError = error as {
         response: {
           data: { meta: { message: string }; message: string };
           status: number;
         };
         message: string;
-        status: number;
       };
-      console.log(networkError);
-
-      httpStrategy?.[networkError?.status || 401]?.();
 
       let errorMsg = "";
       try {
@@ -104,15 +108,9 @@ export const useHttp = <DataType = unknown, MetaType = unknown>({
         code: networkError.response?.status || 0,
         data: null,
       });
-      if (networkError.status === 401) {
-        messageApi?.error(
-          {
-            zh: "登录已过期",
-            en: "Auth Error",
-          }[language!]
-        );
-      }
-      httpStrategy?.[networkError.response?.status || 401]?.();
+      
+      messageApi?.error(errorMsg)
+      httpStrategy[networkError?.response?.status || 401]();
     }
   };
 

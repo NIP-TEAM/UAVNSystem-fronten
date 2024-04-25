@@ -6,7 +6,6 @@ import {
   Route,
   Routes,
   useLocation,
-  useNavigate,
 } from "react-router-dom";
 import {
   ANTDCOLORTHEME,
@@ -38,7 +37,6 @@ function App() {
   );
 
   // route about
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const routeKey: string = pathname.split("/")[1];
   const memoPageType = useMemo(
@@ -57,13 +55,6 @@ function App() {
     token,
     language,
     apiBaseUrl: import.meta.env.VITE_API_BASE_URL,
-    httpStrategy: {
-      401: () => {
-        navigate("/login");
-      },
-      // TODO: 403处理
-      403: () => console.log("error"),
-    },
   };
 
   return (
@@ -88,7 +79,7 @@ function App() {
                   key={route.id}
                   path={route.path}
                   element={
-                    <LanguageProvider textKey={route.textKey || "Default"}>
+                    <LanguageProvider textKey={route.textKey || "Error"}>
                       {token || route.isPublic ? (
                         <>
                           {!route.breadcrumbForbidden &&

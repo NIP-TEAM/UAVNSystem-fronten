@@ -24,7 +24,7 @@ export const ANTDCOLORTHEME: Readonly<
   [THEMESNAME.light]: theme.defaultAlgorithm,
 };
 
-export type TextKeys<T extends LanguageJsonSet> = keyof typeof LanguageTextJson[T];
+export type TextKeys<T extends LanguageJsonSet = "Error"> = keyof typeof LanguageTextJson[T];
 
 
 export type TextProtocol<T extends LanguageJsonSet> = Record<
@@ -35,7 +35,6 @@ TextKeys<T>,
 interface Config {
   language: LANGUAGES;
   token: string;
-  httpStrategy: Record<number, () => void>;
   apiBaseUrl: string;
   useLanguage: <T extends LanguageJsonSet>(
     languageJsonName: LanguageJsonSet
@@ -75,7 +74,7 @@ export const useConfig = () => useContext(ConfigContext);
 type LanguageTextType<T extends LanguageJsonSet> = {LanguageText: TextProtocol<T>}
 
 const LanguageContext= createContext<LanguageTextType<LanguageJsonSet>>(
-  cloneDeepWith(LanguageTextJson.Default, (value) => value[LANGUAGES.zh])
+  cloneDeepWith(LanguageTextJson.Error, (value) => value[LANGUAGES.zh])
 );
 
 export const LanguageProvider: FC<{
