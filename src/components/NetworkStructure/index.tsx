@@ -40,7 +40,7 @@ export const NetworkStructure: FC<NetworkStructureProp> = ({
   } = useGetEntity({ maps: connectMap });
   useEffect(() => {
     if (entityError) messageApi?.error(entityError);
-  }, [messageApi, entityError]);
+  }, [entityError, messageApi]);
   useEffect(() => {
     fetchEntityData?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -95,7 +95,7 @@ export const useHttp = <DataType = unknown, MetaType = unknown>({
           networkError?.response?.data?.message ||
             networkError?.response?.data?.meta?.message ||
             networkError?.message
-        );
+        )[language!];
       } catch {
         errorMsg =
           networkError?.response?.data?.message ||
@@ -108,9 +108,9 @@ export const useHttp = <DataType = unknown, MetaType = unknown>({
         code: networkError.response?.status || 0,
         data: null,
       });
-      
+
       messageApi?.error(errorMsg)
-      httpStrategy[networkError?.response?.status || 401]();
+      httpStrategy[networkError?.response?.status || 401]?.();
     }
   };
 

@@ -61,10 +61,6 @@ export const Contact: FC<EmailProp> = () => {
   useEffect(() => {
     fetchContactList?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
-    fetchContactList?.();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timestamp]);
 
   return (

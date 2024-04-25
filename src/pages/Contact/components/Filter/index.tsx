@@ -35,10 +35,11 @@ export const Filter: FC<FilterProp> = ({
   } = useGetUsers();
   useEffect(() => {
     if (userError) messageApi?.error(userError);
-  }, [userError, messageApi]);
+  }, [messageApi, userError]);
   useEffect(() => {
     fetchUser?.();
-  }, [fetchUser]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const userData = useMemo<SelectProps["options"]>(() => {
     if (userCode === 200 && userDataData?.data) return userDataData.data;
     return [];
