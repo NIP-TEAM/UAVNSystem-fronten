@@ -1,6 +1,11 @@
 import { useHttp } from "@/hooks";
 
-export const useGetUsers = () => useHttp<{name: string, id: number}[]>({
+export interface UserDataType {
+    name: string,
+    id: number
+}
+
+export const useGetUsers = () => useHttp<UserDataType[]>({
     url: "/tenants",
     method: 'get',
 })

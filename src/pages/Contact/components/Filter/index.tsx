@@ -1,16 +1,20 @@
 import { useLanguageContext } from "@/hooks";
-import { categoryOptions } from "@/pages/Network/NetworkList/components/Filter/components/FormFieldItem/selectOptions";
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Flex, Form, Input, Typography } from "antd";
+import { Button, Flex, Form, Input, Select, SelectProps, Typography } from "antd";
 import { SetStateAction } from "jotai";
-import { Dispatch, FC, useEffect } from "react";
-import { FormFieldItem } from "./components";
-import { CategoryOptions } from "./components/FormFieldItem/selectOptions";
-import { ContactListDataControllerType } from "@/service";
+import { Dispatch, FC, useContext, useEffect, useMemo } from "react";
+import {
+  ContactListDataControllerType,
+  UserDataType,
+  useGetUsers,
+} from "@/service";
+import { AppContext } from "@/App";
+
+type FormType = ContactListDataControllerType;
 
 export interface FilterProp {
-  initParams?: ContactListDataControllerType;
-  setDataController: Dispatch<SetStateAction<ContactListDataControllerType>>;
+  initParams?: FormType;
+  setDataController: Dispatch<SetStateAction<FormType>>;
   setTimestamp: Dispatch<SetStateAction<number>>;
 }
 
@@ -19,6 +23,37 @@ export const Filter: FC<FilterProp> = ({
   setTimestamp,
   initParams,
 }) => {
+  const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
-  return <div>{LanguageText.filterTitle}</div>;
+  // creatorData
+  const {
+    fetchData: fetchUser,
+    error: userError,
+    code: userCode,
+    loading: userLoading,
+    data: userDataData,
+  } = useGetUsers();
+  useEffect(() => {
+    if (userError) messageApi?.error(userError);
+  }, [userError, messageApi]);
+  useEffect(() => {
+    fetchUser?.();
+  }, [fetchUser]);
+  const userData = useMemo<SelectProps["options"]>(() => {
+    if (userCode === 200 && userDataData?.data) return userDataData.data;
+    return [];
+  }, [userDataData?.data, userCode]);
+
+  const [form] = Form.useForm<FormType>();
+
+  return (
+    <div>
+      {LanguageText.filterTitle}
+      <Form form={form}>
+        <Form.Item<FormType> name="creatorId">
+          <Select allowClear loading={userLoading} options={[]} />
+        </Form.Item>
+      </Form>
+    </div>
+  );
 };

@@ -3,7 +3,6 @@ import { useLanguageContext } from "@/hooks";
 import { SessionKeys, getSessionStorageUtil } from "@/utils";
 import { Spin, Typography } from "antd";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
-import { FilterType } from "../Network/NetworkList/types";
 import { DataList, Filter } from "./components";
 import {
   ContactListDataControllerType,
@@ -14,40 +13,23 @@ import { AppContext } from "@/App";
 
 interface EmailProp {}
 
-// export type ContactListDataType = {
-//     id: number;
-//     name: string;
-//     createdAt: string;
-//     updatedAt: string;
+// const contactListData: ContactListDataType[] = [
+//   {
+//     id: 1,
+//     name: "test",
+//     createdAt: "1",
+//     updatedAt: new Date().getTime().toString(),
 //     creator: {
-//       name: string;
-//       id: number;
-//     };
+//       name: "test",
+//       id: 1,
+//     },
 //     updator: {
-//       name: string;
-//       id: string;
-//     };
-//     networkInfo: { name: string; id: number }[];
-//     contactList: ContactDataType[];
-//   };
-
-const contactListData: ContactListDataType[] = [
-  {
-    id: 1,
-    name: "test",
-    createdAt: "1",
-    updatedAt: new Date().getTime().toString(),
-    creator: {
-      name: "test",
-      id: 1,
-    },
-    updator: {
-      name: "test",
-      id: 1,
-    },
-    networkInfo: [{ name: "1", id: 1 }],
-  },
-];
+//       name: "test",
+//       id: 1,
+//     },
+//     networkInfo: [{ name: "1", id: 1 }],
+//   },
+// ];
 
 const sessionKey = SessionKeys.CONTACTLIST;
 
@@ -77,8 +59,13 @@ export const Contact: FC<EmailProp> = () => {
     return [];
   }, [contactListCode, contactListDataData?.data]);
   useEffect(() => {
-    fetchContactList?.()
-  }, [])
+    fetchContactList?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    fetchContactList?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timestamp]);
 
   return (
     <BasicCard>

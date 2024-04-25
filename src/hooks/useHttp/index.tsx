@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useConfig } from "../useConfig";
+import { AppContext } from "@/App";
 
 export interface UseHttpProps {
   url: string;
@@ -32,6 +33,7 @@ export const useHttp = <DataType = unknown, MetaType = unknown>({
   headers,
   isLocal = true,
 }: UseHttpProps): UseHttpState<DataType, MetaType> => {
+  const { messageApi } = useContext(AppContext);
   const { token, apiBaseUrl, httpStrategy, language } = useConfig();
   const [state, setState] = useState<UseHttpState<DataType, MetaType>>({
     loading: false,
@@ -102,6 +104,14 @@ export const useHttp = <DataType = unknown, MetaType = unknown>({
         code: networkError.response?.status || 0,
         data: null,
       });
+      if (networkError.status === 401) {
+        messageApi?.error(
+          {
+            zh: "登录已过期",
+            en: "Auth Error",
+          }[language!]
+        );
+      }
       httpStrategy?.[networkError.response?.status || 401]?.();
     }
   };
