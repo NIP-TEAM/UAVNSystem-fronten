@@ -7,7 +7,23 @@
     "en": "Filter by",
     "zh": "筛选器"
   },
-  "toDetail":{
+  "creatorLabel": {
+    "en": "Creator",
+    "zh": "创建者"
+  },
+  "searchLabel": {
+    "en": "Search",
+    "zh": "搜索"
+  },
+  "allLabel": {
+    "en": "All",
+    "zh": "全部"
+  },
+  "otherLabel": {
+    "en": "Not Grouped",
+    "zh": "未分组"
+  },
+  "toDetail": {
     "en": "Detail",
     "zh": "详情"
   }

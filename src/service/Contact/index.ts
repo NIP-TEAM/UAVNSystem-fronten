@@ -40,7 +40,7 @@ interface BasicMetaType {
   };
   
   export type ContactListDataControllerType = {
-    creatorId: number,
+    creatorIds: string,
     searchKey: string,
   };
   

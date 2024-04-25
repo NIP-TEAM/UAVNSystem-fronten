@@ -155,7 +155,7 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
           disabled={!categorySelect || contentLoading}
           style={fieldInputStyle}
           loading={contentLoading}
-          options={formatedContentOptions as { label: string; value: string }[]}
+          options={formatedContentOptions}
         />
       </Form.Item>
     </Flex>
