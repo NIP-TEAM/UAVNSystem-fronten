@@ -46,7 +46,6 @@ export const DataList: FC<DataListProp> = ({ contactListData }) => {
       tabBarExtraContent={<NewContactListModal />}
       renderTabBar={renderTabBar}
       items={items}
-      defaultActiveKey={items?.at(1)?.key}
     />
   );
 };

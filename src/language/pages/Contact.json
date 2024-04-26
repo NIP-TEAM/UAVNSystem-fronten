@@ -3,9 +3,29 @@
     "en": "Contact List",
     "zh": "联系列表"
   },
-  "createContactButton": {
+  "createGroupTitle": {
+    "en": "New Contact Group",
+    "zh": "新建联系组"
+  },
+  "createGroupButton": {
     "en": "New Contact",
     "zh": "创建联系人"
+  },
+  "createGroupSuccess": {
+    "en": "Contact List created success!",
+    "zh": "联系组创建成功"
+  },
+  "toCreateContactLink": {
+    "en": "Click Here to create contact!",
+    "zh": "点击此处创建联系人!"
+  },
+  "nameLabel": {
+    "en": "Name",
+    "zh": "名字"
+  },
+  "nameEmpty": {
+    "en": "Name is required!",
+    "zh": "名字为必填项目!"
   },
   "filterTitle": {
     "en": "Filter by",

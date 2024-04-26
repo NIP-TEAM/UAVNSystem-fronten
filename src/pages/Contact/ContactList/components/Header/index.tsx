@@ -13,7 +13,7 @@ export const Header: FC<HeaderProp> = () => {
     <Flex align="center" justify="space-between">
       <Typography.Title level={4}>{LanguageText.emailTitle}</Typography.Title>
       <Button type="primary" onClick={() => navigate("/contact/create")}>
-        {LanguageText.createContactButton}
+        {LanguageText.createGroupButton}
       </Button>
     </Flex>
   );

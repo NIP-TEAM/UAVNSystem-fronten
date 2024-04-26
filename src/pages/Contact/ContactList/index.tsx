@@ -13,6 +13,7 @@ export const Contact: FC<ContactProp> = () => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
   const [timestamp, setTimestamp] = useState(0);
+  const [filter, setFilter] = useState()
 
   // contactListData
   const {
