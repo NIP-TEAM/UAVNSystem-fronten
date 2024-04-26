@@ -9,6 +9,8 @@ import {
   Contact,
   NetworkList,
   UavList,
+  CreateContact,
+  ContactDetail,
 } from "../pages";
 import { RouteItem } from "./types";
 import {
@@ -121,7 +123,21 @@ export const ROUTES: readonly RouteItem[] = [
     path: "/contact",
     icon: <MailFilled />,
     labelKey: "contact",
-    textKey: "Contact"
+    textKey: "Contact",
+    children: [
+      {
+        id: "createcontact",
+        element: <CreateContact />,
+        path: "/contact/create",
+        textKey: "Contact"
+      },
+      {
+        id: "contactdetail",
+        element: <ContactDetail />,
+        path: "/contact/:id",
+        textKey: "Contact",
+      }
+    ]
   },
   {
     id: "user-center",

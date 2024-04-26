@@ -3,9 +3,21 @@
     "en": "Contact List",
     "zh": "联系列表"
   },
+  "createContactButton": {
+    "en": "New Contact",
+    "zh": "创建联系人"
+  },
   "filterTitle": {
     "en": "Filter by",
     "zh": "筛选器"
+  },
+  "okText": {
+    "en": "Ok",
+    "zh": "确定"
+  },
+  "cancelTitle": {
+    "en": "Cancel",
+    "zh": "取消"
   },
   "creatorLabel": {
     "en": "Creator",
