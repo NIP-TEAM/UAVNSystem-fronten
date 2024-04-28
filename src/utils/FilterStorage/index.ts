@@ -3,7 +3,8 @@ export enum SessionKeys {
   UAV = "uav-filter",
   CONTACTLIST ="contactList-filter",
   CREATEUAV = "create-uav",
-  PROTOCOL = "protocol-filter"
+  PROTOCOL = "protocol-filter",
+  CREATECONTACT = "new-contact"
 }
 
 export const sessionStorageUtil = <T = unknown>(key: SessionKeys, value: T) => {
