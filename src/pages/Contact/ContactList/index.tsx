@@ -13,7 +13,7 @@ export const Contact: FC<ContactProp> = () => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
   const [timestamp, setTimestamp] = useState(0);
-  const [filter, setFilter] = useState()
+  const [filter, setFilter] = useState();
 
   // contactListData
   const {
@@ -46,7 +46,7 @@ export const Contact: FC<ContactProp> = () => {
       <Header />
       {/* <Filter /> */}
       <Spin spinning={contactListLoading}>
-        <DataList {...{ contactListData }} />
+        <DataList {...{ contactListData, setTimestamp }} />
       </Spin>
     </BasicCard>
   );

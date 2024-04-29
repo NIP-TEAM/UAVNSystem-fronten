@@ -1,10 +1,19 @@
 import { BasicCard } from "@/components";
 import { useLanguageContext } from "@/hooks";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Collapse, Flex, Form, FormProps, Typography } from "antd";
-import { FC, useEffect, useState } from "react";
+import {
+  Button,
+  Collapse,
+  Flex,
+  Form,
+  FormProps,
+  SelectProps,
+  Typography,
+} from "antd";
+import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { CollapseHeader, CollapseItem } from "./components";
-import { ContactDataType } from "@/service";
+import { ContactDataType, useGetContactList } from "@/service";
+import { AppContext } from "@/App";
 
 export type FormType = {
   contacts: Partial<ContactDataType>[];
@@ -13,7 +22,36 @@ export type FormType = {
 export interface CreateContactProp {}
 
 export const CreateContact: FC<CreateContactProp> = () => {
+  const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"CreateContact">();
+
+  const {
+    fetchData: fetchContactList,
+    code: contactListCode,
+    data: contactListDataData,
+    error: contactListError,
+    loading: contactLoading,
+  } = useGetContactList();
+  const [timestamp, setTimestamp] = useState(0);
+  useEffect(() => {
+    if (contactListError) messageApi?.error(contactListError);
+  }, [contactListError, messageApi]);
+  useEffect(() => {
+    fetchContactList?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    fetchContactList?.();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timestamp]);
+  const contactListOptions = useMemo<SelectProps["options"]>(() => {
+    if (contactListCode === 200 && contactListDataData?.data)
+      return contactListDataData.data.map(({ id, name }) => ({
+        label: name,
+        value: id,
+      }));
+    return [];
+  }, [contactListCode, contactListDataData?.data]);
 
   const [form] = Form.useForm<FormType>();
   const contactsInfo = Form.useWatch("contacts", form);
@@ -43,7 +81,7 @@ export const CreateContact: FC<CreateContactProp> = () => {
                 }}
                 items={fields.map(
                   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                  ({key, name: parentFieldName, ...restField }) => ({
+                  ({ key, name: parentFieldName, ...restField }) => ({
                     key: parentFieldName,
                     label: (
                       <CollapseHeader
@@ -64,7 +102,15 @@ export const CreateContact: FC<CreateContactProp> = () => {
                       />
                     ),
                     children: (
-                      <CollapseItem {...{ parentFieldName, restField }} />
+                      <CollapseItem
+                        {...{
+                          parentFieldName,
+                          restField,
+                          contactListOptions,
+                          contactLoading,
+                          setTimestamp,
+                        }}
+                      />
                     ),
                   })
                 )}

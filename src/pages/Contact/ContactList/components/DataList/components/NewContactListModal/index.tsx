@@ -3,13 +3,21 @@ import { useLanguageContext } from "@/hooks";
 import { useCreateContactList } from "@/service";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Flex, Form, Input, Modal } from "antd";
-import { SetStateAction } from "jotai";
-import { Dispatch, FC, useContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router";
 
-export interface NewContactListModalProp {}
+export interface NewContactListModalProp {
+  setTimestamp: Dispatch<SetStateAction<number>>;
+}
 
-export const NewContactListModal: FC<NewContactListModalProp> = () => {
+export const NewContactListModal: FC<NewContactListModalProp> = (props) => {
   const { LanguageText } = useLanguageContext<"Contact">();
   const [open, setOpen] = useState(false);
 
@@ -27,7 +35,7 @@ export const NewContactListModal: FC<NewContactListModalProp> = () => {
         title={LanguageText.createGroupTitle}
         destroyOnClose
       >
-        <NewContactListModalContent {...{ setOpen }} />
+        <NewContactListModalContent {...{ setOpen, ...props }} />
       </Modal>
     </>
   );
@@ -35,6 +43,7 @@ export const NewContactListModal: FC<NewContactListModalProp> = () => {
 
 interface NewContactListModalContentProp {
   setOpen: Dispatch<SetStateAction<boolean>>;
+  setTimestamp: Dispatch<SetStateAction<number>>;
 }
 
 type FormType = {
@@ -43,6 +52,7 @@ type FormType = {
 
 const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
   setOpen,
+  setTimestamp,
 }) => {
   const navigate = useNavigate();
   const { messageApi } = useContext(AppContext);
@@ -68,15 +78,12 @@ const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
       messageApi?.success(
         <>
           {LanguageText.createGroupSuccess}
-          <Button
-            type="link"
-            onClick={() => navigate(`/contact/create`)
-            }
-          >
+          <Button type="link" onClick={() => navigate(`/contact/create`)}>
             {LanguageText.toCreateContactLink}
           </Button>
         </>
       );
+      setTimestamp(new Date().getTime());
       setOpen(false);
     }
   }, [
@@ -87,6 +94,7 @@ const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
     messageApi,
     navigate,
     setOpen,
+    setTimestamp,
   ]);
 
   return (
@@ -106,7 +114,7 @@ const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
         label={LanguageText.nameLabel}
         rules={[{ required: true, message: LanguageText.nameEmpty }]}
       >
-        <Input style={{width: '50%'}} />
+        <Input style={{ width: "50%" }} />
       </Form.Item>
       <Form.Item noStyle>
         <Flex align="center" justify="flex-end">

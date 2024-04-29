@@ -4,13 +4,16 @@ import StickyBox from "react-sticky-box";
 import { TabItem } from "./components/TabItem";
 import { ContactListDataType } from "@/service";
 import { useLanguageContext } from "@/hooks";
-import { NewContactListModal } from "./components";
+import { NewContactListModal, NewContactListModalProp } from "./components";
 
-export interface DataListProp {
+export interface DataListProp extends NewContactListModalProp {
   contactListData: ContactListDataType[];
 }
 
-export const DataList: FC<DataListProp> = ({ contactListData }) => {
+export const DataList: FC<DataListProp> = ({
+  contactListData,
+  setTimestamp,
+}) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -43,7 +46,7 @@ export const DataList: FC<DataListProp> = ({ contactListData }) => {
 
   return (
     <Tabs
-      tabBarExtraContent={<NewContactListModal />}
+      tabBarExtraContent={<NewContactListModal {...{ setTimestamp }} />}
       renderTabBar={renderTabBar}
       items={items}
     />

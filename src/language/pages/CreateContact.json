@@ -31,6 +31,10 @@
     "en": "Phone",
     "zh": "电话"
   },
+  "phoneTip": {
+    "en": "Currently, only 11-digit phone numbers with the +86 area code from mainland China are supported.",
+    "zh": "目前只支持中国大陆（+86区号）的11位电话号码"
+  },
   "phoneInvalid": {
     "en": "Please input a valid phone",
     "zh": "请输入合法格式的电话号码"
@@ -46,6 +50,10 @@
   "listLabel": {
     "en": "Contact List",
     "zh": "联系人列表"
+  },
+  "selectPlaceholder": {
+    "en": "Select Contact List",
+    "zh": "选择联系人列表"
   },
   "addButton": {
     "en": "Add",
