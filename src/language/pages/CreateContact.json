@@ -43,6 +43,10 @@
     "en": "A note can support up to 150 characters.",
     "zh": "备注最多支持150个字符"
   },
+  "listLabel": {
+    "en": "Contact List",
+    "zh": "联系人列表"
+  },
   "addButton": {
     "en": "Add",
     "zh": "添加"
