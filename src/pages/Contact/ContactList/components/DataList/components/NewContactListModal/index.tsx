@@ -70,8 +70,7 @@ const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
           {LanguageText.createGroupSuccess}
           <Button
             type="link"
-            onClick={() =>
-              navigate(`/contact/create?id=${createData?.data.id}`)
+            onClick={() => navigate(`/contact/create`)
             }
           >
             {LanguageText.toCreateContactLink}

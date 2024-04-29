@@ -4,7 +4,6 @@ export enum SessionKeys {
   CONTACTLIST ="contactList-filter",
   CREATEUAV = "create-uav",
   PROTOCOL = "protocol-filter",
-  CREATECONTACT = "new-contact"
 }
 
 export const sessionStorageUtil = <T = unknown>(key: SessionKeys, value: T) => {

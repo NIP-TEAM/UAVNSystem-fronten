@@ -17,6 +17,7 @@ export type ContactDataType = {
     name: string;
     id: number;
   };
+  contactListIds: number[];
 };
 
 export type ContactListDataType = {
@@ -34,7 +35,6 @@ export type ContactListDataType = {
   };
   networkInfo: { name: string; id: number }[];
 };
-
 
 export const useGetContactList = () =>
   useHttp<ContactListDataType[]>({
@@ -54,8 +54,9 @@ export const useGetContact = (id: number, data: ContactDataControllerType) =>
     data,
   });
 
-export const useCreateContactList = (data: {name: string}) => useHttp<{id: number}>({
-  url: '/contact',
-  method: "post",
-  data,
-})
+export const useCreateContactList = (data: { name: string }) =>
+  useHttp<{ id: number }>({
+    url: "/contact",
+    method: "post",
+    data,
+  });

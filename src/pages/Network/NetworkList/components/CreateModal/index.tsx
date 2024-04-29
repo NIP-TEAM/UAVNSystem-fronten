@@ -25,8 +25,6 @@ export const CreateModal: FC<CreateModalProp> = ({ refreshNetwork }) => {
       </Button>
       <Modal
         open={isOpen}
-        okText={LanguageText.confirm}
-        cancelText={LanguageText.cancel}
         onCancel={() => setIsOpen(false)}
         title={LanguageText.createTitle}
         footer={false}

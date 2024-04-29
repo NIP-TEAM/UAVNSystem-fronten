@@ -129,7 +129,7 @@ export const ROUTES: readonly RouteItem[] = [
         id: "createcontact",
         element: <CreateContact />,
         path: "/contact/create",
-        textKey: "Contact"
+        textKey: "CreateContact"
       },
       {
         id: "contactdetail",
