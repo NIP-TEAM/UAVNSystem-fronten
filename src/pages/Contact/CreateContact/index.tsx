@@ -1,18 +1,14 @@
 import { BasicCard } from "@/components";
 import { useLanguageContext } from "@/hooks";
 import { PlusOutlined } from "@ant-design/icons";
-import {
-  Button,
-  Collapse,
-  Flex,
-  Form,
-  FormProps,
-  SelectProps,
-  Typography,
-} from "antd";
+import { Button, Collapse, Flex, Form, FormProps, SelectProps } from "antd";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
-import { CollapseHeader, CollapseItem } from "./components";
-import { ContactDataType, useGetContactList } from "@/service";
+import { CollapseHeader, CollapseItem, Header } from "./components";
+import {
+  ContactDataType,
+  useCreateContacts,
+  useGetContactList,
+} from "@/service";
 import { AppContext } from "@/App";
 
 export type FormType = {
@@ -42,7 +38,7 @@ export const CreateContact: FC<CreateContactProp> = () => {
   }, []);
   useEffect(() => {
     fetchContactList?.();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timestamp]);
   const contactListOptions = useMemo<SelectProps["options"]>(() => {
     if (contactListCode === 200 && contactListDataData?.data)
@@ -53,13 +49,27 @@ export const CreateContact: FC<CreateContactProp> = () => {
     return [];
   }, [contactListCode, contactListDataData?.data]);
 
+  // create contact(s)
   const [form] = Form.useForm<FormType>();
   const contactsInfo = Form.useWatch("contacts", form);
   const [activeKeys, setActiveKeys] = useState<string[]>(["0"]);
+  const {
+    fetchData: fetchCreate,
+    code: createCode,
+    error: createError,
+    loading: createLoading,
+  } = useCreateContacts(contactsInfo);
+  useEffect(() => {
+    if (createError) messageApi?.error(createError);
+  }, [createError, messageApi]);
+  useEffect(() => {
+    if (createCode === 200) {
+      messageApi?.success(LanguageText.addSuccess);
+      form.resetFields();
+    }
+  }, [LanguageText.addSuccess, createCode, form, messageApi]);
 
-  const onSubmit = () => {
-    console.log(contactsInfo);
-  };
+  const onSubmit = () => fetchCreate?.();
 
   const onFinishFailed: FormProps["onFinishFailed"] = (errorInfo) => {
     const { errorFields } = errorInfo;
@@ -68,7 +78,7 @@ export const CreateContact: FC<CreateContactProp> = () => {
 
   return (
     <BasicCard>
-      <Typography.Title level={4}>{LanguageText.createTitle}</Typography.Title>
+      <Header />
       <Form form={form} onFinish={onSubmit} onFinishFailed={onFinishFailed}>
         <Form.List name="contacts">
           {(fields, { add, remove }) => (
@@ -87,7 +97,7 @@ export const CreateContact: FC<CreateContactProp> = () => {
                       <CollapseHeader
                         {...{
                           headerTitle:
-                            contactsInfo?.[parentFieldName]?.name || "error",
+                            contactsInfo?.[parentFieldName]?.name || "",
                           restField,
                           parentFieldName,
                         }}
@@ -118,6 +128,7 @@ export const CreateContact: FC<CreateContactProp> = () => {
               <Button
                 type="link"
                 icon={<PlusOutlined />}
+                loading={createLoading}
                 onClick={() => {
                   const activeValue = (
                     fields?.length > 0

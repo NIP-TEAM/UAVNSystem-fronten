@@ -55,8 +55,14 @@ export const useGetContact = (id: number, data: ContactDataControllerType) =>
   });
 
 export const useCreateContactList = (data: { name: string }) =>
-  useHttp<{ id: number }>({
+  useHttp({
     url: "/contact",
     method: "post",
     data,
   });
+
+export const useCreateContacts = (data: Partial<ContactDataType>[]) => useHttp({
+  url: '/contact/contacts',
+  method: "post",
+  data,
+})

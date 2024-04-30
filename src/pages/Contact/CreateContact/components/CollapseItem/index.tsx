@@ -1,10 +1,23 @@
+import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
-import { ContactDataType } from "@/service";
-import { QuestionCircleFilled } from "@ant-design/icons";
-import { Flex, Form, Input, Select, SelectProps, Tooltip } from "antd";
+import { ContactDataType, useCreateContactList } from "@/service";
+import {
+  DownOutlined,
+  LoadingOutlined,
+  PlusOutlined,
+  QuestionCircleFilled,
+} from "@ant-design/icons";
+import {
+  Flex,
+  Form,
+  Input,
+  Select,
+  SelectProps,
+  Tooltip,
+  Typography,
+} from "antd";
 import { SetStateAction } from "jotai";
-import { debounce } from "lodash-es";
-import { Dispatch, FC, useState } from "react";
+import { Dispatch, FC, useContext, useEffect, useMemo, useState } from "react";
 
 export interface CollapseItemProp {
   restField: { [key: string]: unknown };
@@ -21,16 +34,15 @@ export const CollapseItem: FC<CollapseItemProp> = ({
   contactLoading,
   setTimestamp,
 }) => {
+  const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"CreateContact">();
 
   // add contact list about
   const [contactListName, setContactListName] = useState("");
-
   const handleFilterOption: SelectProps["filterOption"] = (input, option) =>
     ((option?.label || "") as string)
       .toLowerCase()
       .includes(input.toLowerCase());
-
   const handleSearch: SelectProps["onSearch"] = (searchInput) => {
     if (
       contactListOptions?.some((optionItem) =>
@@ -40,13 +52,40 @@ export const CollapseItem: FC<CollapseItemProp> = ({
       setContactListName("");
     else setContactListName(searchInput);
   };
-
-  const addContactList: SelectProps["dropDownRender"] = (options) => (
-    <>
-      {options}
-      {contactListName}
-    </>
+  const {
+    fetchData: fetchCreate,
+    error: createError,
+    code: createCode,
+    loading: createLoading,
+  } = useCreateContactList({
+    name: contactListName,
+  });
+  const AddContactList = useMemo(
+    () => (
+      <Typography.Link
+        onClick={() => fetchCreate?.()}
+        title={LanguageText.addContactListTip}
+      >
+        {createLoading ? <LoadingOutlined /> : <PlusOutlined />}
+      </Typography.Link>
+    ),
+    [LanguageText.addContactListTip, createLoading, fetchCreate]
   );
+  useEffect(() => {
+    if (createError) messageApi?.error(createError);
+  }, [createError, messageApi]);
+  useEffect(() => {
+    if (createCode === 200) {
+      setTimestamp(new Date().getTime());
+      messageApi?.success(LanguageText.addContactListSuccess);
+      setContactListName("");
+    }
+  }, [
+    LanguageText.addContactListSuccess,
+    createCode,
+    messageApi,
+    setTimestamp,
+  ]);
 
   return (
     <>
@@ -98,10 +137,11 @@ export const CollapseItem: FC<CollapseItemProp> = ({
             loading={contactLoading}
             mode="multiple"
             maxTagCount="responsive"
-            allowClear
-            onSearch={debounce(handleSearch, 300)}
+            allowClear={!contactListName}
+            suffixIcon={contactListName ? AddContactList : <DownOutlined />}
+            onSearch={handleSearch}
+            onBlur={() => setContactListName("")}
             filterOption={handleFilterOption}
-            dropdownRender={addContactList}
           />
         </Form.Item>
       </Flex>

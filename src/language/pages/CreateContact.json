@@ -3,9 +3,21 @@
     "en": "New Contact(s)",
     "zh": "新建联系方式"
   },
+  "importTitle": {
+    "en": "Import from Csv",
+    "zh": "导入Csv"
+  },
   "addContact": {
     "en": "Add Contact",
     "zh": "添加联系方式"
+  },
+  "addContactListTip":{
+    "en": "Create new contact list",
+    "zh": "新建联系方式列表"
+  },
+  "addContactListSuccess": {
+    "en": "Add contact list success",
+    "zh": "成功添加联系人分组"
   },
   "deleteTitle": {
     "en": "Alert",
@@ -33,7 +45,7 @@
   },
   "phoneTip": {
     "en": "Currently, only 11-digit phone numbers with the +86 area code from mainland China are supported.",
-    "zh": "目前只支持中国大陆（+86区号）的11位电话号码"
+    "zh": "目前只支持中国大陆 (+86区号) 的11位电话号码"
   },
   "phoneInvalid": {
     "en": "Please input a valid phone",
@@ -58,5 +70,9 @@
   "addButton": {
     "en": "Add",
     "zh": "添加"
+  },
+  "addSuccess": {
+    "en": "Success",
+    "zh": "成功"
   }
 }

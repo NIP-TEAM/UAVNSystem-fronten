@@ -68,7 +68,6 @@ const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
     code: createCode,
     loading: createLoading,
     error: createError,
-    data: createData,
   } = useCreateContactList(groupInfo);
   useEffect(() => {
     if (createError) messageApi?.error(createError);
@@ -90,7 +89,6 @@ const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
     LanguageText.createGroupSuccess,
     LanguageText.toCreateContactLink,
     createCode,
-    createData?.data.id,
     messageApi,
     navigate,
     setOpen,
