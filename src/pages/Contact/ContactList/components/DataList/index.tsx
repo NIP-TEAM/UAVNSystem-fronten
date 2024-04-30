@@ -14,14 +14,10 @@ import { BasicPagination } from "@/types";
 export interface DataListProp extends NewContactListModalProp {
   contactListData: ContactListDataType[];
   controller: TabItemProp["controller"];
-  setPagination: Dispatch<SetStateAction<BasicPagination>>
+  setPagination: Dispatch<SetStateAction<BasicPagination>>;
 }
 
-export const DataList: FC<DataListProp> = ({
-  contactListData,
-  setTimestamp,
-  controller,
-}) => {
+export const DataList: FC<DataListProp> = ({ contactListData, controller }) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -53,7 +49,7 @@ export const DataList: FC<DataListProp> = ({
 
   return (
     <Tabs
-      tabBarExtraContent={<NewContactListModal {...{ setTimestamp }} />}
+      tabBarExtraContent={<NewContactListModal />}
       renderTabBar={renderTabBar}
       items={items}
     />

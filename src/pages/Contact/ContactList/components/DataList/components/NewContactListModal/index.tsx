@@ -1,5 +1,6 @@
 import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
+import { useControllerContext } from "@/pages/Contact/ContactList/hooks";
 import { useCreateContactList } from "@/service";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Flex, Form, Input, Modal } from "antd";
@@ -13,11 +14,9 @@ import {
 } from "react";
 import { useNavigate } from "react-router";
 
-export interface NewContactListModalProp {
-  setTimestamp: Dispatch<SetStateAction<number>>;
-}
+export interface NewContactListModalProp {}
 
-export const NewContactListModal: FC<NewContactListModalProp> = (props) => {
+export const NewContactListModal: FC<NewContactListModalProp> = () => {
   const { LanguageText } = useLanguageContext<"Contact">();
   const [open, setOpen] = useState(false);
 
@@ -35,7 +34,7 @@ export const NewContactListModal: FC<NewContactListModalProp> = (props) => {
         title={LanguageText.createGroupTitle}
         destroyOnClose
       >
-        <NewContactListModalContent {...{ setOpen, ...props }} />
+        <NewContactListModalContent {...{ setOpen }} />
       </Modal>
     </>
   );
@@ -43,7 +42,6 @@ export const NewContactListModal: FC<NewContactListModalProp> = (props) => {
 
 interface NewContactListModalContentProp {
   setOpen: Dispatch<SetStateAction<boolean>>;
-  setTimestamp: Dispatch<SetStateAction<number>>;
 }
 
 type FormType = {
@@ -52,11 +50,11 @@ type FormType = {
 
 const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
   setOpen,
-  setTimestamp,
 }) => {
   const navigate = useNavigate();
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
+  const { contactListRefresh } = useControllerContext();
 
   const [form] = Form.useForm<FormType>();
   const [groupInfo, setGroupInfo] = useState<FormType>({
@@ -82,17 +80,17 @@ const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
           </Button>
         </>
       );
-      setTimestamp(new Date().getTime());
+      contactListRefresh?.();
       setOpen(false);
     }
   }, [
     LanguageText.createGroupSuccess,
     LanguageText.toCreateContactLink,
+    contactListRefresh,
     createCode,
     messageApi,
     navigate,
     setOpen,
-    setTimestamp,
   ]);
 
   return (

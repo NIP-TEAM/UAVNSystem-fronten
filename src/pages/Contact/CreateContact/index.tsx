@@ -7,7 +7,7 @@ import { CollapseHeader, CollapseItem, Header } from "./components";
 import {
   ContactDataType,
   useCreateContacts,
-  useGetContactList,
+  useGetContactLists,
 } from "@/service";
 import { AppContext } from "@/App";
 
@@ -27,7 +27,7 @@ export const CreateContact: FC<CreateContactProp> = () => {
     data: contactListDataData,
     error: contactListError,
     loading: contactLoading,
-  } = useGetContactList();
+  } = useGetContactLists();
   const [timestamp, setTimestamp] = useState(0);
   useEffect(() => {
     if (contactListError) messageApi?.error(contactListError);

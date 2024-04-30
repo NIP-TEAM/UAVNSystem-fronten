@@ -13,7 +13,10 @@ export interface TabItemProp extends TabItemHeaderProp {
   controller: ContactDataControllerType;
 }
 
-export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
+export const TabItem: FC<TabItemProp> = ({
+  contactListId,
+  controller,
+}) => {
   const { messageApi } = useContext(AppContext);
   // const {LanguageText} = useLanguageContext<"Contact">()
 

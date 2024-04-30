@@ -73,3 +73,9 @@ export const useCreateContacts = (data: Partial<ContactDataType>[]) =>
     method: "post",
     data,
   });
+
+  export const useUpdateContactList = (id: number, data: Partial<ContactDataType>) => useHttp({
+    url: '/contact/contactlist/' + id,
+    method: "patch",
+    data,
+  })

@@ -54,5 +54,21 @@
   "otherLabel": {
     "en": "Not Grouped",
     "zh": "未分组"
+  },
+  "allTitle": {
+    "en": "All Contacts",
+    "zh": "全部联系方式"
+  },
+  "otherTitle": {
+    "en": "None Grouped Contacts",
+    "zh": "未分组的联系方式"
+  },
+  "showDetail": {
+    "en": "Click here to show list detail",
+    "zh": "点击展示列表信息"
+  },
+  "updateSuccess": {
+    "en": "Contact list info updated success!",
+    "zh": "联系人列表信息更新成功!"
   }
 }

@@ -10,6 +10,7 @@ import {
 } from "@/service";
 import { AppContext } from "@/App";
 import { BasicPagination } from "@/types";
+import { ContactListDataControllerProvider } from "./hooks";
 
 interface ContactProp {}
 
@@ -62,22 +63,28 @@ export const Contact: FC<ContactProp> = () => {
   }, [timestamp]);
 
   return (
-    <BasicCard>
-      <Header />
-      <Filter {...{ setFilter, setTimestamp }} />
-      <Spin spinning={contactListLoading}>
-        <DataList
-          {...{
-            contactListData,
-            setTimestamp,
-            setPagination,
-            controller: {
-              pagination,
-              filter,
-            },
-          }}
-        />
-      </Spin>
-    </BasicCard>
+    <ContactListDataControllerProvider
+      {...{
+        pagination,
+        contactListRefresh: () => setTimestamp(new Date().getTime()),
+      }}
+    >
+      <BasicCard>
+        <Header />
+        <Filter {...{ setFilter, setTimestamp }} />
+        <Spin spinning={contactListLoading}>
+          <DataList
+            {...{
+              contactListData,
+              setPagination,
+              controller: {
+                pagination,
+                filter,
+              },
+            }}
+          />
+        </Spin>
+      </BasicCard>
+    </ContactListDataControllerProvider>
   );
 };
