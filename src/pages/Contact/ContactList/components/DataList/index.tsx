@@ -1,18 +1,26 @@
 import { Tabs, TabsProps, theme } from "antd";
-import { FC, useMemo } from "react";
+import { Dispatch, FC, SetStateAction, useMemo } from "react";
 import StickyBox from "react-sticky-box";
-import { TabItem } from "./components/TabItem";
 import { ContactListDataType } from "@/service";
 import { useLanguageContext } from "@/hooks";
-import { NewContactListModal, NewContactListModalProp } from "./components";
+import {
+  NewContactListModal,
+  NewContactListModalProp,
+  TabItem,
+  TabItemProp,
+} from "./components";
+import { BasicPagination } from "@/types";
 
 export interface DataListProp extends NewContactListModalProp {
   contactListData: ContactListDataType[];
+  controller: TabItemProp["controller"];
+  setPagination: Dispatch<SetStateAction<BasicPagination>>
 }
 
 export const DataList: FC<DataListProp> = ({
   contactListData,
   setTimestamp,
+  controller,
 }) => {
   const {
     token: { colorBgContainer },
@@ -23,25 +31,24 @@ export const DataList: FC<DataListProp> = ({
       <DefaultTabBar {...props} style={{ background: colorBgContainer }} />
     </StickyBox>
   );
+
   const items = useMemo<TabsProps["items"]>(
-    () => [
-      {
-        label: LanguageText.allLabel,
-        key: "-1",
-        children: <TabItem contactListId={-1} />,
-      },
-      ...contactListData.map(({ id, name }) => ({
+    () =>
+      [
+        { id: -1, name: LanguageText.allLabel },
+        ...contactListData,
+        { id: -2, name: LanguageText.otherLabel },
+      ].map(({ id, name }) => ({
         label: name,
         key: id.toString(),
-        children: <TabItem contactListId={id} />,
+        children: <TabItem contactListId={id} controller={controller} />,
       })),
-      {
-        label: LanguageText.otherLabel,
-        key: "-2",
-        children: <TabItem contactListId={-2} />,
-      },
-    ],
-    [LanguageText.allLabel, LanguageText.otherLabel, contactListData]
+    [
+      LanguageText.allLabel,
+      LanguageText.otherLabel,
+      contactListData,
+      controller,
+    ]
   );
 
   return (

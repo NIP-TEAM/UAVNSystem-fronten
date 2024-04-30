@@ -36,33 +36,40 @@ export type ContactListDataType = {
   networkInfo: { name: string; id: number }[];
 };
 
-export const useGetContactList = () =>
+export const useGetContactLists = () =>
   useHttp<ContactListDataType[]>({
-    url: "/contact",
+    url: "/contact/contactlist",
+    method: "get",
+  });
+
+export const useGetContactList = (id: number) =>
+  useHttp<ContactListDataType>({
+    url: "/contact/contactlist/info/" + id,
     method: "get",
   });
 
 export type ContactDataControllerType = {
   pagination: BasicPagination;
-  filters: string;
+  filter: string;
 };
 
-export const useGetContact = (id: number, data: ContactDataControllerType) =>
-  useHttp<ContactDataType, BasicMetaType>({
-    url: "/contact/" + id,
+export const useGetContacts = (id: number, data: ContactDataControllerType) =>
+  useHttp<ContactDataType[], BasicMetaType>({
+    url: "/contact/contactlist/" + id,
     method: "get",
     data,
   });
 
 export const useCreateContactList = (data: { name: string }) =>
   useHttp({
-    url: "/contact",
+    url: "/contact/contactlist",
     method: "post",
     data,
   });
 
-export const useCreateContacts = (data: Partial<ContactDataType>[]) => useHttp({
-  url: '/contact/contacts',
-  method: "post",
-  data,
-})
+export const useCreateContacts = (data: Partial<ContactDataType>[]) =>
+  useHttp({
+    url: "/contact",
+    method: "post",
+    data,
+  });

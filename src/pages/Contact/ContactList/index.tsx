@@ -1,19 +1,39 @@
 import { BasicCard } from "@/components";
-import { useLanguageContext } from "@/hooks";
 import { SessionKeys, getSessionStorageUtil } from "@/utils";
-import { Spin, Typography } from "antd";
+import { Spin } from "antd";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
-import { DataList, Filter, FilterProp, Header } from "./components";
-import { ContactListDataType, useGetContactList } from "@/service";
+import { DataList, Filter, Header } from "./components";
+import {
+  ContactDataControllerType,
+  ContactListDataType,
+  useGetContactLists,
+} from "@/service";
 import { AppContext } from "@/App";
+import { BasicPagination } from "@/types";
 
 interface ContactProp {}
 
+const sessionKey = SessionKeys.CONTACTLIST;
+
+const defaultPagination: Readonly<BasicPagination> = {
+  current: 1,
+  pageSize: 10,
+  total: 10,
+};
+
 export const Contact: FC<ContactProp> = () => {
   const { messageApi } = useContext(AppContext);
-  const { LanguageText } = useLanguageContext<"Contact">();
   const [timestamp, setTimestamp] = useState(0);
-  const [filter, setFilter] = useState();
+  const [pagination, setPagination] = useState<BasicPagination>(
+    getSessionStorageUtil<ContactDataControllerType>(sessionKey)?.pagination ||
+      defaultPagination
+  );
+  const [filter, setFilter] = useState(
+    getSessionStorageUtil<ContactDataControllerType>(sessionKey)?.filter || ""
+  );
+  useEffect(() => {
+    sessionStorage.removeItem(sessionKey);
+  }, []);
 
   // contactListData
   const {
@@ -22,7 +42,7 @@ export const Contact: FC<ContactProp> = () => {
     error: contactListError,
     data: contactListDataData,
     loading: contactListLoading,
-  } = useGetContactList();
+  } = useGetContactLists();
   useEffect(() => {
     if (contactListError) messageApi?.error(contactListError);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,9 +64,19 @@ export const Contact: FC<ContactProp> = () => {
   return (
     <BasicCard>
       <Header />
-      {/* <Filter /> */}
+      <Filter {...{ setFilter, setTimestamp }} />
       <Spin spinning={contactListLoading}>
-        <DataList {...{ contactListData, setTimestamp }} />
+        <DataList
+          {...{
+            contactListData,
+            setTimestamp,
+            setPagination,
+            controller: {
+              pagination,
+              filter,
+            },
+          }}
+        />
       </Spin>
     </BasicCard>
   );
