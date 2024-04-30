@@ -3,7 +3,8 @@ import { ContactDataType } from "@/service";
 import { QuestionCircleFilled } from "@ant-design/icons";
 import { Flex, Form, Input, Select, SelectProps, Tooltip } from "antd";
 import { SetStateAction } from "jotai";
-import { Dispatch, FC } from "react";
+import { debounce } from "lodash-es";
+import { Dispatch, FC, useState } from "react";
 
 export interface CollapseItemProp {
   restField: { [key: string]: unknown };
@@ -21,6 +22,31 @@ export const CollapseItem: FC<CollapseItemProp> = ({
   setTimestamp,
 }) => {
   const { LanguageText } = useLanguageContext<"CreateContact">();
+
+  // add contact list about
+  const [contactListName, setContactListName] = useState("");
+
+  const handleFilterOption: SelectProps["filterOption"] = (input, option) =>
+    ((option?.label || "") as string)
+      .toLowerCase()
+      .includes(input.toLowerCase());
+
+  const handleSearch: SelectProps["onSearch"] = (searchInput) => {
+    if (
+      contactListOptions?.some((optionItem) =>
+        handleFilterOption(searchInput, optionItem)
+      )
+    )
+      setContactListName("");
+    else setContactListName(searchInput);
+  };
+
+  const addContactList: SelectProps["dropDownRender"] = (options) => (
+    <>
+      {options}
+      {contactListName}
+    </>
+  );
 
   return (
     <>
@@ -69,15 +95,13 @@ export const CollapseItem: FC<CollapseItemProp> = ({
           <Select
             options={contactListOptions}
             placeholder={LanguageText.selectPlaceholder}
+            loading={contactLoading}
             mode="multiple"
             maxTagCount="responsive"
             allowClear
-            showSearch
-            filterOption={(input, option) =>
-              ((option?.label ?? "") as string)
-                .toLowerCase()
-                .includes(input.toLowerCase())
-            }
+            onSearch={debounce(handleSearch, 300)}
+            filterOption={handleFilterOption}
+            dropdownRender={addContactList}
           />
         </Form.Item>
       </Flex>
