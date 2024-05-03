@@ -70,5 +70,29 @@
   "updateSuccess": {
     "en": "Contact list info updated success!",
     "zh": "联系人列表信息更新成功!"
+  },
+  "idTitle": {
+    "en": "id",
+    "zh": "识别码"
+  },
+  "nameTitle": {
+    "en": "Name",
+    "zh": "名称"
+  },
+  "actionTitle": {
+    "zh": "操作",
+    "en": "Action"
+  },
+  "removeTitle": {
+    "en": "remove",
+    "zh": "删除"
+  },
+  "removeModalTitle": {
+    "en": "Alert",
+    "zh": "警告"
+  },
+  "toDetailTitle": {
+    "en": "Detail",
+    "zh": "详情"
   }
 }

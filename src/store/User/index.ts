@@ -17,14 +17,14 @@ export interface UserInfo {
 type PartialUserProtocol = Partial<UserProtocol>
 
 const userCoreAtom = atomWithStorage<PartialUserProtocol>('user-about', {
-    // token: 'adfafdadsfadfa',
-    // userInfo: {
-    //     name: 'local data',
-    //     id: 'fadfadf',
-    //     active: true,
-    //     email: 'test@test.com',
-    //     lastLogin: new Date().getTime(),
-    // }
+    token: 'adfafdadsfadfa',
+    userInfo: {
+        name: 'local data',
+        id: 'fadfadf',
+        active: true,
+        email: 'test@test.com',
+        lastLogin: new Date().getTime(),
+    }
 }, undefined, {
     getOnInit: true
 })

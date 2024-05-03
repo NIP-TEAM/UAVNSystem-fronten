@@ -110,7 +110,7 @@ export const useHttp = <DataType = unknown, MetaType = unknown>({
       });
 
       messageApi?.error(errorMsg)
-      httpStrategy[networkError?.response?.status || 401]?.();
+      // httpStrategy[networkError?.response?.status || 401]?.();
     }
   };
 
