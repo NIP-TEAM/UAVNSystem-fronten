@@ -1,5 +1,6 @@
 import { useHttp } from "@/hooks";
 import { BasicPagination } from "@/types";
+import { Key } from "react";
 
 interface BasicMetaType {
   pagination: BasicPagination;
@@ -73,6 +74,22 @@ export const useCreateContacts = (data: Partial<ContactDataType>[]) =>
     method: "post",
     data,
   });
+
+export const useDeleteContact = (data: Key[]) => useHttp({
+  url: "/contact/",
+  method: 'delete',
+  data,
+})
+
+export interface DeleteContactListController {
+  deleteContact?: boolean
+}
+
+export const useDeleteContactList = (id: number, data: DeleteContactListController)  => useHttp({
+  url: '/contact/contactlist/' + id,
+  method: "delete",
+  data,
+})
 
   export const useUpdateContactList = (id: number, data: Partial<ContactDataType>) => useHttp({
     url: '/contact/contactlist/' + id,

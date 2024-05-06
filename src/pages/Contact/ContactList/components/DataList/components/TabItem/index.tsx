@@ -3,12 +3,13 @@ import {
   ContactDataType,
   useGetContacts,
 } from "@/service";
-import { Button, Flex, Table, TableProps, Typography } from "antd";
-import { FC, useContext, useEffect, useMemo } from "react";
+import { Table, TableProps, Typography } from "antd";
+import { FC, Key, useContext, useEffect, useMemo, useState } from "react";
 import { TabItemHeaderProp, TabItemHeader } from "./components";
 import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
 import { RemoveModal } from "./components/RemoveModal";
+import { BasicPagination, defaultPagination } from "@/types";
 // import { useLanguageContext } from "@/hooks";
 
 type TableDataType = ContactDataType;
@@ -20,6 +21,9 @@ export interface TabItemProp extends TabItemHeaderProp {
 export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
+
+  const [pagination, setPagination] = useState<BasicPagination>(defaultPagination)
+  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
 
   const tableColumns: TableProps<TableDataType>["columns"] = [
     { title: LanguageText.idTitle, dataIndex: "id", align: "center" },
@@ -81,6 +85,11 @@ export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
         rowKey={(record) => record.id}
         dataSource={contactData}
         columns={tableColumns}
+        pagination={pagination}
+        rowSelection={{
+          selectedRowKeys,
+          onChange: (newValue) => setSelectedRowKeys(newValue),
+        }}
       />
     </div>
   );

@@ -4,7 +4,7 @@ import { BasicPagination } from "@/types";
 import { DownOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Flex, Table, Typography } from "antd";
 import { ItemType } from "antd/es/menu/hooks/useItems";
-import { ColumnsType, TablePaginationConfig } from "antd/es/table";
+import { ColumnsType, TablePaginationConfig, TableProps } from "antd/es/table";
 import { Dispatch, FC, Key, SetStateAction, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { DeleteTip } from "./components";
@@ -49,7 +49,7 @@ export const DataList: FC<DataListProp> = ({
       ),
     },
   ];
-  const columns = [
+  const columns: TableProps["columns"] = [
     ...([
       {
         title: LanguageText.id,
@@ -193,7 +193,7 @@ export const DataList: FC<DataListProp> = ({
     <Table
       loading={loading}
       dataSource={networkData}
-      columns={columns as ColumnsType<NetworkDataType>}
+      columns={columns}
       pagination={paginationProps}
       footer={() => Footer}
       rowSelection={{

@@ -9,18 +9,12 @@ import {
   useGetContactLists,
 } from "@/service";
 import { AppContext } from "@/App";
-import { BasicPagination } from "@/types";
+import { BasicPagination, defaultPagination } from "@/types";
 import { ContactListDataControllerProvider } from "./hooks";
 
 interface ContactProp {}
 
 const sessionKey = SessionKeys.CONTACTLIST;
-
-const defaultPagination: Readonly<BasicPagination> = {
-  current: 1,
-  pageSize: 10,
-  total: 10,
-};
 
 export const Contact: FC<ContactProp> = () => {
   const { messageApi } = useContext(AppContext);
@@ -46,8 +40,7 @@ export const Contact: FC<ContactProp> = () => {
   } = useGetContactLists();
   useEffect(() => {
     if (contactListError) messageApi?.error(contactListError);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [contactListError]);
+  }, [contactListError, messageApi]);
   const contactListData = useMemo<ContactListDataType[]>(() => {
     if (contactListCode === 200 && contactListDataData?.data)
       return contactListDataData.data;

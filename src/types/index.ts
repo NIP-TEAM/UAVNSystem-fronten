@@ -1,5 +1,7 @@
-export interface BasicPagination {
-    current: number,
-    pageSize: number,
-    total: number
-}
+export type BasicPagination = typeof defaultPagination;
+
+export const defaultPagination = {
+  current: 1,
+  pageSize: 10,
+  total: 10,
+};

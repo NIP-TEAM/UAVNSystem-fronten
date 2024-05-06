@@ -8,12 +8,11 @@ import {
   useState,
 } from "react";
 
-import { Button, Dropdown, Flex, Table, Tooltip, Typography } from "antd";
+import { Button, Dropdown, Flex, Table, TableProps, Tooltip, Typography } from "antd";
 import { UavDataType } from "@/service/Uav";
 import { FilterType } from "@/pages/Network/NetworkList/types";
 import { BasicPagination } from "@/types";
 import { useLanguageContext } from "@/hooks";
-import { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { useNavigate } from "react-router";
 import {
   ArrowDownOutlined,
@@ -101,7 +100,7 @@ export const DataList: FC<DataListProp> = ({
       ),
     },
   ];
-  const columns: ColumnsType<UavDataType> = [
+  const columns: TableProps["columns"] = [
     {
       title: LanguageText.idLabel,
       key: "id",
@@ -228,7 +227,7 @@ export const DataList: FC<DataListProp> = ({
       ),
     },
   ];
-  const paginationProps: TablePaginationConfig = {
+  const paginationProps: TableProps['pagination'] = {
     ...pagination,
     position: ["topLeft"],
     onChange: (page, pageSize) =>

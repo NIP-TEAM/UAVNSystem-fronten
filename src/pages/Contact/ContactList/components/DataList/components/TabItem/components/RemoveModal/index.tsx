@@ -1,14 +1,33 @@
+import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
+import { useDeleteContact } from "@/service";
 import { Button, Modal } from "antd";
-import { FC, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 export interface RemoveModalProp {
-    id: number
+  id: number;
 }
 
-export const RemoveModal: FC<RemoveModalProp> = () => {
+export const RemoveModal: FC<RemoveModalProp> = ({ id }) => {
+  const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
   const [open, setOpen] = useState(false);
+
+  const {
+    fetchData: fetchDelete,
+    error: deleteError,
+    code: deleteCode,
+    loading: deleteLoading,
+  } = useDeleteContact([id]);
+  useEffect(() => {
+    if (deleteError) messageApi?.error(deleteError);
+  }, [deleteError, messageApi]);
+  useEffect(() => {
+    if (deleteCode === 200) {
+      messageApi?.success(LanguageText.removeContactSuccess);
+      setOpen(false);
+    }
+  }, [LanguageText.removeContactSuccess, deleteCode, messageApi]);
 
   return (
     <>
@@ -18,9 +37,11 @@ export const RemoveModal: FC<RemoveModalProp> = () => {
       <Modal
         open={open}
         onCancel={() => setOpen(false)}
+        onOk={() => fetchDelete?.()}
+        confirmLoading={deleteLoading}
         title={LanguageText.removeModalTitle}
       >
-        111
+        {LanguageText.removeContactTips}
       </Modal>
     </>
   );
