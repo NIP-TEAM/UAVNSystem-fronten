@@ -39,7 +39,7 @@ export type ContactListDataType = {
 
 export const useGetContact = (id: number) =>
   useHttp<ContactDataType>({
-    url: "/contact/" + id,
+    url: "/contact/info/" + id,
     method: "get",
   });
 
@@ -83,7 +83,7 @@ export const useCreateContacts = (data: Partial<ContactDataType>[]) =>
 
 export const useDeleteContact = (data: Key[]) =>
   useHttp({
-    url: "/contact/",
+    url: "/contact",
     method: "delete",
     data,
   });

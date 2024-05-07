@@ -1,12 +1,7 @@
 import { message, ConfigProvider as AntdConfigProvider } from "antd";
 import { MessageInstance } from "antd/es/message/interface";
 import { createContext, useMemo } from "react";
-import {
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import {
   ANTDCOLORTHEME,
   ANTDLANGUAGETHEME,
@@ -28,7 +23,7 @@ export const AppContext = createContext<{ messageApi: MessageInstance | null }>(
 
 function App() {
   // message about
-  const [messageApi, contextHolder] = message.useMessage();
+  const [messageApi, contextHolder] = message.useMessage({ maxCount: 1 });
   const appContextMemoValue = useMemo(
     () => ({
       messageApi,

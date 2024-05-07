@@ -9,7 +9,10 @@ export interface RemoveModalProp {
   handleSelect: () => void;
 }
 
-export const RemoveModal: FC<RemoveModalProp> = ({ selectedRowKeys, handleSelect }) => {
+export const RemoveModal: FC<RemoveModalProp> = ({
+  selectedRowKeys,
+  handleSelect,
+}) => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
   const [open, setOpen] = useState(false);
@@ -31,7 +34,8 @@ export const RemoveModal: FC<RemoveModalProp> = ({ selectedRowKeys, handleSelect
   }, [LanguageText.removeContactSuccess, deleteCode, messageApi]);
 
   const onClick: ButtonProps["onClick"] = () => {
-    handleSelect(), setOpen(true);
+    handleSelect();
+    setOpen(true);
   };
 
   return (

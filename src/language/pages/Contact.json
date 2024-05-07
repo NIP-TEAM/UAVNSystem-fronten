@@ -35,6 +35,10 @@
     "en": "Ok",
     "zh": "确定"
   },
+  "editButton": {
+    "en": "Edit",
+    "zh": "编辑"
+  },
   "cancelTitle": {
     "en": "Cancel",
     "zh": "取消"
@@ -102,5 +106,9 @@
   "removeContactSuccess": {
     "en": "Remove Contact(s) success!",
     "zh": "成功删除以上联系方式"
+  },
+  "saveButton": {
+    "en": "Save",
+    "zh": "保存"
   }
 }

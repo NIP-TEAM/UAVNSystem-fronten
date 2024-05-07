@@ -3,9 +3,14 @@ import {
   ContactDataType,
   useGetContacts,
 } from "@/service";
-import { Table, TableProps, Typography } from "antd";
+import { Table, TableProps } from "antd";
 import { FC, Key, useContext, useEffect, useMemo, useState } from "react";
-import { TabItemHeaderProp, TabItemHeader, RemoveModal, AsideDrawer } from "./components";
+import {
+  TabItemHeaderProp,
+  TabItemHeader,
+  RemoveModal,
+  AsideDrawer,
+} from "./components";
 import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
 import { BasicPagination, defaultPagination } from "@/types";
@@ -43,7 +48,7 @@ export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
               ])
             }
           />
-          <AsideDrawer id={record.id} />
+          <AsideDrawer {...record} />
         </div>
       ),
     },
