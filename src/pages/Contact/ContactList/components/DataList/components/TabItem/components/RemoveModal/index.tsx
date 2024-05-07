@@ -1,14 +1,15 @@
 import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
 import { useDeleteContact } from "@/service";
-import { Button, Modal } from "antd";
-import { FC, useContext, useEffect, useState } from "react";
+import { Button, ButtonProps, Modal } from "antd";
+import { FC, Key, useContext, useEffect, useState } from "react";
 
 export interface RemoveModalProp {
-  id: number;
+  selectedRowKeys: Key[];
+  handleSelect: () => void;
 }
 
-export const RemoveModal: FC<RemoveModalProp> = ({ id }) => {
+export const RemoveModal: FC<RemoveModalProp> = ({ selectedRowKeys, handleSelect }) => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
   const [open, setOpen] = useState(false);
@@ -18,7 +19,7 @@ export const RemoveModal: FC<RemoveModalProp> = ({ id }) => {
     error: deleteError,
     code: deleteCode,
     loading: deleteLoading,
-  } = useDeleteContact([id]);
+  } = useDeleteContact(selectedRowKeys);
   useEffect(() => {
     if (deleteError) messageApi?.error(deleteError);
   }, [deleteError, messageApi]);
@@ -29,9 +30,13 @@ export const RemoveModal: FC<RemoveModalProp> = ({ id }) => {
     }
   }, [LanguageText.removeContactSuccess, deleteCode, messageApi]);
 
+  const onClick: ButtonProps["onClick"] = () => {
+    handleSelect(), setOpen(true);
+  };
+
   return (
     <>
-      <Button danger type="link" onClick={() => setOpen(true)} size="small">
+      <Button danger type="link" onClick={onClick} size="small">
         {LanguageText.removeTitle}
       </Button>
       <Modal

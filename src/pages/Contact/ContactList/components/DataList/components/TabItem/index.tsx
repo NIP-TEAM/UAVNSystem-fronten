@@ -22,8 +22,9 @@ export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
 
-  const [pagination, setPagination] = useState<BasicPagination>(defaultPagination)
-  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([])
+  const [pagination, setPagination] =
+    useState<BasicPagination>(defaultPagination);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
   const tableColumns: TableProps<TableDataType>["columns"] = [
     { title: LanguageText.idTitle, dataIndex: "id", align: "center" },
@@ -34,7 +35,15 @@ export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
       align: "center",
       render: (_, record) => (
         <div>
-          <RemoveModal id={record.id} />
+          <RemoveModal
+            selectedRowKeys={selectedRowKeys}
+            handleSelect={() =>
+              setSelectedRowKeys((prev) => [
+                ...prev.filter((item) => item !== record.id),
+                record.id,
+              ])
+            }
+          />
           <Typography.Link>{LanguageText.toDetailTitle}</Typography.Link>
         </div>
       ),
@@ -57,25 +66,15 @@ export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const contactData = useMemo<TableDataType[]>(() => {
-    if (contactCode === 200 && contactDataData?.data)
+    if (contactCode === 200 && contactDataData?.data) {
+      setPagination((prev) => ({
+        ...prev,
+        ...contactDataData.meta.pagination,
+      }));
       return contactDataData.data;
-    return [
-      {
-        name: "test",
-        id: 1,
-        phone: "13808070211",
-        email: "2530056984@qq.com",
-        note: "1111",
-        createdAt: new Date().getTime().toString(),
-        updatedAt: new Date().getTime().toString(),
-        creator: {
-          name: "user1",
-          id: 1,
-        },
-        contactListIds: [],
-      },
-    ];
-  }, [contactDataData?.data, contactCode]);
+    }
+    return [];
+  }, [contactCode, contactDataData?.data, contactDataData?.meta.pagination]);
 
   return (
     <div style={{ padding: 5 }}>

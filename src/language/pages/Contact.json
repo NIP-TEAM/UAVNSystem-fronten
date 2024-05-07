@@ -96,11 +96,11 @@
     "zh": "详情"
   },
   "removeContactTips": {
-    "en": "Are you sure that you want to delete this contact?",
-    "zh": "确定要删除这条联系方式?"
+    "en": "Are you sure that you want to delete these contact?",
+    "zh": "确定要删除选中的联系方式?"
   },
   "removeContactSuccess": {
-    "en": "Remove Contact success!",
-    "zh": "成功删除此条联系方式"
+    "en": "Remove Contact(s) success!",
+    "zh": "成功删除以上联系方式"
   }
 }

@@ -37,6 +37,12 @@ export type ContactListDataType = {
   networkInfo: { name: string; id: number }[];
 };
 
+export const useGetContact = (id: number) =>
+  useHttp<ContactDataType>({
+    url: "/contact/" + id,
+    method: "get",
+  });
+
 export const useGetContactLists = () =>
   useHttp<ContactListDataType[]>({
     url: "/contact/contactlist",
@@ -75,24 +81,33 @@ export const useCreateContacts = (data: Partial<ContactDataType>[]) =>
     data,
   });
 
-export const useDeleteContact = (data: Key[]) => useHttp({
-  url: "/contact/",
-  method: 'delete',
-  data,
-})
+export const useDeleteContact = (data: Key[]) =>
+  useHttp({
+    url: "/contact/",
+    method: "delete",
+    data,
+  });
 
 export interface DeleteContactListController {
-  deleteContact?: boolean
+  deleteContact?: boolean;
 }
 
-export const useDeleteContactList = (id: number, data: DeleteContactListController)  => useHttp({
-  url: '/contact/contactlist/' + id,
-  method: "delete",
-  data,
-})
+export const useDeleteContactList = (
+  id: number,
+  data: DeleteContactListController
+) =>
+  useHttp({
+    url: "/contact/contactlist/" + id,
+    method: "delete",
+    data,
+  });
 
-  export const useUpdateContactList = (id: number, data: Partial<ContactDataType>) => useHttp({
-    url: '/contact/contactlist/' + id,
+export const useUpdateContactList = (
+  id: number,
+  data: Partial<ContactDataType>
+) =>
+  useHttp({
+    url: "/contact/contactlist/" + id,
     method: "patch",
     data,
-  })
+  });
