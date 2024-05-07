@@ -5,10 +5,9 @@ import {
 } from "@/service";
 import { Table, TableProps, Typography } from "antd";
 import { FC, Key, useContext, useEffect, useMemo, useState } from "react";
-import { TabItemHeaderProp, TabItemHeader } from "./components";
+import { TabItemHeaderProp, TabItemHeader, RemoveModal, AsideDrawer } from "./components";
 import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
-import { RemoveModal } from "./components/RemoveModal";
 import { BasicPagination, defaultPagination } from "@/types";
 // import { useLanguageContext } from "@/hooks";
 
@@ -44,7 +43,7 @@ export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
               ])
             }
           />
-          <Typography.Link>{LanguageText.toDetailTitle}</Typography.Link>
+          <AsideDrawer id={record.id} />
         </div>
       ),
     },
