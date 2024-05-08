@@ -23,13 +23,13 @@ export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
   const navigate = useNavigate();
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
-  const { filters, searchKey } = useContactGlobalContext();
+  const { filters, searchKey, refreshContactFlag, setRefreshContactFlag } =
+    useContactGlobalContext();
 
   const [pagination, setPagination] =
     useState<BasicPagination>(defaultPagination);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
   const [sorter, setSorter] = useState<Record<string, "asc" | "desc">>({});
-  const [timestamp, setTimestamp] = useState(0);
 
   // get contact(s)
   const {
@@ -45,10 +45,6 @@ export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
   useEffect(() => {
     if (contactError) messageApi?.error(contactError);
   }, [contactError, messageApi]);
-  useEffect(() => {
-    fetchContact?.()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timestamp])
   const contactData = useMemo<TableDataType[]>(() => {
     if (contactCode === 200 && contactDataData?.data) {
       setPagination((prev) => ({
@@ -59,6 +55,10 @@ export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
     }
     return [];
   }, [contactCode, contactDataData?.data, contactDataData?.meta.pagination]);
+  useEffect(() => {
+    fetchContact?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshContactFlag]);
 
   const tableColumns: TableProps<TableDataType>["columns"] = [
     { title: LanguageText.idLabel, dataIndex: "id", align: "center" },
@@ -83,7 +83,7 @@ export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
     {
       title: LanguageText.createAtLabel,
       dataIndex: "createAt",
-      key: 'createAt',
+      key: "createAt",
       align: "center",
       render: (_, { createAt }) => <>{basicTimeFormate(createAt)}</>,
       sorter: true,
@@ -91,7 +91,7 @@ export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
     {
       title: LanguageText.updateAtLabel,
       dataIndex: "updateAt",
-      key: 'updateAt',
+      key: "updateAt",
       align: "center",
       render: (_, { updateAt }) => <>{basicTimeFormate(updateAt)}</>,
       sorter: true,
@@ -140,7 +140,7 @@ export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
                 }
               : {}
           );
-          setTimestamp(new Date().getTime())
+          setRefreshContactFlag(new Date().getTime());
         }}
       />
     </div>

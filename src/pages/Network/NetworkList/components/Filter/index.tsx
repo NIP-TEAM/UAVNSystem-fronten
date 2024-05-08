@@ -40,21 +40,15 @@ export const Filter: FC<FilterProp> = ({
 
   useEffect(() => {
     setFilter((prev) => {
-      const requestFilters: {
-        [key: string]: { quantifier: string; content: string | number };
-      } = {};
-      formFilters
-        ?.filter((item) => !!item)
-        .forEach(({ category, quantifier, content }) => {
-          if (!category || !quantifier || !content) return;
-          requestFilters[category] = {
-            quantifier,
-            content,
-          };
-        });
       return {
         ...prev,
-        filters: requestFilters,
+        filters: formFilters?.reduce((acc, current) => {
+          if (!current) return acc;
+          const { category, quantifier, content } = current;
+          if (category && quantifier && content)
+            acc[category] = { quantifier, content };
+          return acc;
+        }, {} as FilterType["filters"]),
       };
     });
   }, [formFilters, setFilter]);

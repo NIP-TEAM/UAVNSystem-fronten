@@ -154,6 +154,7 @@ const ContactInfo: FC<{
     if (updateCode === 200) {
       messageApi?.success(LanguageText.updateContactSuccess);
       setEdited(true);
+      setEdit(false);
       fetchContactInfo?.();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

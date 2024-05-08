@@ -1,37 +1,65 @@
 import { AppContext } from "@/App";
-import { ContactDataControllerType, ContactListDataType, useGetContactLists } from "@/service";
+import {
+  ContactDataControllerType,
+  ContactListDataType,
+  useGetContactLists,
+} from "@/service";
 import { SessionKeys, getSessionStorageUtil } from "@/utils";
-import { Dispatch, FC, ReactNode, SetStateAction, createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  Dispatch,
+  FC,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { FilterType } from "../components/Filter/types";
 
 const sessionKey = SessionKeys.CONTACTLIST;
 
+type FiltersType = FilterType["filters"];
 
 const ContactGlobalContext = createContext<{
   contactListLoading: boolean;
   fetchContactList?: () => void;
   contactListData: ContactListDataType[];
-  filters: string,
-  setFilters: Dispatch<SetStateAction<string>>;
+  filters: FiltersType;
+  setFilters: Dispatch<SetStateAction<FiltersType>>;
   searchKey: string;
   setSearchKey: Dispatch<SetStateAction<string>>;
+  refreshContactFlag: number;
+  setRefreshContactFlag: Dispatch<SetStateAction<number>>;
 }>({
   contactListLoading: false,
   contactListData: [],
-  filters: '',
+  filters: {},
   setFilters: () => {},
-  searchKey: '',
-  setSearchKey: () => {}
+  searchKey: "",
+  setSearchKey: () => {},
+  refreshContactFlag: 0,
+  setRefreshContactFlag: () => {},
 });
 
 export const ContactGlobalProvider: FC<{
   children: ReactNode;
 }> = ({ children }) => {
-  const {messageApi } = useContext(AppContext);
+  const { messageApi } = useContext(AppContext);
 
   // contact controller about
-  const [searchKey, setSearchKey] = useState(JSON.parse(getSessionStorageUtil<ContactDataControllerType>(sessionKey)?.filter || "{}")?.searchKey || '')
+  const [searchKey, setSearchKey] = useState(
+    JSON.parse(
+      getSessionStorageUtil<ContactDataControllerType>(sessionKey)?.filter ||
+        "{}"
+    )?.searchKey || ""
+  );
   const [filters, setFilters] = useState(
-    JSON.parse(getSessionStorageUtil<ContactDataControllerType>(sessionKey)?.filter || "{}")?.filters || ''
+    JSON.parse(
+      getSessionStorageUtil<ContactDataControllerType>(sessionKey)?.filter ||
+        "{}"
+    )?.filters || ""
   );
   useEffect(() => {
     sessionStorage.removeItem(sessionKey);
@@ -57,6 +85,7 @@ export const ContactGlobalProvider: FC<{
     fetchContactList?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const [refreshContactFlag, setRefreshContactFlag] = useState(0);
 
   return (
     <ContactGlobalContext.Provider
@@ -68,6 +97,8 @@ export const ContactGlobalProvider: FC<{
         setFilters,
         searchKey,
         setSearchKey,
+        refreshContactFlag,
+        setRefreshContactFlag,
       }}
     >
       {children}
