@@ -12,8 +12,8 @@ export type ContactDataType = {
   phone: string;
   email: string;
   note: string;
-  createdAt: string;
-  updatedAt: string;
+  createAt: string;
+  updateAt: string;
   creator: {
     name: string;
     id: number;
@@ -104,10 +104,16 @@ export const useDeleteContactList = (
 
 export const useUpdateContactList = (
   id: number,
-  data: Partial<ContactDataType>
+  data: Partial<ContactListDataType>
 ) =>
   useHttp({
     url: "/contact/contactlist/" + id,
     method: "patch",
     data,
   });
+
+export const useUpdateContact = (id: number, data: Partial<ContactDataType>) => useHttp({
+  url: "/contact/info/" + id,
+  method: 'patch',
+  data
+})

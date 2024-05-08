@@ -1,3 +1,3 @@
 export * from './TabItemHeader'
-export * from './AsideDrawer'
+export * from './DetailDrawer'
 export * from './RemoveModal'

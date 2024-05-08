@@ -11,7 +11,7 @@ export const Header: FC<HeaderProp> = () => {
 
   return (
     <Flex align="center" justify="space-between">
-      <Typography.Title level={4}>{LanguageText.emailTitle}</Typography.Title>
+      <Typography.Title level={4}>{LanguageText.contactListTitle}</Typography.Title>
       <Button type="primary" onClick={() => navigate("/contact/create")}>
         {LanguageText.createGroupButton}
       </Button>

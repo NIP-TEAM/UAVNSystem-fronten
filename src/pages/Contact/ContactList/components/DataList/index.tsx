@@ -1,27 +1,22 @@
 import { Tabs, TabsProps, theme } from "antd";
-import { Dispatch, FC, SetStateAction, useMemo } from "react";
+import { FC, useMemo } from "react";
 import StickyBox from "react-sticky-box";
-import { ContactListDataType } from "@/service";
 import { useLanguageContext } from "@/hooks";
 import {
   NewContactListModal,
   NewContactListModalProp,
   TabItem,
-  TabItemProp,
 } from "./components";
-import { BasicPagination } from "@/types";
+import { useContactGlobalContext } from "../../hooks";
 
-export interface DataListProp extends NewContactListModalProp {
-  contactListData: ContactListDataType[];
-  controller: TabItemProp["controller"];
-  setPagination: Dispatch<SetStateAction<BasicPagination>>;
-}
+export interface DataListProp extends NewContactListModalProp {}
 
-export const DataList: FC<DataListProp> = ({ contactListData, controller }) => {
+export const DataList: FC<DataListProp> = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const { LanguageText } = useLanguageContext<"Contact">();
+  const { contactListData } = useContactGlobalContext();
   const renderTabBar: TabsProps["renderTabBar"] = (props, DefaultTabBar) => (
     <StickyBox offsetTop={64} offsetBottom={20} style={{ zIndex: 1 }}>
       <DefaultTabBar {...props} style={{ background: colorBgContainer }} />
@@ -37,14 +32,9 @@ export const DataList: FC<DataListProp> = ({ contactListData, controller }) => {
       ].map(({ id, name }) => ({
         label: name,
         key: id.toString(),
-        children: <TabItem contactListId={id} controller={controller} />,
+        children: <TabItem contactListId={id} />,
       })),
-    [
-      LanguageText.allLabel,
-      LanguageText.otherLabel,
-      contactListData,
-      controller,
-    ]
+    [LanguageText.allLabel, LanguageText.otherLabel, contactListData]
   );
 
   return (

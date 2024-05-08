@@ -1,10 +1,10 @@
 {
-  "emailTitle": {
+  "contactListTitle": {
     "en": "Contact List",
     "zh": "联系列表"
   },
-  "createGroupTitle": {
-    "en": "New Contact Group",
+  "createListTitle": {
+    "en": "New Contact List",
     "zh": "新建联系组"
   },
   "createGroupButton": {
@@ -15,13 +15,13 @@
     "en": "Contact List created success!",
     "zh": "联系组创建成功"
   },
+  "updateContactSuccess": {
+    "en": "Contact info updated!",
+    "zh": "联系信息已更新"
+  },
   "toCreateContactLink": {
     "en": "Click Here to create contact!",
     "zh": "点击此处创建联系人!"
-  },
-  "nameLabel": {
-    "en": "Name",
-    "zh": "名字"
   },
   "nameEmpty": {
     "en": "Name is required!",
@@ -75,15 +75,47 @@
     "en": "Contact list info updated success!",
     "zh": "联系人列表信息更新成功!"
   },
-  "idTitle": {
+  "idLabel": {
     "en": "id",
     "zh": "识别码"
   },
-  "nameTitle": {
+  "nameLabel": {
     "en": "Name",
     "zh": "名称"
   },
-  "actionTitle": {
+  "emailLabel": {
+    "en": "Email",
+    "zh": "邮箱"
+  },
+  "emailInvalid": {
+    "en": "Invalid Email",
+    "zh": "请输入合法格式的邮箱"
+  },
+  "phoneLabel": {
+    "en": "Phone",
+    "zh": "电话"
+  },
+  "phoneInvalid": {
+    "en": "Please input a valid phone",
+    "zh": "请输入合法格式的电话号码"
+  },
+  "phoneTip": {
+    "en": "Currently, only 11-digit phone numbers with the +86 area code from mainland China are supported.",
+    "zh": "目前只支持中国大陆 (+86区号) 的11位电话号码"
+  },
+  "createAtLabel": {
+    "en": "Create At",
+    "zh": "创建于"
+  },
+  "updateAtLabel": {
+    "en": "Update At",
+    "zh": "最后修改于"
+  },
+  "contactListLabel": {
+    "en": "Contact List Belong to",
+    "zh": "所属联系人分组"
+  },
+  "actionLabel": {
     "zh": "操作",
     "en": "Action"
   },

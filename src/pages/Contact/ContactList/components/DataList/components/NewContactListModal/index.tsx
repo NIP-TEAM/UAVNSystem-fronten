@@ -1,6 +1,6 @@
 import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
-import { useControllerContext } from "@/pages/Contact/ContactList/hooks";
+import { useContactGlobalContext } from "@/pages/Contact/ContactList/hooks";
 import { useCreateContactList } from "@/service";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Flex, Form, Input, Modal } from "antd";
@@ -31,7 +31,7 @@ export const NewContactListModal: FC<NewContactListModalProp> = () => {
         open={open}
         onCancel={() => setOpen(false)}
         footer={null}
-        title={LanguageText.createGroupTitle}
+        title={LanguageText.createListTitle}
         destroyOnClose
       >
         <NewContactListModalContent {...{ setOpen }} />
@@ -54,7 +54,7 @@ const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
   const navigate = useNavigate();
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
-  const { contactListRefresh } = useControllerContext();
+  const { fetchContactList } = useContactGlobalContext();
 
   const [form] = Form.useForm<FormType>();
   const [groupInfo, setGroupInfo] = useState<FormType>({
@@ -80,14 +80,14 @@ const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
           </Button>
         </>
       );
-      contactListRefresh?.();
+      fetchContactList?.();
       setOpen(false);
     }
   }, [
     LanguageText.createGroupSuccess,
     LanguageText.toCreateContactLink,
-    contactListRefresh,
     createCode,
+    fetchContactList,
     messageApi,
     navigate,
     setOpen,

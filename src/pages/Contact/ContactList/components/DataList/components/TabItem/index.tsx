@@ -1,40 +1,103 @@
-import {
-  ContactDataControllerType,
-  ContactDataType,
-  useGetContacts,
-} from "@/service";
-import { Table, TableProps } from "antd";
+import { ContactDataType, useGetContacts } from "@/service";
+import { Table, TableProps, Typography } from "antd";
 import { FC, Key, useContext, useEffect, useMemo, useState } from "react";
 import {
   TabItemHeaderProp,
   TabItemHeader,
   RemoveModal,
-  AsideDrawer,
+  DetailDrawer,
 } from "./components";
 import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
 import { BasicPagination, defaultPagination } from "@/types";
-// import { useLanguageContext } from "@/hooks";
+import { useContactGlobalContext } from "@/pages/Contact/ContactList/hooks";
+import { SorterResult } from "antd/es/table/interface";
+import { useNavigate } from "react-router";
+import { basicTimeFormate } from "@/utils";
 
 type TableDataType = ContactDataType;
 
-export interface TabItemProp extends TabItemHeaderProp {
-  controller: ContactDataControllerType;
-}
+export interface TabItemProp extends TabItemHeaderProp {}
 
-export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
+export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
+  const navigate = useNavigate();
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
+  const { filters, searchKey } = useContactGlobalContext();
 
   const [pagination, setPagination] =
     useState<BasicPagination>(defaultPagination);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
+  const [sorter, setSorter] = useState<Record<string, "asc" | "desc">>({});
+  const [timestamp, setTimestamp] = useState(0);
+
+  // get contact(s)
+  const {
+    fetchData: fetchContact,
+    data: contactDataData,
+    error: contactError,
+    loading: contactLoading,
+    code: contactCode,
+  } = useGetContacts(contactListId, {
+    filter: JSON.stringify({ filters, sorter, searchKey }),
+    pagination,
+  });
+  useEffect(() => {
+    if (contactError) messageApi?.error(contactError);
+  }, [contactError, messageApi]);
+  useEffect(() => {
+    fetchContact?.()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timestamp])
+  const contactData = useMemo<TableDataType[]>(() => {
+    if (contactCode === 200 && contactDataData?.data) {
+      setPagination((prev) => ({
+        ...prev,
+        ...contactDataData.meta.pagination,
+      }));
+      return contactDataData.data;
+    }
+    return [];
+  }, [contactCode, contactDataData?.data, contactDataData?.meta.pagination]);
 
   const tableColumns: TableProps<TableDataType>["columns"] = [
-    { title: LanguageText.idTitle, dataIndex: "id", align: "center" },
-    { title: LanguageText.nameTitle, dataIndex: "name", align: "center" },
+    { title: LanguageText.idLabel, dataIndex: "id", align: "center" },
+    { title: LanguageText.nameLabel, dataIndex: "name", align: "center" },
+    { title: LanguageText.emailLabel, dataIndex: "email", align: "center" },
     {
-      title: LanguageText.actionTitle,
+      title: LanguageText.phoneLabel,
+      dataIndex: "phone",
+      align: "center",
+      render: (_, { phone }) => <>{phone || "-"}</>,
+    },
+    {
+      title: LanguageText.creatorLabel,
+      dataIndex: "creator",
+      align: "center",
+      render: (_, { creator: { name, id } }) => (
+        <Typography.Link onClick={() => navigate("/usercenter/" + id)}>
+          {name}
+        </Typography.Link>
+      ),
+    },
+    {
+      title: LanguageText.createAtLabel,
+      dataIndex: "createAt",
+      key: 'createAt',
+      align: "center",
+      render: (_, { createAt }) => <>{basicTimeFormate(createAt)}</>,
+      sorter: true,
+    },
+    {
+      title: LanguageText.updateAtLabel,
+      dataIndex: "updateAt",
+      key: 'updateAt',
+      align: "center",
+      render: (_, { updateAt }) => <>{basicTimeFormate(updateAt)}</>,
+      sorter: true,
+    },
+    {
+      title: LanguageText.actionLabel,
       key: "action",
       align: "center",
       render: (_, record) => (
@@ -48,37 +111,11 @@ export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
               ])
             }
           />
-          <AsideDrawer {...record} />
+          <DetailDrawer {...{ fetchContact, ...record }} />
         </div>
       ),
     },
   ];
-
-  // get contact(s)
-  const {
-    fetchData: fetchContact,
-    data: contactDataData,
-    error: contactError,
-    loading: contactLoading,
-    code: contactCode,
-  } = useGetContacts(contactListId, controller);
-  useEffect(() => {
-    if (contactError) messageApi?.error(contactError);
-  }, [contactError, messageApi]);
-  useEffect(() => {
-    fetchContact?.();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const contactData = useMemo<TableDataType[]>(() => {
-    if (contactCode === 200 && contactDataData?.data) {
-      setPagination((prev) => ({
-        ...prev,
-        ...contactDataData.meta.pagination,
-      }));
-      return contactDataData.data;
-    }
-    return [];
-  }, [contactCode, contactDataData?.data, contactDataData?.meta.pagination]);
 
   return (
     <div style={{ padding: 5 }}>
@@ -92,6 +129,18 @@ export const TabItem: FC<TabItemProp> = ({ contactListId, controller }) => {
         rowSelection={{
           selectedRowKeys,
           onChange: (newValue) => setSelectedRowKeys(newValue),
+        }}
+        onChange={(_a, _b, sorter) => {
+          const { order, columnKey } = sorter as SorterResult<ContactDataType>;
+          if (!columnKey) return;
+          setSorter(
+            order
+              ? {
+                  [columnKey as string]: order === "ascend" ? "asc" : "desc",
+                }
+              : {}
+          );
+          setTimestamp(new Date().getTime())
         }}
       />
     </div>

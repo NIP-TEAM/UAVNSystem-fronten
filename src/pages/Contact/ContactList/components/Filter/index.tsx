@@ -1,22 +1,15 @@
 import { useLanguageContext } from "@/hooks";
 import { Form, SelectProps } from "antd";
-import { SetStateAction } from "jotai";
-import { Dispatch, FC, useContext, useEffect, useMemo } from "react";
+import { FC, useContext, useEffect, useMemo } from "react";
 import { useGetUsers } from "@/service";
 import { AppContext } from "@/App";
 import { FilterFormType } from "../types";
 
 export interface FilterProp {
   initParams?: FilterFormType;
-  setFilter: Dispatch<SetStateAction<string>>;
-  setTimestamp: Dispatch<SetStateAction<number>>;
 }
 
-export const Filter: FC<FilterProp> = ({
-  setFilter,
-  setTimestamp,
-  initParams,
-}) => {
+export const Filter: FC<FilterProp> = ({ initParams }) => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
 
@@ -50,11 +43,5 @@ export const Filter: FC<FilterProp> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <Form
-      form={form}
-    >
-      111
-    </Form>
-  );
+  return <Form form={form}>111</Form>;
 };

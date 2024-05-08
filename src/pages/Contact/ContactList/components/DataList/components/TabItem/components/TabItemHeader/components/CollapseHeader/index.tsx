@@ -1,6 +1,6 @@
 import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
-import { useControllerContext } from "@/pages/Contact/ContactList/hooks";
+import { useContactGlobalContext } from "@/pages/Contact/ContactList/hooks";
 import { useUpdateContactList } from "@/service";
 import { CheckOutlined, CloseOutlined, EditOutlined } from "@ant-design/icons";
 import { Button, Flex, Input, Typography } from "antd";
@@ -21,7 +21,7 @@ export const CollapseHeader: FC<CollapseHeaderProp> = ({
 }) => {
   const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
-  const { contactListRefresh } = useControllerContext();
+  const { fetchContactList } = useContactGlobalContext();
 
   const [edit, setEdit] = useState(false);
 
@@ -42,7 +42,7 @@ export const CollapseHeader: FC<CollapseHeaderProp> = ({
   }, [updateError, messageApi]);
   useEffect(() => {
     if (updateCode === 200) {
-      contactListRefresh?.();
+      fetchContactList?.();
       refresh?.();
       messageApi?.success(LanguageText.updateSuccess);
       setEdit(false);
