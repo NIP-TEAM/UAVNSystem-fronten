@@ -37,6 +37,8 @@ export const Filter: FC<FilterProp> = ({ initParams }) => {
   }, []);
 
   const formFilters = Form.useWatch("filters", form);
+  const searchKey = Form.useWatch("searchKey", form);
+  useEffect(() => setSearchKey(searchKey), [searchKey, setSearchKey]);
   useEffect(
     () =>
       setFilters(
@@ -69,7 +71,6 @@ export const Filter: FC<FilterProp> = ({ initParams }) => {
             style={{ width: "30%" }}
             allowClear
             onSearch={onFinish}
-            onChange={(e) => setSearchKey(e.target.value)}
           />
         </Form.Item>
       </Flex>
