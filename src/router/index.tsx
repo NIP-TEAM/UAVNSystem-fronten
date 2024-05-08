@@ -133,10 +133,10 @@ export const ROUTES: readonly RouteItem[] = [
     ]
   },
   {
-    id: "user-center",
+    id: "user",
     element: <UserCenter />,
-    path: "/usercenter",
-    labelKey: "usercenter",
+    path: "/user",
+    labelKey: "user",
     icon: <SettingFilled />,
     // textKey: "Usercenter"
   },
