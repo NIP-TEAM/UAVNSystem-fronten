@@ -12,6 +12,7 @@ export const LanguageTextJson = {  Error: (await import("./core/Error.json")).de
   ProtocolFeature: (await import("./pages/ProtocolFeature.json")).default,
   Contact: (await import('./pages/Contact.json')).default,
   CreateContact: (await import('./pages/CreateContact.json')).default,
+  User: (await import('./pages/User.json')).default,
 } as const;
 
 export type LanguageJsonSet = keyof typeof LanguageTextJson;

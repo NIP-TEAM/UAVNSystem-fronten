@@ -2,7 +2,6 @@ import { Navigate } from "react-router-dom";
 import {
   Login,
   ErrorPage,
-  UserCenter,
   DashBoard,
   Forget,
   Register,
@@ -10,6 +9,8 @@ import {
   NetworkList,
   UavList,
   CreateContact,
+  SelfCenter,
+  OtherCenter,
 } from "../pages";
 import { RouteItem } from "./types";
 import {
@@ -134,11 +135,19 @@ export const ROUTES: readonly RouteItem[] = [
   },
   {
     id: "user",
-    element: <UserCenter />,
+    element: <SelfCenter />,
     path: "/user",
     labelKey: "user",
     icon: <SettingFilled />,
-    // textKey: "Usercenter"
+    textKey: "User",
+    children: [
+      {
+        id: "createcontact",
+        element: <OtherCenter />,
+        path: "/user/:id",
+        textKey: "User"
+      }
+    ]
   },
 ];
 

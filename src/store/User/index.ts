@@ -11,12 +11,10 @@ export interface UserInfo {
     name: string
     active: boolean
     email: string
-    lastLogin: number
+    lastLogin: string
 }
 
-type PartialUserProtocol = Partial<UserProtocol>
-
-const userCoreAtom = atomWithStorage<PartialUserProtocol>('user-about', {
+const userCoreAtom = atomWithStorage<UserProtocol>('user-about', {
     // token: 'adfafdadsfadfa',
     // userInfo: {
     //     name: 'local data',
@@ -25,11 +23,11 @@ const userCoreAtom = atomWithStorage<PartialUserProtocol>('user-about', {
     //     email: 'test@test.com',
     //     lastLogin: new Date().getTime(),
     // }
-}, undefined, {
+} as UserProtocol, undefined, {
     getOnInit: true
 })
 
 export const userAtom = atom(
     (get) => get(userCoreAtom),
-    (get, set, newValue: PartialUserProtocol) => set(userCoreAtom, {...get(userCoreAtom), ...newValue})
+    (get, set, newValue: Partial<UserProtocol>) => set(userCoreAtom, {...get(userCoreAtom), ...newValue})
 )
