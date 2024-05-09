@@ -12,3 +12,9 @@ export const useLogin = (data: Partial<LoginInfo>) =>
     method: "post",
     data,
   });
+
+export const useLogout = () =>
+  useHttp({
+    url: "/tenants/logout",
+    method: "get",
+  });

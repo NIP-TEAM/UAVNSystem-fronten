@@ -1,6 +1,22 @@
 {
-    "UserTitle": {
+    "userTitle": {
         "en": "User About",
         "zh": "用户相关"
+    },
+    "logoutButton": {
+        "en": "Logout",
+        "zh": "Logout"
+    },
+    "logoutModalTitle": {
+        "en": "Warning",
+        "zh": "警告"
+    },
+    "logoutModalTip": {
+        "en": "Are you sure that you want to logout?",
+        "zh": "确定要登出吗?"
+    },
+    "logoutSuccess": {
+        "en": "Logout success!",
+        "zh": "成功登出!"
     }
 }

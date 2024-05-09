@@ -12,7 +12,8 @@ import {
 } from "@ant-design/icons";
 import { useAtom, useAtomValue } from "jotai";
 import { userAtom } from "@/store";
-import { THEMESNAME, themeAtom } from "@/store/Theme";interface GlobalHeaderProp {
+import { THEMESNAME, themeAtom } from "@/store/Theme";import { useNavigate } from "react-router";
+interface GlobalHeaderProp {
   collapse: boolean;
   setCollapse: Dispatch<boolean>;
   background: string;
@@ -23,6 +24,7 @@ export const GlobalHeader: FC<GlobalHeaderProp> = ({
   collapse,
   background
 }) => {
+  const navigate = useNavigate()
   const { userInfo: { name } = { name: "" } } = useAtomValue(userAtom);
   const [theme, setTheme] = useAtom(themeAtom);
 
@@ -55,7 +57,7 @@ export const GlobalHeader: FC<GlobalHeaderProp> = ({
           <Flex
             gap={5}
             align="center"
-            onClick={() => console.log("111")}
+            onClick={() => navigate('/user')}
             style={{ cursor: "pointer" }}
           >
             <Avatar icon={<UserOutlined />} />
