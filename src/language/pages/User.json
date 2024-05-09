@@ -5,7 +5,7 @@
     },
     "logoutButton": {
         "en": "Logout",
-        "zh": "Logout"
+        "zh": "登出"
     },
     "logoutModalTitle": {
         "en": "Warning",
@@ -18,5 +18,21 @@
     "logoutSuccess": {
         "en": "Logout success!",
         "zh": "成功登出!"
+    },
+    "nameLabel": {
+        "en": "Name",
+        "zh": "账户名"
+    },
+    "editButton": {
+        "en": "Edit Info",
+        "zh": "编辑信息"
+    },
+    "editConfirm": {
+        "en": "Confirm",
+        "zh": "确认"
+    },
+    "editCancel": {
+        "en": "Cancel",
+        "zh": "取消"
     }
 }
