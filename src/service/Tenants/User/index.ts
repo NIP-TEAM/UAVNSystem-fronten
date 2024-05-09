@@ -7,6 +7,12 @@ export const useGetUsers = () => useHttp<UserInfo[]>({
 })
 
 export const useGetUser = (id : number) => useHttp<UserInfo>({
-    url: "/user/" + id,
+    url: "/tenants/" + id,
     method: 'get',
+})
+
+export const useUpdateUser = (data: Partial<UserInfo>) => useHttp({
+    url: "/tenants",
+    method: 'patch',
+    data,
 })

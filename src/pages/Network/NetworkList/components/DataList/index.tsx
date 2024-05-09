@@ -93,7 +93,7 @@ export const DataList: FC<DataListProp> = ({
             type="link"
             onClick={() => {
               storageFunc();
-              navigate(`/usercenter/${id}`);
+              navigate(`/user/${id}`);
             }}
           >
             @{name}

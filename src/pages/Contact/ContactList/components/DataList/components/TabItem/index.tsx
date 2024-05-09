@@ -75,7 +75,7 @@ export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
       dataIndex: "creator",
       align: "center",
       render: (_, { creator: { name, id } }) => (
-        <Typography.Link onClick={() => navigate("/usercenter/" + id)}>
+        <Typography.Link onClick={() => navigate("/user/" + id)}>
           {name}
         </Typography.Link>
       ),

@@ -58,7 +58,7 @@ export const DetailDescription: FC<DetailDescriptionProp> = ({
           type="link"
           disabled={editing}
           style={{ margin: 0, padding: 0 }}
-          onClick={() => navigate("./usercenter/" + networkInfo?.creator?.id)}
+          onClick={() => navigate("/user/" + networkInfo?.creator?.id)}
         >
           @{networkInfo?.creator?.name}
         </Button>

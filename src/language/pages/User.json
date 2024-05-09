@@ -1,38 +1,78 @@
 {
-    "userTitle": {
-        "en": "User About",
-        "zh": "用户相关"
-    },
-    "logoutButton": {
-        "en": "Logout",
-        "zh": "登出"
-    },
-    "logoutModalTitle": {
-        "en": "Warning",
-        "zh": "警告"
-    },
-    "logoutModalTip": {
-        "en": "Are you sure that you want to logout?",
-        "zh": "确定要登出吗?"
-    },
-    "logoutSuccess": {
-        "en": "Logout success!",
-        "zh": "成功登出!"
-    },
-    "nameLabel": {
-        "en": "Name",
-        "zh": "账户名"
-    },
-    "editButton": {
-        "en": "Edit Info",
-        "zh": "编辑信息"
-    },
-    "editConfirm": {
-        "en": "Confirm",
-        "zh": "确认"
-    },
-    "editCancel": {
-        "en": "Cancel",
-        "zh": "取消"
-    }
+  "userTitle": {
+    "en": "User About",
+    "zh": "用户相关"
+  },
+  "logoutButton": {
+    "en": "Logout",
+    "zh": "登出"
+  },
+  "logoutModalTitle": {
+    "en": "Warning",
+    "zh": "警告"
+  },
+  "logoutModalTip": {
+    "en": "Are you sure that you want to logout?",
+    "zh": "确定要登出吗?"
+  },
+  "logoutSuccess": {
+    "en": "Logout success!",
+    "zh": "成功登出!"
+  },
+  "nameLabel": {
+    "en": "Name",
+    "zh": "账户名"
+  },
+  "idLabel": {
+    "en": "id",
+    "zh": "识别码"
+  },
+  "emailLabel": {
+    "en": "Email",
+    "zh": "邮箱"
+  },
+  "lastLoginLabel": {
+    "en": "Last Login",
+    "zh": "最后一次登陆时间"
+  },
+  "emailInvalid": {
+    "en": "Please input a valid email!",
+    "zh": "请输入合法格式的邮箱!"
+  },
+  "activeLabel": {
+    "en": "Active",
+    "zh": "登录状态"
+  },
+  "passwordLabel": {
+    "en": "Password",
+    "zh": "密码"
+  },
+  "passwordInvalid": {
+    "en": "The password must contain both letters and numbers, and be at least 8 characters long!",
+    "zh": "密码应同时包含字母和数字, 并且长度不少于8个字符!"
+  },
+  "confirmPasswordLabel": {
+    "en": "Confirm Password",
+    "zh": "确认密码"
+  },
+  "confirmPasswordInvalid": {
+    "en": "Passwords entered twice are different!",
+    "zh": "两次输入的密码不一样!"
+  },
+  "editButton": {
+    "en": "Edit Info",
+    "zh": "编辑信息"
+  },
+  "editConfirm": {
+    "en": "Confirm",
+    "zh": "确认"
+  },
+  "editCancel": {
+    "en": "Cancel",
+    "zh": "取消"
+  },
+  "updateSuccess": {
+    "en": "Personal information updated successfully. You will be re-logged in after 3 seconds.",
+    "zh": "个人信息修改成功， 将在3秒后重新登录"
+  }
 }

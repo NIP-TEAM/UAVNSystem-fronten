@@ -258,7 +258,7 @@ const ContactInfo: FC<{
         <Typography.Link
           disabled={edit}
           type={edit ? "secondary" : undefined}
-          onClick={() => navigate("usercenter/" + creator?.id)}
+          onClick={() => navigate("/user/" + creator?.id)}
         >
           {creator?.name}
         </Typography.Link>
