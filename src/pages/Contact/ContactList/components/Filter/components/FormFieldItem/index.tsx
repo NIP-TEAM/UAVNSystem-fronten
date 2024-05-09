@@ -54,11 +54,11 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
   const creatorsOptions = useMemo(() => {
     if (usersCode === 200 && usersData?.data)
       return usersData.data.map(({ name, id }) => ({
-        label: name === userInfo?.name ? LanguageText.meText : name,
+        label: (id === userInfo.id) ? LanguageText.meText : name,
         value: id,
       }));
     return [];
-  }, [LanguageText.meText, userInfo?.name, usersCode, usersData?.data]);
+  }, [LanguageText.meText, userInfo.id, usersCode, usersData?.data]);
 
   return (
     <Flex align="center" gap={5} style={{ width: "60%" }}>
@@ -112,7 +112,7 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
               : contentOptions[categorySelect || CategoryOptions.CREATOR].map(
                   ({ labelKey, value }) => ({
                     label: LanguageText[labelKey],
-                    value: +value,
+                    value,
                   })
                 )
           }
