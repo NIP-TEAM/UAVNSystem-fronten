@@ -1,10 +1,9 @@
-import { AppContext } from "@/App";
 import { BasicCard } from "@/components";
 import { useLanguageContext } from "@/hooks";
 import { useGetUser } from "@/service";
 import { UserInfo, userAtom } from "@/store";
 import { Spin, Typography } from "antd";
-import { FC, useContext, useEffect, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router";
 import { InfoShowcase } from "../components";
 import { useAtomValue } from "jotai";
@@ -13,7 +12,6 @@ export interface OtherCenterProp {}
 
 export const OtherCenter: FC<OtherCenterProp> = () => {
   const navigate = useNavigate();
-  const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"User">();
   const {
     userInfo: { id: currentId },
@@ -24,13 +22,9 @@ export const OtherCenter: FC<OtherCenterProp> = () => {
   const {
     fetchData: fetchUser,
     code: userCode,
-    error: userError,
     loading: userLoading,
     data: userDataData,
   } = useGetUser(+id);
-  useEffect(() => {
-    if (userError) messageApi?.error(userError);
-  }, [userError, messageApi]);
   useEffect(() => {
     if (+id === currentId) {
       navigate("/user");

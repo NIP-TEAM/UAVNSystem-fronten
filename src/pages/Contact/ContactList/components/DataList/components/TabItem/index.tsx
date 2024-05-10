@@ -1,13 +1,12 @@
 import { ContactDataType, useGetContacts } from "@/service";
 import { Table, TableProps, Typography } from "antd";
-import { FC, Key, useContext, useEffect, useMemo, useState } from "react";
+import { FC, Key, useEffect, useMemo, useState } from "react";
 import {
   TabItemHeaderProp,
   TabItemHeader,
   RemoveModal,
   DetailDrawer,
 } from "./components";
-import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
 import { BasicPagination, defaultPagination } from "@/types";
 import { useContactGlobalContext } from "@/pages/Contact/ContactList/hooks";
@@ -21,7 +20,6 @@ export interface TabItemProp extends TabItemHeaderProp {}
 
 export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
   const navigate = useNavigate();
-  const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
   const { filters, searchKey, refreshContactFlag, setRefreshContactFlag } =
     useContactGlobalContext();
@@ -35,16 +33,12 @@ export const TabItem: FC<TabItemProp> = ({ contactListId }) => {
   const {
     fetchData: fetchContact,
     data: contactDataData,
-    error: contactError,
     loading: contactLoading,
     code: contactCode,
   } = useGetContacts(contactListId, {
     filter: JSON.stringify({ filters, sorter, searchKey }),
     pagination,
   });
-  useEffect(() => {
-    if (contactError) messageApi?.error(contactError);
-  }, [contactError, messageApi]);
   const contactData = useMemo<TableDataType[]>(() => {
     if (contactCode === 200 && contactDataData?.data) {
       setPagination((prev) => ({

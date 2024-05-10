@@ -36,7 +36,6 @@ export interface AsideDrawerProp {
 type ContactInfoType = Partial<ContactDataType>;
 
 export const DetailDrawer: FC<AsideDrawerProp> = ({ id, fetchContact }) => {
-  const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
 
   const [open, setOpen] = useState(false);
@@ -47,13 +46,9 @@ export const DetailDrawer: FC<AsideDrawerProp> = ({ id, fetchContact }) => {
   const {
     fetchData: fetchContactInfo,
     code: contactInfoCode,
-    error: contactInfoError,
     loading: contactInfoLoading,
     data: contactInfoDataData,
   } = useGetContact(id);
-  useEffect(() => {
-    if (contactInfoError) messageApi?.error(contactInfoError);
-  }, [contactInfoError, messageApi]);
   const contactInfo = useMemo<ContactInfoType>(() => {
     if (contactInfoCode === 200 && contactInfoDataData?.data) {
       return contactInfoDataData?.data;

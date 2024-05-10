@@ -43,6 +43,14 @@
     "en": "Active",
     "zh": "登录状态"
   },
+  "activeText": {
+    "en": "Online",
+    "zh": "在线"
+  },
+  "noneActiveText": {
+    "en": "Offline",
+    "zh": "离线"
+  },
   "passwordLabel": {
     "en": "Password",
     "zh": "密码"

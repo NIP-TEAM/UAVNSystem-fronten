@@ -25,13 +25,9 @@ export const CreateContact: FC<CreateContactProp> = () => {
     fetchData: fetchContactList,
     code: contactListCode,
     data: contactListDataData,
-    error: contactListError,
     loading: contactLoading,
   } = useGetContactLists();
   const [timestamp, setTimestamp] = useState(0);
-  useEffect(() => {
-    if (contactListError) messageApi?.error(contactListError);
-  }, [contactListError, messageApi]);
   useEffect(() => {
     fetchContactList?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps

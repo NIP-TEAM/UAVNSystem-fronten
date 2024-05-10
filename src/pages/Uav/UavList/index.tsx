@@ -1,6 +1,5 @@
-import { FC, useContext, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { DataList, Filter, UavHeader } from "./components";
-import { AppContext } from "@/App";
 import { FilterType } from "@/pages/Network/NetworkList/types";
 import { useUavData, UavDataType } from "@/service/Uav";
 import { BasicPagination } from "@/types";
@@ -27,8 +26,6 @@ const defaltPagination: BasicPagination = {
 const sessionKey = SessionKeys.UAV;
 
 export const UavList: FC<UavListProp> = () => {
-  const { messageApi } = useContext(AppContext);
-
   const [pagination, setPagination] = useState<BasicPagination>(
     getSessionStorageUtil<StorageProtocol>(sessionKey)?.pagination ||
       defaltPagination
@@ -44,7 +41,6 @@ export const UavList: FC<UavListProp> = () => {
     fetchData: fetchUavData,
     data: uavData,
     loading: uavLoading,
-    error: uavError,
     code: uavCode,
   } = useUavData({
     pagination,
@@ -61,10 +57,6 @@ export const UavList: FC<UavListProp> = () => {
     fetchUavData?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination.current, pagination.pageSize, timestamp]);
-  useEffect(() => {
-    if (!uavError) return;
-    messageApi?.error(uavError);
-  }, [uavError, messageApi]);
 
   useEffect(() => {
     sessionStorage.removeItem(sessionKey);

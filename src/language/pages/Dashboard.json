@@ -1,7 +1,27 @@
 {
-    "dataTitile": {
+    "dataTitle": {
         "en": "Data Overview",
         "zh": "数据总览"
+    },
+    "uavCount": {
+        "zh": "无人机数量",
+        "en": "Uav Count"
+    },
+    "networkCount": {
+        "zh": "网络数量",
+        "en": "Network Count"
+    },
+    "creatorCount": {
+        "en": "Creator Count",
+        "zh": "创建者数量"
+    },
+    "protocolCount": {
+        "en": "Protocol Count",
+        "zh": "协议数量"
+    },
+    "contactCount": {
+        "en": "Contact Count",
+        "zh": "联系方式数量"
     },
     "usersTitle": {
         "en": "Creators",

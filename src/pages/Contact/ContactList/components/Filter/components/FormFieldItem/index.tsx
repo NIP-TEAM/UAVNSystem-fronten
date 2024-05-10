@@ -3,7 +3,6 @@ import { Flex, Form, Select } from "antd";
 import {
   CSSProperties,
   FC,
-  useContext,
   useEffect,
   useMemo,
   useState,
@@ -16,7 +15,6 @@ import {
 } from "./selectOptions";
 import { useGetUsers } from "@/service";
 import { userAtom } from "@/store";
-import { AppContext } from "@/App";
 import { useAtomValue } from "jotai";
 
 interface FormFieldItemProp {
@@ -32,14 +30,12 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
   name,
   checkOptionDisable,
 }) => {
-  const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Contact">();
   const [categorySelect, setcategorySelect] = useState<CategoryOptions>();
 
   const { userInfo } = useAtomValue(userAtom);
   const {
     fetchData: fetchUsersData,
-    error: usersError,
     data: usersData,
     code: usersCode,
     loading: usersLoading,
@@ -48,9 +44,6 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
     fetchUsersData?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    if (usersError) messageApi?.error(usersError);
-  }, [messageApi, usersError]);
   const creatorsOptions = useMemo(() => {
     if (usersCode === 200 && usersData?.data)
       return usersData.data.map(({ name, id }) => ({

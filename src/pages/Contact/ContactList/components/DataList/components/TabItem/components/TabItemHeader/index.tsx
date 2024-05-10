@@ -1,7 +1,6 @@
-import { AppContext } from "@/App";
 import { ContactListDataType, useGetContactList } from "@/service";
 import { Collapse, CollapseProps, Spin } from "antd";
-import { FC, useContext, useEffect, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { CollapseHeader } from "./components";
 import { useFormateTitle } from "./hooks";
 
@@ -10,14 +9,12 @@ export interface TabItemHeaderProp {
 }
 
 export const TabItemHeader: FC<TabItemHeaderProp> = ({ contactListId }) => {
-  const { messageApi } = useContext(AppContext);
   const requestCheck = contactListId !== -1 && contactListId !== -2;
 
   // get contact list detail
   const {
     fetchData: fetchContactList,
     data: contactListDataData,
-    error: contactListError,
     code: contactListCode,
     loading: contactListLoading,
   } = useGetContactList(contactListId);
@@ -25,9 +22,6 @@ export const TabItemHeader: FC<TabItemHeaderProp> = ({ contactListId }) => {
     if (requestCheck) fetchContactList?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    if (contactListError) messageApi?.error(contactListError);
-  }, [contactListError, messageApi]);
   const contactListInfo = useMemo<Partial<ContactListDataType>>(() => {
     if (contactListCode === 200 && contactListDataData?.data)
       return contactListDataData.data;

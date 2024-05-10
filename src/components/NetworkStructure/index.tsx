@@ -1,11 +1,10 @@
-import { CSSProperties, FC, useContext, useEffect, useMemo } from "react";
+import { CSSProperties, FC, useEffect, useMemo } from "react";
 import { EChartsOption } from "echarts";
 import ReactCharts from "echarts-for-react";
 import { PositionInit } from "@/pages/DashBoard/components/NetworksStructure/utils";
 import { useNavigate } from "react-router";
 import { Empty, Spin } from "antd";
 import { EntityDatatype, useGetEntity } from "@/service/Entity";
-import { AppContext } from "@/App";
 import { GraphNodeItemOption } from "echarts/types/src/chart/graph/GraphSeries.js";
 import { useConfig } from "@/hooks";
 import { useAtomValue } from "jotai";
@@ -24,7 +23,6 @@ export const NetworkStructure: FC<NetworkStructureProp> = ({
   uavs = [],
   showDetail,
 }) => {
-  const { messageApi } = useContext(AppContext);
   const theme = useAtomValue(themeAtom);
   const LanguageText =
     useConfig?.().useLanguage!<"NetworkStructure">("NetworkStructure");
@@ -36,11 +34,7 @@ export const NetworkStructure: FC<NetworkStructureProp> = ({
     code: entityCode,
     loading: entityLoading,
     data: entityDataData,
-    error: entityError,
   } = useGetEntity({ maps: connectMap });
-  useEffect(() => {
-    if (entityError) messageApi?.error(entityError);
-  }, [entityError, messageApi]);
   useEffect(() => {
     fetchEntityData?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
