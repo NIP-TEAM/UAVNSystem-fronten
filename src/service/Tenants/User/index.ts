@@ -1,9 +1,10 @@
 import { useHttp } from "@/hooks";
 import { UserInfo } from "@/store";
 
-export const useGetUsers = () => useHttp<UserInfo[]>({
+export const useGetUsers = (data?: {take: number}) => useHttp<UserInfo[]>({
     url: "/tenants",
     method: 'get',
+    data,
 })
 
 export const useGetUser = (id : number) => useHttp<UserInfo>({

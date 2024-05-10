@@ -1,4 +1,16 @@
 {
+    "dataTitile": {
+        "en": "Data Overview",
+        "zh": "数据总览"
+    },
+    "usersTitle": {
+        "en": "Creators",
+        "zh": "创建者"
+    },
+    "lastLoginLabel": {
+        "en": "Last Login: ",
+        "zh": "最后登录于: "
+    },
     "structureTitle": {
         "en": "Network Map",
         "zh": "网络可视化"
