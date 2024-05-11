@@ -43,7 +43,7 @@ export const ProtocolList: FC<ProtocolListProp> = ({
       label: LanguageText.editLink,
       onClick: () => {
         storageFunc();
-        navigate("/network/Protocol/edit");
+        navigate("/network/Protocol/edit/" + currentId);
       },
     },
   ];

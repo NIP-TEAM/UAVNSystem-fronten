@@ -1,7 +1,7 @@
 import { useLanguageContext } from "@/hooks";
 import { Flex, Input, Select, Typography } from "antd";
 import { Dispatch, FC } from "react";
-import { FilterType } from "../../types";
+import { FilterType } from "../../../types";
 import { SetStateAction } from "jotai";
 import { debounce } from "lodash-es";
 

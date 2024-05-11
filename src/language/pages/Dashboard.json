@@ -4,24 +4,24 @@
         "zh": "数据总览"
     },
     "uavCount": {
-        "zh": "无人机数量",
+        "zh": "无人机",
         "en": "Uav Count"
     },
     "networkCount": {
-        "zh": "网络数量",
+        "zh": "网络",
         "en": "Network Count"
     },
     "creatorCount": {
         "en": "Creator Count",
-        "zh": "创建者数量"
+        "zh": "创建者"
     },
     "protocolCount": {
         "en": "Protocol Count",
-        "zh": "协议数量"
+        "zh": "协议"
     },
     "contactCount": {
         "en": "Contact Count",
-        "zh": "联系方式数量"
+        "zh": "联系方式"
     },
     "usersTitle": {
         "en": "Creators",

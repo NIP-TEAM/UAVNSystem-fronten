@@ -1,11 +1,10 @@
 import { BasicCard } from "@/components";
-import { FC, useContext, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { ProtocolHeader, ProtocolList } from "./components";
 import { Divider } from "antd";
 import { ProtocolDataType, useNetworkProtocol } from "@/service";
 import { BasicPagination } from "@/types";
-import { AppContext } from "@/App";
-import { FilterType } from "./types";
+import { FilterType } from "../types";
 import {
   SessionKeys,
   getSessionStorageUtil,

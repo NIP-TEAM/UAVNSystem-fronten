@@ -11,6 +11,9 @@ import {
   CreateContact,
   SelfCenter,
   OtherCenter,
+  NetworkDetail,
+  NetworkProtocol,
+  ProtocolEdit,
 } from "../pages";
 import { RouteItem } from "./types";
 import {
@@ -21,7 +24,6 @@ import {
   SettingFilled,
 } from "@ant-design/icons";
 import { omit } from "lodash-es";
-import { NetworkDetail, NetworkProtocol } from "@/pages/Network";
 import { CreateUav, UavDetail } from "@/pages/Uav";
 
 export const ROUTES: readonly RouteItem[] = [
@@ -93,6 +95,12 @@ export const ROUTES: readonly RouteItem[] = [
         labelKey: "networkprotocol",
         textKey: "NetworkProtocol",
       },
+      {
+        id: "protocolEdit",
+        element: <ProtocolEdit />,
+        path: "/network/protocol/edit/:id",
+        textKey: "ProtocolEdit",
+      }
     ],
   },
   {
