@@ -1,0 +1,10 @@
+{
+    "EmailListTitle": {
+        "en": "Email List",
+        "zh": "邮件列表"
+    },
+    "EmailCreateButton": {
+        "en": "Create Email",
+        "zh": "创建新邮件"
+    }
+}

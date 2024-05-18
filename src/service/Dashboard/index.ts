@@ -13,6 +13,7 @@ interface DataOverviewType {
   networkCount: number;
   creatorCount: number;
   protocolCount: number;
+  emailCount: number;
   contactCount: number;
 }
 

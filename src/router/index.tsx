@@ -14,6 +14,9 @@ import {
   NetworkDetail,
   NetworkProtocol,
   ProtocolEdit,
+  EmailCreate,
+  EmailList,
+  EmailDetail,
 } from "../pages";
 import { RouteItem } from "./types";
 import {
@@ -66,7 +69,7 @@ export const ROUTES: readonly RouteItem[] = [
     labelKey: "dashboard",
     icon: <PieChartFilled />,
     breadcrumbForbidden: true,
-    textKey: "Dashboard"
+    textKey: "Dashboard",
   },
   {
     id: "network",
@@ -100,7 +103,7 @@ export const ROUTES: readonly RouteItem[] = [
         element: <ProtocolEdit />,
         path: "/network/protocol/edit/:id",
         textKey: "ProtocolEdit",
-      }
+      },
     ],
   },
   {
@@ -122,24 +125,54 @@ export const ROUTES: readonly RouteItem[] = [
         element: <UavDetail />,
         path: "/uavs/:id",
         // textKey: "UavDetail"
-      }
+      },
     ],
   },
   {
-    id: "contact",
-    element: <Contact />,
-    path: "/contact",
+    id: "email",
+    path: "/email",
+    element: <Navigate to="/email/list" />,
+    labelKey: "email",
+    textKey: "Email",
     icon: <MailFilled />,
-    labelKey: "contact",
-    textKey: "Contact",
     children: [
       {
-        id: "createcontact",
-        element: <CreateContact />,
-        path: "/contact/create",
-        textKey: "CreateContact"
-      }
-    ]
+        id: "emailList",
+        element: <EmailList />,
+        path: "/email/list",
+        labelKey: "emailList",
+        textKey: "Email",
+        children: [
+          {
+            id: "emailCreate",
+            element: <EmailCreate />,
+            path: "/email/create",
+            textKey: "CreateEmail",
+          },
+        ],
+      },
+      {
+        id: "emailDetail",
+        element: <EmailDetail />,
+        path: "/email/list/:id",
+        textKey: "Email",
+      },
+      {
+        id: "contact",
+        element: <Contact />,
+        path: "/email/contact",
+        labelKey: "contact",
+        textKey: "Contact",
+        children: [
+          {
+            id: "createcontact",
+            element: <CreateContact />,
+            path: "/email/contact/create",
+            textKey: "CreateContact",
+          },
+        ],
+      },
+    ],
   },
   {
     id: "user",
@@ -153,9 +186,9 @@ export const ROUTES: readonly RouteItem[] = [
         id: "createcontact",
         element: <OtherCenter />,
         path: "/user/:id",
-        textKey: "User"
-      }
-    ]
+        textKey: "User",
+      },
+    ],
   },
 ];
 

@@ -13,7 +13,8 @@ const NavigateTo: Record<keyof DashboardDataType["countData"], string> = {
   networkCount: "/network",
   creatorCount: "/user",
   protocolCount: "/network/protocol",
-  contactCount: "/contact",
+  emailCount: "/email/list",
+  contactCount: "/email/contact",
 } as const;
 
 export const CountData: FC<CountDataProp> = () => {
@@ -29,7 +30,7 @@ export const CountData: FC<CountDataProp> = () => {
       <Typography.Title level={5} style={{ marginTop: 0 }}>
         {LanguageText.dataTitle}
       </Typography.Title>
-      <Flex gap="small" wrap>
+      <Flex gap="small" wrap="wrap">
         {Object.entries(countData).map(([textKey, value]) => (
           <Card
             key={textKey}

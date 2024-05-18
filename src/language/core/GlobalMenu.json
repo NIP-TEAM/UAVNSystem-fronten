@@ -27,6 +27,14 @@
     "en": "Network Detail",
     "zh": "网络详情"
   },
+  "email": {
+    "en": "Email",
+    "zh": "邮件管理"
+  },
+  "emailList": {
+    "en": "Email List",
+    "zh": "邮件列表"
+  },
   "networkprotocol": {
     "en": "Protocol",
     "zh": "协议"

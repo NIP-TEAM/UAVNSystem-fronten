@@ -17,7 +17,7 @@ export const AppLayout: FC<AppLayoutProp> = ({ children, pageType }) => {
   } = theme.useToken();
 
   return pageType === "frame" ? (
-    <Layout hasSider style={{overflowY: 'auto', minWidth: '1500px'}}>
+    <Layout hasSider style={{overflowY: 'auto', minWidth: '1300px'}}>
       <GlobalSider {...{ collapse, background: colorBgContainer }} />
       <Layout>
         <GlobalHeader

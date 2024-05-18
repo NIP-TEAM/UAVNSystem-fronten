@@ -1,0 +1,86 @@
+{
+  "EmailCreateTitle": {
+    "en": "Create Email",
+    "zh": "创建新邮件"
+  },
+  "allLabel": {
+    "en": "All",
+    "zh": "全部"
+  },
+  "addEmail": {
+    "en": "Add Email",
+    "zh": "新增邮件"
+  },
+  "addButton": {
+    "en": "Submit",
+    "zh": "提交"
+  },
+  "networkLabel": {
+    "en": "Network belong to",
+    "zh": "所属网络"
+  },
+  "networkRequired": {
+    "en": "Network belong to is required!",
+    "zh": "所属网络是必须的!"
+  },
+  "contactIdsLabel": {
+    "en": "Send to",
+    "zh": "发送给"
+  },
+  "contactIdsEmpty": {
+    "en": "Send to is required",
+    "zh": "发送对象是必填选项"
+  },
+  "addConditionButton": {
+    "en": "Add Condition",
+    "zh": "添加条件"
+  },
+  "conditionTitle": {
+    "en": "Condition",
+    "zh": "触发条件"
+  },
+  "createSuccess": {
+    "en": "Create email success!",
+    "zh": "成功创建邮件!"
+  },
+  "otherLabel": {
+    "en": "None Grouped",
+    "zh": "未分组"
+  },
+  "networkOptionTypeLabel": {
+    "en": "Network About",
+    "zh": "网络相关"
+  },
+  "uavOptionTypeLabel": {
+    "en": "Uav About",
+    "zh": "无人机相关"
+  },
+  "conditionTypeLabel": {
+    "en": "Condition Type",
+    "zh": "条件类型"
+  },
+  "conditionTypeRequired": {
+    "en": "Condition type is required!",
+    "zh": "条件类型是必填选项!"
+  },
+  "conditionPrefix": {
+    "en": "When",
+    "zh": "当"
+  },
+  "uavDisconnetedLabel": {
+    "en": "Uav Disconnected Count",
+    "zh": "无人机失联数量"
+  },
+  "categoryEmpty": {
+    "en": "Empty category is not allowed!",
+    "zh": "分类不能为空!"
+  },
+  "quantifierEmpty": {
+    "en": "Empty quantifier is not allowed!",
+    "zh": "限定词不能为空!"
+  },
+  "contentEmpty": {
+    "en": "Empty content is not allowed!",
+    "zh": "内容不能为空!"
+  }
+}

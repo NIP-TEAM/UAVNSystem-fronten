@@ -5,22 +5,26 @@
     },
     "uavCount": {
         "zh": "无人机",
-        "en": "Uav Count"
+        "en": "Uav"
     },
     "networkCount": {
         "zh": "网络",
-        "en": "Network Count"
+        "en": "Network"
     },
-    "creatorCount": {
-        "en": "Creator Count",
+    "userInfoCount": {
+        "en": "Creator",
         "zh": "创建者"
     },
     "protocolCount": {
-        "en": "Protocol Count",
+        "en": "Protocol",
         "zh": "协议"
     },
+    "emailCount": {
+        "en": "Email",
+        "zh": "邮件"
+    },
     "contactCount": {
-        "en": "Contact Count",
+        "en": "Contact",
         "zh": "联系方式"
     },
     "usersTitle": {
