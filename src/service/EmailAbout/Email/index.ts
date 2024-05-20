@@ -32,8 +32,12 @@ export const useGetEmails = (data: EmailControllerType) => useHttp<EmailDataType
     data
 })
 
-export const useHandleSchedule = (id: number, data: boolean) => useHttp({
+export const useGetEmail = (id: number) => useHttp<EmailDataType>({
+    url: "/email/" + id,
+    method: "get"
+})
+
+export const useHandleSchedule = (id: number) => useHttp({
     url: '/email/schedule/' + id,
     method: 'get',
-    data
 })

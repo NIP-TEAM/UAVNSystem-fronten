@@ -154,7 +154,7 @@ export const ROUTES: readonly RouteItem[] = [
       {
         id: "emailDetail",
         element: <EmailDetail />,
-        path: "/email/list/:id",
+        path: "/email/:id",
         textKey: "Email",
       },
       {
