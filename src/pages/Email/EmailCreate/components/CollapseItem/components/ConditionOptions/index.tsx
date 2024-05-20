@@ -1,6 +1,6 @@
 import { useLanguageContext } from "@/hooks";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Flex, Form, Select, Typography } from "antd";
+import { Button, Flex, Form, Input, Select, Typography } from "antd";
 import { FC, useState } from "react";
 import { NetworkAboutRender, UavAboutRender } from "./components";
 
@@ -9,7 +9,7 @@ export interface ConditionOptionsProp {
   remove: (target: number) => void;
 }
 
-enum ConditionType {
+export enum ConditionType {
   NETWORK,
   UAV,
 }
@@ -20,9 +20,7 @@ export const ConditionOptions: FC<ConditionOptionsProp> = ({
 }) => {
   const { LanguageText } = useLanguageContext<"CreateEmail">();
 
-  const [conditionType, setConditionType] = useState<ConditionType>(
-    ConditionType.NETWORK
-  );
+  const [conditionType, setConditionType] = useState<ConditionType>();
 
   //   condition type
   const ConditionOptions: { label: string; value: ConditionType }[] = [
@@ -47,13 +45,12 @@ export const ConditionOptions: FC<ConditionOptionsProp> = ({
         />
       </Flex>
       <Form.Item
-        name={[...fieldName, "conditiontype"]}
+        name={[...fieldName, "conditionType"]}
         label={LanguageText.conditionTypeLabel}
         rules={[
           { required: true, message: LanguageText.conditionTypeRequired },
         ]}
         style={{ width: "30%" }}
-        initialValue={ConditionType.NETWORK}
       >
         <Select
           options={ConditionOptions}
@@ -67,7 +64,11 @@ export const ConditionOptions: FC<ConditionOptionsProp> = ({
           case ConditionType.UAV:
             return <UavAboutRender />;
           default:
-            return <NetworkAboutRender name={[...fieldName, "conditions"]} />;
+            return (
+              <div>
+                <Input disabled style={{ width: "30%" }} />
+              </div>
+            );
         }
       })()}
     </>

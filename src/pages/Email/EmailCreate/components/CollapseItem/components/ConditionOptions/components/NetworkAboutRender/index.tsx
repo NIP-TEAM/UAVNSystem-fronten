@@ -42,7 +42,7 @@ export const NetworkAboutRender: FC<NetworkAboutRenderProp> = ({ name }) => {
         {(() => {
           switch (category) {
             case 1:
-              return <InputNumber />;
+              return <InputNumber min={0} />;
 
             default:
               return <Input disabled />;

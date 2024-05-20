@@ -1,4 +1,11 @@
 import { useHttp } from "@/hooks"
+import { BasicMetaType, BasicPagination } from "@/types";
+
+export type EmailControllerType = {
+    pagination: BasicPagination;
+    filter: string;
+    selectKeys?: string;
+  };
 
 export interface EmailDataType {
     id: number,
@@ -17,4 +24,16 @@ export const useCreateEmail = (data: Partial<EmailDataType>[]) => useHttp({
     url: '/email',
     method: 'post',
     data,
+})
+
+export const useGetEmails = (data: EmailControllerType) => useHttp<EmailDataType[], BasicMetaType>({
+    url: '/email',
+    method: "get",
+    data
+})
+
+export const useHandleSchedule = (id: number, data: boolean) => useHttp({
+    url: '/email/schedule/' + id,
+    method: 'get',
+    data
 })

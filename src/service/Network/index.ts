@@ -1,5 +1,5 @@
 import { TextKeys, useHttp } from "@/hooks";
-import { BasicPagination } from "@/types";
+import { BasicMetaType, BasicPagination } from "@/types";
 import { Key } from "react";
 
 export interface NetworkDataType {
@@ -40,10 +40,6 @@ export interface ProtocolDataType {
   feature: TextKeys<"ProtocolFeature">[]
 }
 
-interface BasicMetaType {
-  pagination: BasicPagination
-}
-
 export type NetworkDataControllerType = {
   pagination: BasicPagination;
   filter: string;
@@ -74,7 +70,7 @@ export const useNetworkDetail = (id: string) =>
   });
 
 export const useProtocolDataType = (data: NetworkDataControllerType) =>
-  useHttp<BasicMetaType[], BasicMetaType>({
+  useHttp<ProtocolDataType[], BasicMetaType>({
     url: "/protocal",
     method: "get",
     data,

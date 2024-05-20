@@ -2,7 +2,7 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { DataList, Filter, UavHeader } from "./components";
 import { FilterType } from "@/pages/Network/NetworkList/types";
 import { useUavData, UavDataType } from "@/service/Uav";
-import { BasicPagination } from "@/types";
+import { BasicPagination, defaultPagination } from "@/types";
 import {
   SessionKeys,
   getSessionStorageUtil,
@@ -17,18 +17,12 @@ interface StorageProtocol {
   pagination: BasicPagination;
 }
 
-const defaltPagination: BasicPagination = {
-  current: 1,
-  pageSize: 10,
-  total: 10,
-};
-
 const sessionKey = SessionKeys.UAV;
 
 export const UavList: FC<UavListProp> = () => {
   const [pagination, setPagination] = useState<BasicPagination>(
     getSessionStorageUtil<StorageProtocol>(sessionKey)?.pagination ||
-      defaltPagination
+      defaultPagination
   );
   const [filter, setFilter] = useState<FilterType>(
     getSessionStorageUtil<StorageProtocol>(sessionKey)?.filter || {}
@@ -66,20 +60,20 @@ export const UavList: FC<UavListProp> = () => {
     sessionStorageUtil(sessionKey, { filter, pagination });
 
   return (
-      <BasicCard>
-        <UavHeader />
-        <Filter {...{ setTimestamp, setFilter }} />
-        <DataList
-          {...{
-            uavLoading,
-            uavListData,
-            storageFunc,
-            setFilter,
-            pagination,
-            setTimestamp,
-            setPagination,
-          }}
-        />
-      </BasicCard>
+    <BasicCard>
+      <UavHeader />
+      <Filter {...{ setTimestamp, setFilter }} />
+      <DataList
+        {...{
+          uavLoading,
+          uavListData,
+          storageFunc,
+          setFilter,
+          pagination,
+          setTimestamp,
+          setPagination,
+        }}
+      />
+    </BasicCard>
   );
 };

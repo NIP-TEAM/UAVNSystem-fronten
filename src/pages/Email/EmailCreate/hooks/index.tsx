@@ -12,7 +12,6 @@ import {
 
 const EmailCreateGlobalContext = createContext<{
   dataSet: Readonly<{
-    // contactData: {}
     networksData: SelectProps["options"];
     contactListsData: TabsProps["items"];
   }>;

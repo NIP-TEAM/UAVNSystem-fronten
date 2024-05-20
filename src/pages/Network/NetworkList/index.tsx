@@ -2,7 +2,7 @@ import { NetworkDataType, useNetworkData } from "@/service";
 import { Divider } from "antd";
 import { FC, useContext, useEffect, useMemo, useState } from "react";
 import { DataList, Filter, NetworkHeader } from "./components";
-import { BasicPagination } from "@/types";
+import { BasicPagination, defaultPagination } from "@/types";
 import { AppContext } from "@/App";
 import { FilterType } from "./types";
 import {
@@ -19,18 +19,12 @@ interface StorageProtocol {
   pagination: BasicPagination;
 }
 
-const defaltPagination: BasicPagination = {
-  current: 1,
-  pageSize: 10,
-  total: 10,
-};
-
 const sessionKey = SessionKeys.NETWORK;
 
 export const NetworkList: FC<NetworkListProp> = () => {
   const [pagination, setPagination] = useState<BasicPagination>(
     getSessionStorageUtil<StorageProtocol>(sessionKey)?.pagination ||
-      defaltPagination
+      defaultPagination
   );
   const [filter, setFilter] = useState<FilterType>(
     getSessionStorageUtil<StorageProtocol>(sessionKey)?.filter || {}

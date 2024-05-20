@@ -5,3 +5,7 @@ export const defaultPagination = {
   pageSize: 10,
   total: 10,
 };
+
+export interface BasicMetaType {
+  pagination: BasicPagination
+}

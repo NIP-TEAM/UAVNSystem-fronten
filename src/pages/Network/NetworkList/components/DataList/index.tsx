@@ -2,14 +2,13 @@ import { useLanguageContext } from "@/hooks";
 import { NetworkDataType } from "@/service/Network";
 import { BasicPagination } from "@/types";
 import { DownOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Flex, Table, Typography } from "antd";
+import { Button, Dropdown, Flex, Table, Typography, TableProps } from "antd";
 import { ItemType } from "antd/es/menu/hooks/useItems";
-import { ColumnsType, TablePaginationConfig, TableProps } from "antd/es/table";
 import { Dispatch, FC, Key, SetStateAction, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { DeleteTip } from "./components";
 import { FilterType } from "../../types";
-import { SorterResult } from "antd/es/table/interface";
+import { ColumnsType, SorterResult } from "antd/es/table/interface";
 import { useStatusDescription } from "@/pages/Network/hooks";
 import { basicTimeFormate } from "@/utils";
 
@@ -161,7 +160,7 @@ export const DataList: FC<DataListProp> = ({
       : {}),
   }));
 
-  const paginationProps: TablePaginationConfig = {
+  const paginationProps: TableProps["pagination"] = {
     ...pagination,
     position: ["topLeft"],
     onChange: (page, pageSize) =>

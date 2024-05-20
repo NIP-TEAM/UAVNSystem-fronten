@@ -3,7 +3,7 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { ProtocolHeader, ProtocolList } from "./components";
 import { Divider } from "antd";
 import { ProtocolDataType, useNetworkProtocol } from "@/service";
-import { BasicPagination } from "@/types";
+import { BasicPagination, defaultPagination } from "@/types";
 import { FilterType } from "../types";
 import {
   SessionKeys,
@@ -48,12 +48,6 @@ const protocolData: ProtocolDataType[] = [
   },
 ];
 
-const defaltPagination: BasicPagination = {
-  current: 1,
-  pageSize: 5,
-  total: 10,
-} as const;
-
 const loading = false;
 
 export const NetworkProtocol: FC<NetworkTypeProp> = () => {
@@ -61,7 +55,7 @@ export const NetworkProtocol: FC<NetworkTypeProp> = () => {
     getSessionStorageUtil<FilterType>(SessionKeys.PROTOCOL) || {}
   );
   const [pagination, setPagination] =
-    useState<BasicPagination>(defaltPagination);
+    useState<BasicPagination>(defaultPagination);
   // const { fetchData, data, loading, error, code } = useNetworkProtocol({
   //   pagination,
   //   filter: JSON.stringify(filter || {}),
