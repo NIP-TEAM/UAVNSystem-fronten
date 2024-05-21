@@ -16,8 +16,11 @@ export interface EmailDataType {
     creator: {id: number, name: string}
     targetEmail: string[],
     contactIds: number[],
+    contacts: {name: string, email: string}[],
     condition: {[key: string]: unknown}
-    createAt: string
+    createAt: string,
+    onSchedule: boolean,
+    updateAt: string,
 }
 
 export const useCreateEmail = (data: Partial<EmailDataType>[]) => useHttp({
@@ -35,6 +38,11 @@ export const useGetEmails = (data: EmailControllerType) => useHttp<EmailDataType
 export const useGetEmail = (id: number) => useHttp<EmailDataType>({
     url: "/email/" + id,
     method: "get"
+})
+
+export const useDeleteEmail = (id: number) => useHttp({
+    url: "/email/" + id,
+    method: 'delete'
 })
 
 export const useHandleSchedule = (id: number) => useHttp({

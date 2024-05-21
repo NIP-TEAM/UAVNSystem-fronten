@@ -83,6 +83,14 @@
     "en": "Schedule State",
     "zh": "监听状态"
   },
+  "editableTip": {
+    "en": "Only email that not in schedule can be edited or removed!",
+    "zh": "只有未开始监听的邮件可以被修改或删除!"
+  },
+  "editCancel": {
+    "en": "Cancel",
+    "zh": "取消"
+  },
   "addField": {
     "en": "Add Filter",
     "zh": "添加筛选项"
@@ -106,5 +114,29 @@
   "applyFilter": {
     "en": "Apply",
     "zh": "应用"
+  },
+  "EmailDetailTitle": {
+    "en": "Email Detail",
+    "zh": "邮件详情"
+  },
+  "EmailButtonTitle": {
+    "en": "Edit",
+    "zh": "编辑"
+  },
+  "removeButtonTitle": {
+    "en": "Remove",
+    "zh": "删除"
+  },
+  "removeSuccess": {
+    "en": "Remove success!",
+    "zh": "成功删除!"
+  },
+  "sendToTitle": {
+    "en": "Send to",
+    "zh": "发送给"
+  },
+  "removeAlert": {
+    "en": "Are you sure about that?",
+    "zh": "确定要删除吗?"
   }
 }
