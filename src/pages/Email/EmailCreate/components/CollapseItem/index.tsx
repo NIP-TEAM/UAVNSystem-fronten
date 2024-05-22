@@ -1,7 +1,6 @@
 import { useLanguageContext } from "@/hooks";
 import { EmailDataType } from "@/service";
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Form, Select, SelectProps } from "antd";
+import { Form, Select, SelectProps } from "antd";
 import { FC } from "react";
 import { useEmailCreateGlobalContext } from "../../hooks";
 import { ConditionOptions, SelectItem } from "./components";
@@ -49,8 +48,8 @@ export const CollapseItem: FC<CollapseItemProp> = ({
         style={{ width: "40%" }}
         {...restField}
       />
-      <Form.List name={[parentFieldName, "conditions"]}>
-        {(fields, { add, remove }) => (
+      <Form.List name={[parentFieldName, "condition"]}>
+        {(fields) => (
           <>
             {
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -58,13 +57,9 @@ export const CollapseItem: FC<CollapseItemProp> = ({
                 <ConditionOptions
                   key={name}
                   fieldName={[parentFieldName, name]}
-                  remove={remove}
                 />
               ))
             }
-            <Button type="link" onClick={add} icon={<PlusOutlined />}>
-              {LanguageText.addConditionButton}
-            </Button>
           </>
         )}
       </Form.List>

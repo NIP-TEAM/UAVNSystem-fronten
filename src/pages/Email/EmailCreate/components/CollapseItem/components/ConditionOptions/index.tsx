@@ -6,7 +6,6 @@ import { NetworkAboutRender, UavAboutRender } from "./components";
 
 export interface ConditionOptionsProp {
   fieldName: number[];
-  remove: (target: number) => void;
 }
 
 export enum ConditionType {
@@ -14,10 +13,7 @@ export enum ConditionType {
   UAV,
 }
 
-export const ConditionOptions: FC<ConditionOptionsProp> = ({
-  fieldName,
-  remove,
-}) => {
+export const ConditionOptions: FC<ConditionOptionsProp> = ({ fieldName }) => {
   const { LanguageText } = useLanguageContext<"CreateEmail">();
 
   const [conditionType, setConditionType] = useState<ConditionType>();
@@ -35,14 +31,9 @@ export const ConditionOptions: FC<ConditionOptionsProp> = ({
     <>
       <Flex align="baseline" justify="space-between">
         <Typography.Title level={5}>
-          {LanguageText.conditionTitle + " " + (fieldName[1] + 1)}
+          {LanguageText.conditionTitle}
         </Typography.Title>
-        <Button
-          danger
-          type="link"
-          icon={<DeleteOutlined />}
-          onClick={() => remove(fieldName[1])}
-        />
+        <Button danger type="link" icon={<DeleteOutlined />} />
       </Flex>
       <Form.Item
         name={[...fieldName, "conditionType"]}
@@ -60,7 +51,7 @@ export const ConditionOptions: FC<ConditionOptionsProp> = ({
       {(() => {
         switch (conditionType) {
           case ConditionType.NETWORK:
-            return <NetworkAboutRender name={[...fieldName, "conditions"]} />;
+            return <NetworkAboutRender name={[...fieldName, "condition"]} />;
           case ConditionType.UAV:
             return <UavAboutRender />;
           default:

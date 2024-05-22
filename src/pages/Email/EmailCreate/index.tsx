@@ -56,7 +56,7 @@ export const EmailCreate: FC<EmailCreateProp> = () => {
           onFinish={onSubmit}
           onFinishFailed={onFinishFailed}
           initialValues={{
-            emails: [{ name: "new email 1", conditions: [undefined] }],
+            emails: [{ name: "new email 1", condition: [undefined] }],
           }}
         >
           <Form.List name="emails">

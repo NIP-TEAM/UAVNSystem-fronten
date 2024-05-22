@@ -32,6 +32,20 @@ export const UavItem: FC<UavItemProp> = ({
       >
         <Input />
       </Form.Item>
+      <Form.Item
+        name={[uavName, "mac"]}
+        label={LanguageText.macLabel}
+        rules={[
+          { required: true, message: LanguageText.macEmpty },
+          {
+            pattern: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/,
+            message: LanguageText.macInvalid,
+          },
+        ]}
+        {...restUavField}
+      >
+        <Input />
+      </Form.Item>
     </Card>
   );
 };

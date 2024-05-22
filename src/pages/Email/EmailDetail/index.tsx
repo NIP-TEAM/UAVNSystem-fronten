@@ -49,8 +49,10 @@ export const EmailDetail: FC<EmailDetailProp> = () => {
       label: LanguageText.sendToTitle,
       children: (
         <>
-          {emailData?.contacts?.map(({ email, name }) => (
-            <Tooltip title={email}>{name}</Tooltip>
+          {emailData?.contacts?.map(({ email, name }, index) => (
+            <Tooltip key={index} title={email}>
+              {name}
+            </Tooltip>
           ))}
         </>
       ),
@@ -124,7 +126,7 @@ export const EmailDetail: FC<EmailDetailProp> = () => {
     {
       key: "sendTo",
       span: 3,
-      children: <Collapse items={collapseItems} style={{width: "80%"}} />,
+      children: <Collapse items={collapseItems} style={{ width: "80%" }} />,
     },
   ];
 
