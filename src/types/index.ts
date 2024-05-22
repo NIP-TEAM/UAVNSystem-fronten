@@ -9,3 +9,9 @@ export const defaultPagination = {
 export interface BasicMetaType {
   pagination: BasicPagination
 }
+
+export interface BasicFilterType  {
+  searchKey: string;
+  filters: Record<string, Record<string, string | number>>;
+  sorter: Record<string, 'asc' | 'desc'>;
+}

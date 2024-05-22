@@ -1,58 +1,122 @@
 {
-    "protocolTitle": {
-        "en": "Network Protocol",
-        "zh": "网络协议"
-    },
-    "moreButton": {
-        "en": "More",
-        "zh": "更多"
-    },
-    "editLink": {
-        "en": "Edit",
-        "zh": "编辑"
-    },
-    "deleteAction": {
-        "en": "Delete",
-        "zh": "删除"
-    },
-    "deleteTitle": {
-        "en": "Alert",
-        "zh": "警告"
-    },
-    "deleteSuccess": {
-        "en": "Success!",
-        "zh": "操作成功"
-    },
-    "deleteTip": {
-        "en": "Are you sure that you want to delete this protocal?",
-        "zh": "你确定要删除此协议吗?"
-    },
-    "deleteCancel": {
-        "en": "Cancel",
-        "zh": "取消"
-    },
-    "deleteConfirm": {
-        "en": "Confirm",
-        "zh": "确定"
-    },
-    "usageNework": {
-        "en": "Networks currently using this protocol: ",
-        "zh": "正在使用该协议的网络: "
-    },
-    "protocalTitle": {
-        "en": "Protocal",
-        "zh": "协议"
-    },
-    "defaultType": {
-        "en": "Defualt Protocol",
-        "zh": "内置协议"
-    },
-    "customerType": {
-        "en": "Custom Protocol",
-        "zh": "自定义协议"
-    },
-    "typePlaceholder": {
-        "en": "Type of protocol",
-        "zh": "协议类型"
-    }
+  "protocolTitle": {
+    "en": "Network Protocol",
+    "zh": "网络协议"
+  },
+  "moreButton": {
+    "en": "More",
+    "zh": "更多"
+  },
+  "editLink": {
+    "en": "Edit",
+    "zh": "编辑"
+  },
+  "deleteAction": {
+    "en": "Delete",
+    "zh": "删除"
+  },
+  "deleteTitle": {
+    "en": "Alert",
+    "zh": "警告"
+  },
+  "deleteSuccess": {
+    "en": "Success!",
+    "zh": "操作成功"
+  },
+  "deleteTip": {
+    "en": "Are you sure that you want to delete this protocal?",
+    "zh": "你确定要删除此协议吗?"
+  },
+  "deleteCancel": {
+    "en": "Cancel",
+    "zh": "取消"
+  },
+  "deleteConfirm": {
+    "en": "Confirm",
+    "zh": "确定"
+  },
+  "usageNework": {
+    "en": "Networks currently using this protocol: ",
+    "zh": "正在使用该协议的网络: "
+  },
+  "protocalTitle": {
+    "en": "Protocal",
+    "zh": "协议"
+  },
+  "defaultType": {
+    "en": "Defualt Protocol",
+    "zh": "内置协议"
+  },
+  "customerType": {
+    "en": "Custom Protocol",
+    "zh": "自定义协议"
+  },
+  "typePlaceholder": {
+    "en": "Type of protocol",
+    "zh": "协议类型"
+  },
+  "creatorFieldTitle": {
+    "en": "Creator",
+    "zh": "创建者"
+  },
+  "defaultFieldTitle": {
+    "en": "Type of protocol",
+    "zh": "协议类型"
+  },
+  "isQuantifier": {
+    "en": "is",
+    "zh": "是"
+  },
+  "isNotQuantifier": {
+    "en": "is not",
+    "zh": "不是"
+  },
+  "isDefualtText": {
+    "en": "defualt",
+    "zh": "内置"
+  },
+  "notDefualtText": {
+    "en": "custom",
+    "zh": "自定义"
+  },
+  "filterTitle": {
+    "en": "Filter by",
+    "zh": "筛选器"
+  },
+  "addField": {
+    "en": "Add Filter",
+    "zh": "添加筛选项"
+  },
+  "clearFilter": {
+    "en": "Clear",
+    "zh": "清除"
+  },
+  "applyFilter": {
+    "en": "Apply",
+    "zh": "应用"
+  },
+  "meText": {
+    "en": "<< ME >>",
+    "zh": "<< 我 >>"
+  },
+  "quantifierEmpty": {
+    "en": "Empty quantifier is not allowed!",
+    "zh": "限定词不能为空!"
+  },
+  "contentEmpty": {
+    "en": "Empty content is not allowed!",
+    "zh": "内容不能为空!"
+  },
+  "creatorLabel": {
+    "en": "Creator:",
+    "zh": "创建者:"
+  },
+  "createAtLabel": {
+    "en": "Create At:",
+    "zh": "创建时间:"
+  },
+  "updateAtLabel": {
+    "en": "Create At:",
+    "zh": "创建时间:"
+  }
 }

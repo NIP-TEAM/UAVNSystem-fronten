@@ -3,15 +3,15 @@ import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Flex, Form, Input, Typography } from "antd";
 import { Dispatch, FC, SetStateAction, useEffect } from "react";
 import { FormFieldItem } from "./components";
-import { FilterType } from "../../types";
 import {
   CategoryOptions,
   categoryOptions,
 } from "./components/FormFieldItem/selectOptions";
+import { BasicFilterType } from "@/types";
 
 export interface FilterProp {
-  initParams?: FilterType;
-  setFilter: Dispatch<SetStateAction<FilterType>>;
+  initParams?: BasicFilterType;
+  setFilter: Dispatch<SetStateAction<BasicFilterType>>;
   setTimestamp: Dispatch<SetStateAction<number>>;
 }
 
@@ -31,7 +31,7 @@ export const Filter: FC<FilterProp> = ({
   setTimestamp,
   initParams,
 }) => {
-  const { LanguageText } = useLanguageContext<"Network">();
+  const { LanguageText } = useLanguageContext<"NetworkProtocol">();
   const [form] = Form.useForm<FormItemProtocol>();
   const formFilters = Form.useWatch("filters", form);
 
@@ -48,7 +48,7 @@ export const Filter: FC<FilterProp> = ({
           if (category && quantifier && content)
             acc[category] = { quantifier, content };
           return acc;
-        }, {} as FilterType["filters"]),
+        }, {} as BasicFilterType["filters"]),
       };
     });
   }, [formFilters, setFilter]);
@@ -127,7 +127,7 @@ export const Filter: FC<FilterProp> = ({
                   <Button
                     onClick={() => {
                       form.resetFields();
-                      setTimestamp(new Date().getTime());
+                      setTimeout(() => setTimestamp(new Date().getTime()));
                     }}
                   >
                     {LanguageText.clearFilter}

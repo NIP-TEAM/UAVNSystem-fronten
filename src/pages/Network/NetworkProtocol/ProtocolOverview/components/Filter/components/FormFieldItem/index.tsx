@@ -30,7 +30,7 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
   name,
   checkOptionDisable,
 }) => {
-  const { LanguageText } = useLanguageContext<"Network">();
+  const { LanguageText } = useLanguageContext<"NetworkProtocol">();
   const [categorySelect, setcategorySelect] = useState<CategoryOptions>();
 
   const { userInfo } = useAtomValue(userAtom);
@@ -102,7 +102,7 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
           options={
             categorySelect === CategoryOptions.CREATOR
               ? creatorsOptions
-              : contentOptions[categorySelect || CategoryOptions.STATUS].map(
+              : contentOptions[categorySelect || CategoryOptions.CREATOR].map(
                   ({ labelKey, value }) => ({
                     label: LanguageText[labelKey],
                     value,

@@ -12,9 +12,10 @@ import {
 } from "antd";
 import { Dispatch, FC } from "react";
 import { useNavigate } from "react-router";
-import { DeleteModal, Feature } from "./components";
+import { DeleteModal } from "./components";
 import { BasicPagination } from "@/types";
 import { SetStateAction } from "jotai";
+import { basicTimeFormate } from "@/utils";
 
 export interface ProtocolListProp {
   protocolData: ProtocolDataType[];
@@ -67,7 +68,9 @@ export const ProtocolList: FC<ProtocolListProp> = ({
               }}
               hoverable
               cover={
-                <div
+                <Flex
+                  vertical
+                  gap="small"
                   style={{
                     overflow: "auto",
                     padding: "0.5em 1.5em",
@@ -92,8 +95,34 @@ export const ProtocolList: FC<ProtocolListProp> = ({
                       </Typography.Link>
                     ))}
                   </Typography>
-                  <Feature featureList={item.feature || []} />
-                </div>
+                  <Typography>
+                    <Typography.Text strong>
+                      {LanguageText.creatorLabel}
+                    </Typography.Text>
+                    <Typography.Link
+                      onClick={() => navigate("/user/" + item?.creator?.id)}
+                      disabled={item?.isDefault}
+                    >
+                      @{item?.creator?.name || "SYSTEM"}
+                    </Typography.Link>
+                  </Typography>
+                  <Typography>
+                    <Typography.Text strong>
+                      {LanguageText.createAtLabel}
+                    </Typography.Text>
+                    <Typography.Text type="secondary">
+                      {basicTimeFormate(item?.createAt)}
+                    </Typography.Text>
+                  </Typography>
+                  <Typography>
+                    <Typography.Text strong>
+                      {LanguageText.updateAtLabel}
+                    </Typography.Text>
+                    <Typography.Text type="secondary">
+                      {basicTimeFormate(item?.updateAt)}
+                    </Typography.Text>
+                  </Typography>
+                </Flex>
               }
               extra={
                 <>
@@ -102,7 +131,7 @@ export const ProtocolList: FC<ProtocolListProp> = ({
                       items: actionItems(item.id),
                     }}
                     trigger={["click"]}
-                    disabled={item.type !== "customer"}
+                    disabled={item.isDefault}
                   >
                     <Typography.Link>{LanguageText.moreButton}</Typography.Link>
                   </Dropdown>

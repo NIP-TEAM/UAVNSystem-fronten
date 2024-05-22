@@ -1,4 +1,4 @@
-import { TextKeys, useHttp } from "@/hooks";
+import { useHttp } from "@/hooks";
 import { BasicMetaType, BasicPagination } from "@/types";
 import { Key } from "react";
 
@@ -14,30 +14,11 @@ export interface NetworkDataType {
     id: string;
   };
   connectMap: string;
-  uavs: {name: string, id: number}[]
+  uavs: { name: string; id: number }[];
   protocol: {
-    name: string,
-    id: number
-  }
-}
-
-export interface ProtocolDataType {
-  id: number;
-  name: string;
-  type:
-    | "LCAD"
-    | "DCR"
-    | "TBRPF"
-    | "OLSR"
-    | "DSDV"
-    | "DSR"
-    | "AODV"
-    | "customer";
-  networks?: {name: string, id: number}[]
-  createAt: string
-  updateAt: string
-  creator?: {name: string, id: number}
-  feature: TextKeys<"ProtocolFeature">[]
+    name: string;
+    id: number;
+  };
 }
 
 export type NetworkDataControllerType = {
@@ -68,16 +49,3 @@ export const useNetworkDetail = (id: string) =>
     url: "/network/" + id,
     method: "get",
   });
-
-export const useProtocolDataType = (data: NetworkDataControllerType) =>
-  useHttp<ProtocolDataType[], BasicMetaType>({
-    url: "/protocal",
-    method: "get",
-    data,
-  });
-
-export const useDeleteProtocal = (data: {id: number}) => useHttp({
-  url: "/protocal",
-  method: 'delete',
-  data,
-})

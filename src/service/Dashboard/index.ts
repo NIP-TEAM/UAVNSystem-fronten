@@ -1,6 +1,6 @@
 import { useHttp } from "@/hooks";
 import { UserInfo } from "@/store";
-import { NetworkDataType } from "../Network";
+import { NetworkDataType } from "../NetworkAbout/Network";
 
 export interface DashboardDataType {
   countData: DataOverviewType;

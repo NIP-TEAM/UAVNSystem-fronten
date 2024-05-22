@@ -1,5 +1,5 @@
 import { useLanguageContext } from "@/hooks";
-import { NetworkDataType } from "@/service/Network";
+import { NetworkDataType } from "@/service/NetworkAbout/Network";
 import { BasicPagination } from "@/types";
 import { DownOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Flex, Table, Typography, TableProps } from "antd";

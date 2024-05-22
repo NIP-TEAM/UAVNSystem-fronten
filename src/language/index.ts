@@ -9,7 +9,6 @@ export const LanguageTextJson = {  Error: (await import("./core/Error.json")).de
   Uav: (await import("./pages/Uav.json")).default,
   NetworkDetail: (await import("./pages/NetworkDetail.json")).default,
   NetworkProtocol: (await import("./pages/NetworkProtocol.json")).default,
-  ProtocolFeature: (await import("./pages/ProtocolFeature.json")).default,
   Contact: (await import('./pages/Contact.json')).default,
   CreateContact: (await import('./pages/CreateContact.json')).default,
   User: (await import('./pages/User.json')).default,
