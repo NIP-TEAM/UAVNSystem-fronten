@@ -1,13 +1,14 @@
 import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
-import { useCreateNetwork } from "@/service";
-import { Button, Flex, Form, Input, Modal } from "antd";
+import { useCreateNetwork, useGetProtocols } from "@/service";
+import { Button, Flex, Form, Input, Modal, Select, SelectProps } from "antd";
 import {
   Dispatch,
   FC,
   SetStateAction,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -46,7 +47,7 @@ interface CreateModalMaintainProp {
 
 interface FormItemProtocol {
   name: string;
-  [key: string]: unknown;
+  protocolId: number;
 }
 
 const CreateModalMaintain: FC<CreateModalMaintainProp> = ({
@@ -56,7 +57,30 @@ const CreateModalMaintain: FC<CreateModalMaintainProp> = ({
   const { LanguageText } = useLanguageContext<"Network">();
   const { messageApi } = useContext(AppContext);
   const [form] = Form.useForm<FormItemProtocol>();
-  const [formValue, setFormValue] = useState<FormItemProtocol>();
+  const formValue = Form.useWatch([], form);
+
+  // protocol Data
+  const {
+    fetchData: fetchProtocols,
+    data: protocolsDataData,
+    code: protocolsCode,
+    loading: protocolsLoading,
+  } = useGetProtocols({
+    pagination: { pageSize: 100000, current: 1, total: 100000 },
+    filter: "",
+  });
+  useEffect(() => {
+    fetchProtocols?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const protocolsOptions = useMemo<SelectProps["options"]>(() => {
+    if (protocolsCode === 200 && protocolsDataData?.data)
+      return protocolsDataData.data.map(({ id, name }) => ({
+        label: name,
+        value: id,
+      }));
+    return [];
+  }, [protocolsCode, protocolsDataData]);
 
   const {
     fetchData: fetchCreateData,
@@ -73,7 +97,7 @@ const CreateModalMaintain: FC<CreateModalMaintainProp> = ({
       refreshNetwork(new Date().getTime());
       setOpen(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createCode, messageApi]);
 
   const handleFinish = () => {
@@ -81,21 +105,34 @@ const CreateModalMaintain: FC<CreateModalMaintainProp> = ({
   };
 
   return (
-    <Form
-      form={form}
-      layout="vertical"
-      onFinish={handleFinish}
-      onValuesChange={(newValue) => setFormValue(newValue)}
-    >
+    <Form form={form} layout="vertical" onFinish={handleFinish}>
       <Form.Item<FormItemProtocol>
         name="name"
         required
         rules={[{ required: true }]}
         label={LanguageText.nameItem}
+        style={{ width: "60%" }}
       >
-        <Input style={{ width: "60%" }} />
+        <Input />
       </Form.Item>
-      <Form.Item>uavs setting</Form.Item>
+      <Form.Item<FormItemProtocol>
+        name="protocolId"
+        label={LanguageText.protocolLabel}
+        rules={[{ required: true }]}
+      >
+        <Select
+          options={protocolsOptions}
+          allowClear
+          showSearch
+          filterOption={(input, option) =>
+            ((option?.label || "") as string)
+              .toLowerCase()
+              .includes(input.toLowerCase())
+          }
+          style={{ width: "60%" }}
+          loading={protocolsLoading}
+        />
+      </Form.Item>
       <Form.Item>
         <Flex align="center" justify="end" gap={5}>
           <Button onClick={() => setOpen(false)}>{LanguageText.cancel}</Button>

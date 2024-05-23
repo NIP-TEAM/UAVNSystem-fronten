@@ -166,5 +166,9 @@
   "createSuccess": {
     "en": "Create success!",
     "zh": "创建成功!"
+  },
+  "protocolLabel": {
+    "en": "Protocol",
+    "zh": "网络协议"
   }
 }

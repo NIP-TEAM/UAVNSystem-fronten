@@ -9,11 +9,12 @@ export interface NetworkDataType {
   createAt: string;
   uavCount: number;
   lastEdit: string;
+  protocolId: number;
   creator: {
     name: string;
     id: string;
   };
-  connectMap: string;
+  connectMap: [number, number][];
   uavs: { name: string; id: number }[];
   protocol: {
     name: string;
@@ -49,3 +50,9 @@ export const useNetworkDetail = (id: string) =>
     url: "/network/" + id,
     method: "get",
   });
+
+export const useUpdateNetwork = (id: string, data: Partial<NetworkDataType>) => useHttp({
+  url: "/network/" + id,
+  method: "patch",
+  data,
+})

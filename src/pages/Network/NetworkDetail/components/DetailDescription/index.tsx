@@ -1,8 +1,16 @@
 import { DescriptionsProps } from "antd/es/descriptions";
-import { Button, Descriptions, Form, Input, Typography } from "antd";
-import { FC } from "react";
+import {
+  Button,
+  Descriptions,
+  Form,
+  Input,
+  Select,
+  SelectProps,
+  Typography,
+} from "antd";
+import { FC, useEffect, useMemo } from "react";
 import { useLanguageContext } from "@/hooks";
-import { NetworkDataType } from "@/service";
+import { NetworkDataType, useGetProtocols } from "@/service";
 import { useStatusDescription } from "@/pages/Network/hooks";
 import { basicTimeFormate } from "@/utils";
 import { useNavigate } from "react-router";
@@ -19,6 +27,30 @@ export const DetailDescription: FC<DetailDescriptionProp> = ({
   const navigate = useNavigate();
   const { LanguageText } = useLanguageContext<"NetworkDetail">();
   const StatusDescription = useStatusDescription();
+
+  // protocol Data
+  const {
+    fetchData: fetchProtocols,
+    data: protocolsDataData,
+    code: protocolsCode,
+    loading: protocolsLoading,
+  } = useGetProtocols({
+    pagination: { pageSize: 100000, current: 1, total: 100000 },
+    filter: "",
+  });
+  useEffect(() => {
+    fetchProtocols?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const protocolsOptions = useMemo<SelectProps["options"]>(() => {
+    if (protocolsCode === 200 && protocolsDataData?.data)
+      return protocolsDataData.data.map(({ id, name }) => ({
+        label: name,
+        value: id,
+      }));
+    return [];
+  }, [protocolsCode, protocolsDataData]);
+
   const items: DescriptionsProps["items"] = [
     {
       key: "id",
@@ -48,7 +80,27 @@ export const DetailDescription: FC<DetailDescriptionProp> = ({
     {
       key: "type",
       label: LanguageText.typeLabel,
-      children: "222",
+      children: editing ? (
+        <Form.Item<NetworkDataType>
+          name="protocolId"
+          style={{ width: "60%" }}
+          initialValue={networkInfo?.protocol?.id}
+        >
+          <Select
+            options={protocolsOptions}
+            allowClear
+            showSearch
+            filterOption={(input, option) =>
+              ((option?.label || "") as string)
+                .toLowerCase()
+                .includes(input.toLowerCase())
+            }
+            loading={protocolsLoading}
+          />
+        </Form.Item>
+      ) : (
+        networkInfo?.protocol?.name
+      ),
     },
     {
       key: "creator",

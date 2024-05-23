@@ -28,8 +28,8 @@
         "zh": "无人机总数"
     },
     "typeLabel": {
-        "en": "Network Type",
-        "zh": "网络类型"
+        "en": "Network Protocol",
+        "zh": "网络协议"
     },
     "editingButton": {
         "en": "Edit",
@@ -42,5 +42,13 @@
     "editingConfirm": {
         "en": "Confirm",
         "zh": "确定"
-    }   
+    },
+    "updateSuccess": {
+        "en": "Update success",
+        "zh": "修改成功"
+    },
+    "protocolAlert": {
+        "en": "This will lead to rebuild the network, are you sure?",
+        "zh": "此操作会导致网络结构重组,要继续吗?"
+    } 
 }

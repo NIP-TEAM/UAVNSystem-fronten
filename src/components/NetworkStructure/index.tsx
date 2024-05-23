@@ -9,16 +9,17 @@ import { GraphNodeItemOption } from "echarts/types/src/chart/graph/GraphSeries.j
 import { useConfig } from "@/hooks";
 import { useAtomValue } from "jotai";
 import { THEMESNAME, themeAtom } from "@/store/Theme";
+import { NetworkDataType } from "@/service";
 
 export interface NetworkStructureProp {
   style?: CSSProperties;
-  connectMap: string;
-  uavs: { name: string; id: number }[];
+  connectMap: NetworkDataType['connectMap'];
+  uavs: NetworkDataType['uavs'];
   showDetail?: boolean;
 }
 
 export const NetworkStructure: FC<NetworkStructureProp> = ({
-  connectMap = "",
+  connectMap = [],
   style,
   uavs = [],
   showDetail,
@@ -34,7 +35,7 @@ export const NetworkStructure: FC<NetworkStructureProp> = ({
     code: entityCode,
     loading: entityLoading,
     data: entityDataData,
-  } = useGetEntity({ maps: connectMap });
+  } = useGetEntity({ maps: JSON.stringify(connectMap) });
   useEffect(() => {
     fetchEntityData?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
