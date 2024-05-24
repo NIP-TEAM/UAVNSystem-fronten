@@ -50,5 +50,9 @@
     "protocolAlert": {
         "en": "This will lead to rebuild the network, are you sure?",
         "zh": "此操作会导致网络结构重组,要继续吗?"
-    } 
+    },
+    "refreshButton": {
+        "en": "Refresh",
+        "zh": "刷新"
+    }
 }

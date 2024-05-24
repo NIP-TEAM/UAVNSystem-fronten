@@ -75,7 +75,13 @@ export const NetworkDetail: FC<NetworkDetailProp> = () => {
       </Modal>
       <Form form={form} onFinish={onFinish} initialValues={networkInfo}>
         <NetworkDetailHeader
-          {...{ name: networkInfo?.name, editing, setEditing }}
+          {...{
+            name: networkInfo?.name,
+            editing,
+            setEditing,
+            fetchDetailData,
+            detailLoading,
+          }}
         />
         <Divider />
         <DetailDescription {...{ networkInfo, editing }} />
