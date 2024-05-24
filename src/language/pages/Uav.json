@@ -95,10 +95,6 @@
     "en": "Creator",
     "zh": "创建者"
   },
-  "speedLabel": {
-    "en": "Uav Speed",
-    "zh": "网络传输速度"
-  },
   "errorStatus": {
     "en": "Error",
     "zh": "错误"
@@ -150,10 +146,6 @@
   "action": {
     "en": "Action",
     "zh": "操作"
-  },
-  "detail": {
-    "en": "Detail",
-    "zh": "详情"
   },
   "more": {
     "en": "More",

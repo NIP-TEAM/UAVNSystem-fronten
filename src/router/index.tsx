@@ -17,6 +17,7 @@ import {
   EmailCreate,
   EmailList,
   EmailDetail,
+  CreateUav
 } from "../pages";
 import { RouteItem } from "./types";
 import {
@@ -27,7 +28,6 @@ import {
   SettingFilled,
 } from "@ant-design/icons";
 import { omit } from "lodash-es";
-import { CreateUav, UavDetail } from "@/pages/Uav";
 
 export const ROUTES: readonly RouteItem[] = [
   {
@@ -119,12 +119,6 @@ export const ROUTES: readonly RouteItem[] = [
         element: <CreateUav />,
         path: "/uavs/create",
         textKey: "Uav",
-      },
-      {
-        id: "uavdetail",
-        element: <UavDetail />,
-        path: "/uavs/:id",
-        // textKey: "UavDetail"
       },
     ],
   },

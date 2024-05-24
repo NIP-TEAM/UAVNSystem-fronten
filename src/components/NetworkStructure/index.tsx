@@ -118,7 +118,7 @@ export const NetworkStructure: FC<NetworkStructureProp> = ({
   }) => {
     event.stopPropagation();
     if (!Number(id)) return;
-    navigete("/uavs/" + id);
+    navigete("/uavs/list");
   };
 
   return (
