@@ -1,9 +1,9 @@
 import { BasicCard, NetworkStructure } from "@/components";
-import { FC, useContext, useEffect, useMemo, useState } from "react";
+import { FC, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { DetailDescription, NetworkDetailHeader } from "./components";
 import { NetworkDataType, useNetworkDetail, useUpdateNetwork } from "@/service";
 import { useParams } from "react-router";
-import { Card, Divider, Form, FormProps, Modal } from "antd";
+import { Button, Card, Divider, Flex, Form, FormProps, Modal } from "antd";
 import { AppContext } from "@/App";
 import { useLanguageContext } from "@/hooks";
 
@@ -63,30 +63,50 @@ export const NetworkDetail: FC<NetworkDetailProp> = () => {
     [networkInfo]
   );
 
+  const [highResponse, setHighResponse] = useState(false);
+  const intervalRef = useRef<number | undefined>();
+
+  useEffect(() => {
+    if (highResponse) {
+      intervalRef.current = window.setInterval(() => fetchDetailData?.(), 5000);
+      return () => window.clearInterval(intervalRef.current);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [highResponse]);
+
   return (
-    <BasicCard loading={detailLoading}>
-      <Modal
-        open={modalOpen}
-        confirmLoading={networkUpdateLoading}
-        onOk={() => fetchNetworkUpdate?.()}
-        onCancel={() => setModalOpen(false)}
+    <>
+      <Button
+        type={highResponse ? "default" : "primary"}
+        style={{ marginLeft: 10 }}
+        onClick={() => setHighResponse((prev) => !prev)}
       >
-        {LanguageText.protocolAlert}
-      </Modal>
-      <Form form={form} onFinish={onFinish} initialValues={networkInfo}>
-        <NetworkDetailHeader
-          {...{
-            name: networkInfo?.name,
-            editing,
-            setEditing,
-            fetchDetailData,
-            detailLoading,
-          }}
-        />
-        <Divider />
-        <DetailDescription {...{ networkInfo, editing }} />
-      </Form>
-      <Card>{mapStructure}</Card>
-    </BasicCard>
+        {highResponse ? LanguageText.modeButtonOff : LanguageText.modeButtonOn}
+      </Button>
+      <BasicCard loading={detailLoading} style={{ marginTop: 3 }}>
+        <Modal
+          open={modalOpen}
+          confirmLoading={networkUpdateLoading}
+          onOk={() => fetchNetworkUpdate?.()}
+          onCancel={() => setModalOpen(false)}
+        >
+          {LanguageText.protocolAlert}
+        </Modal>
+        <Form form={form} onFinish={onFinish} initialValues={networkInfo}>
+          <NetworkDetailHeader
+            {...{
+              name: networkInfo?.name,
+              editing,
+              setEditing,
+              fetchDetailData,
+              detailLoading,
+            }}
+          />
+          <Divider />
+          <DetailDescription {...{ networkInfo, editing }} />
+        </Form>
+        <Card>{mapStructure}</Card>
+      </BasicCard>
+    </>
   );
 };

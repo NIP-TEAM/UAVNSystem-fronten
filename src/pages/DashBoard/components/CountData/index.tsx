@@ -11,7 +11,7 @@ export interface CountDataProp {}
 const NavigateTo: Record<keyof DashboardDataType["countData"], string> = {
   uavCount: "/uavs",
   networkCount: "/network",
-  creatorCount: "/user",
+  userInfoCount: "/user",
   protocolCount: "/network/protocol",
   emailCount: "/email/list",
   contactCount: "/email/contact",
@@ -45,15 +45,21 @@ export const CountData: FC<CountDataProp> = () => {
             <Flex
               align="center"
               justify="center"
-              style={{ width: "100%", height: '100%' }}
+              style={{ width: "100%", height: "100%" }}
               vertical
             >
               <Typography.Text strong ellipsis>
                 {LanguageText[textKey as TextKeys<"Dashboard">]}
               </Typography.Text>
-              <Flex align="center" justify="center" style={{width: '100%', height: 75}}>
-              <Typography.Text style={{fontSize: 32}}>{value}</Typography.Text>
-            </Flex>
+              <Flex
+                align="center"
+                justify="center"
+                style={{ width: "100%", height: 75 }}
+              >
+                <Typography.Text style={{ fontSize: 32 }}>
+                  {value}
+                </Typography.Text>
+              </Flex>
             </Flex>
           </Card>
         ))}

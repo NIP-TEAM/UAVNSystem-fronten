@@ -54,5 +54,13 @@
     "refreshButton": {
         "en": "Refresh",
         "zh": "刷新"
+    },
+    "modeButtonOn": {
+        "en": "High Response",
+        "zh": "高响应模式"
+    },
+    "modeButtonOff": {
+        "en": "Off High Response",
+        "zh": "关闭高响应模式"
     }
 }

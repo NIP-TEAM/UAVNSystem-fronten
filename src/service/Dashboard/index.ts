@@ -11,7 +11,7 @@ export interface DashboardDataType {
 interface DataOverviewType {
   uavCount: number;
   networkCount: number;
-  creatorCount: number;
+  userInfoCount: number;
   protocolCount: number;
   emailCount: number;
   contactCount: number;

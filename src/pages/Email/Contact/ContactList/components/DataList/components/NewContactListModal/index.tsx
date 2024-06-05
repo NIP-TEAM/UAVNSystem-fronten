@@ -75,7 +75,7 @@ const NewContactListModalContent: FC<NewContactListModalContentProp> = ({
       messageApi?.success(
         <>
           {LanguageText.createGroupSuccess}
-          <Button type="link" onClick={() => navigate(`/contact/create`)}>
+          <Button type="link" onClick={() => navigate(`/email/contact/create`)}>
             {LanguageText.toCreateContactLink}
           </Button>
         </>
