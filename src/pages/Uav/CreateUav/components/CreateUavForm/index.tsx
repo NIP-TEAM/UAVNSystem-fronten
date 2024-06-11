@@ -13,7 +13,7 @@ export interface CreateUavFormProp {}
 
 interface FormItem {
   networkId: number;
-  uavs: { name?: string }[];
+  uavs: { name?: string; mac: string }[];
 }
 
 export interface StorageProtocal {
@@ -76,6 +76,7 @@ export const CreateUavForm: FC<CreateUavFormProp> = () => {
         result.push({
           name: item?.name,
           networkId: formItem.networkId,
+          mac: item?.mac
         });
       });
     });
@@ -91,7 +92,7 @@ export const CreateUavForm: FC<CreateUavFormProp> = () => {
     if (createCode === 200) {
       messageApi?.success(LanguageText.addSuccess);
       form.resetFields();
-      navigate('/uavs')
+      navigate("/uavs");
     }
   }, [LanguageText.addSuccess, createCode, messageApi, form, navigate]);
   useEffect(() => {

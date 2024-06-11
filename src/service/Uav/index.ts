@@ -9,6 +9,7 @@ export type UavDataType = {
   status: number;
   createAt: string;
   networkId: number;
+  mac: string;
   creatorInfo: {
     name: string;
     id: number;

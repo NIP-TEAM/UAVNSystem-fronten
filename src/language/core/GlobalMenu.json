@@ -1,19 +1,23 @@
 {
   "dashboard": {
     "en": "Dashboard",
-    "zh": "概览"
+    "zh": "仪表盘"
   },
-  "usercenter": {
-    "en": "About Me",
-    "zh": "账户设置"
+  "user": {
+    "en": "Account Info",
+    "zh": "账户信息"
   },
-  "emailcenter": {
-    "en": "Email Setting",
-    "zh": "邮件设置"
+  "contact": {
+    "en": "Contact List",
+    "zh": "联系人列表"
   },
-  "networkcenter": {
+  "network": {
     "en": "Network(s)",
     "zh": "网络"
+  },
+  "networkcenter": {
+    "en": "Overview",
+    "zh": "概览"
   },
   "uavcenter": {
     "en": "Uavs",
@@ -22,5 +26,17 @@
   "networkdetail": {
     "en": "Network Detail",
     "zh": "网络详情"
+  },
+  "email": {
+    "en": "Email",
+    "zh": "邮件管理"
+  },
+  "emailList": {
+    "en": "Email List",
+    "zh": "邮件列表"
+  },
+  "networkprotocol": {
+    "en": "Protocol",
+    "zh": "协议"
   }
 }

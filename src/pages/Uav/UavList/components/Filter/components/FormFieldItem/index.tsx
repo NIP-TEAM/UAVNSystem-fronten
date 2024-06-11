@@ -1,9 +1,8 @@
 import { useLanguageContext } from "@/hooks";
-import { Flex, Form, Select } from "antd";
+import { Flex, Form, Select, SelectProps } from "antd";
 import {
   CSSProperties,
   FC,
-  useContext,
   useEffect,
   useMemo,
   useState,
@@ -16,7 +15,6 @@ import {
 } from "./selectOptions";
 import { useGetUsers, useNetworkData } from "@/service";
 import { userAtom } from "@/store";
-import { AppContext } from "@/App";
 import { useAtomValue } from "jotai";
 
 interface FormFieldItemProp {
@@ -32,14 +30,12 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
   name,
   checkOptionDisable,
 }) => {
-  const { messageApi } = useContext(AppContext);
   const { LanguageText } = useLanguageContext<"Uav">();
   const [categorySelect, setCategorySelect] = useState<CategoryOptions>();
 
   const { userInfo } = useAtomValue(userAtom);
   const {
     fetchData: fetchUsersData,
-    error: usersError,
     data: usersData,
     code: usersCode,
     loading: usersLoading,
@@ -48,23 +44,19 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
     fetchUsersData?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    if (usersError) messageApi?.error(usersError);
-  }, [messageApi, usersError]);
   const creatorsOptions = useMemo(() => {
     if (usersCode === 200 && usersData?.data)
       return usersData.data.map(({ name, id }) => ({
-        label: name === userInfo?.name ? LanguageText.meText : name,
+        label: id === userInfo.id ? LanguageText.meText : name,
         value: id,
       }));
     return [];
-  }, [LanguageText.meText, userInfo?.name, usersCode, usersData?.data]);
+  }, [LanguageText.meText, userInfo.id, usersCode, usersData?.data]);
 
   const {
     fetchData: fetchNetworkData,
     data: networkData,
     loading: networkLoading,
-    error: networkError,
     code: networkCode,
   } = useNetworkData({
     filter: "",
@@ -74,9 +66,6 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
     fetchNetworkData?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    if (networkError) messageApi?.error(networkError);
-  }, [messageApi, networkError]);
   const networksOptions = useMemo(() => {
     if (networkCode === 200 && networkData?.data)
       return networkData.data.map(({ name, id }) => ({
@@ -86,7 +75,7 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
     return [];
   }, [networkCode, networkData?.data]);
 
-  const formatedContentOptions = useMemo(() => {
+  const formatedContentOptions = useMemo<SelectProps['options']>(() => {
     switch (categorySelect) {
       case CategoryOptions.CREATOR:
         return creatorsOptions;
@@ -155,7 +144,7 @@ export const FormFieldItem: FC<FormFieldItemProp> = ({
           disabled={!categorySelect || contentLoading}
           style={fieldInputStyle}
           loading={contentLoading}
-          options={formatedContentOptions as { label: string; value: string }[]}
+          options={formatedContentOptions}
         />
       </Form.Item>
     </Flex>

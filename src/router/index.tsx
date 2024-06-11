@@ -2,15 +2,24 @@ import { Navigate } from "react-router-dom";
 import {
   Login,
   ErrorPage,
-  UserCenter,
   DashBoard,
   Forget,
   Register,
-  Email,
+  Contact,
   NetworkList,
   UavList,
+  CreateContact,
+  SelfCenter,
+  OtherCenter,
+  NetworkDetail,
+  NetworkProtocol,
+  ProtocolEdit,
+  EmailCreate,
+  EmailList,
+  EmailDetail,
+  CreateUav
 } from "../pages";
-import { MenuItem, RouteItem } from "./types";
+import { RouteItem } from "./types";
 import {
   ClusterOutlined,
   GlobalOutlined,
@@ -19,11 +28,8 @@ import {
   SettingFilled,
 } from "@ant-design/icons";
 import { omit } from "lodash-es";
-import { _formateMenuItem } from "./utils";
-import { NetworkDetail } from "@/pages/Network";
-import { CreateUav } from "@/pages/Uav";
 
-const ROUTES: readonly RouteItem[] = [
+export const ROUTES: readonly RouteItem[] = [
   {
     id: "not-found",
     path: "*",
@@ -40,38 +46,63 @@ const ROUTES: readonly RouteItem[] = [
     element: <Login />,
     path: "/login",
     isPublic: true,
+    textKey: "Login",
   },
   {
     id: "forget",
     element: <Forget />,
     path: "/forget",
     isPublic: true,
+    textKey: "Forget",
   },
   {
     id: "register",
     element: <Register />,
     path: "/register",
     isPublic: true,
+    textKey: "Register",
   },
   {
     id: "dashboard",
     element: <DashBoard />,
     path: "/dashboard",
-    textKey: "dashboard",
+    labelKey: "dashboard",
     icon: <PieChartFilled />,
     breadcrumbForbidden: true,
+    textKey: "Dashboard",
   },
   {
-    id: "networkcenter",
-    element: <NetworkList />,
+    id: "network",
+    element: <Navigate to="/network/center" />,
     path: "/network",
-    textKey: "networkcenter",
+    labelKey: "network",
     icon: <GlobalOutlined />,
     children: [
       {
         id: "networkdetail",
         element: <NetworkDetail />,
         path: "/network/:id",
+        textKey: "NetworkDetail",
+      },
+      {
+        id: "networkcenter",
+        element: <NetworkList />,
+        path: "/network/center",
+        labelKey: "networkcenter",
+        textKey: "Network",
+      },
+      {
+        id: "networkProtocol",
+        element: <NetworkProtocol />,
+        path: "/network/protocol",
+        labelKey: "networkprotocol",
+        textKey: "NetworkProtocol",
+      },
+      {
+        id: "protocolEdit",
+        element: <ProtocolEdit />,
+        path: "/network/protocol/edit/:id",
+        textKey: "ProtocolEdit",
       },
     ],
   },
@@ -79,25 +110,79 @@ const ROUTES: readonly RouteItem[] = [
     id: "uavcenter",
     element: <UavList />,
     path: "/uavs",
-    textKey: "uavcenter",
+    labelKey: "uavcenter",
+    textKey: "Uav",
     icon: <ClusterOutlined />,
     children: [
-      { id: "createUav", element: <CreateUav />, path: "/uavs/create" },
+      {
+        id: "createUav",
+        element: <CreateUav />,
+        path: "/uavs/create",
+        textKey: "Uav",
+      },
     ],
   },
   {
-    id: "email-center",
-    element: <Email />,
-    path: "/emailcenter",
+    id: "email",
+    path: "/email",
+    element: <Navigate to="/email/list" />,
+    labelKey: "email",
+    textKey: "Email",
     icon: <MailFilled />,
-    textKey: "emailcenter",
+    children: [
+      {
+        id: "emailList",
+        element: <EmailList />,
+        path: "/email/list",
+        labelKey: "emailList",
+        textKey: "Email",
+        children: [
+          {
+            id: "emailCreate",
+            element: <EmailCreate />,
+            path: "/email/create",
+            textKey: "CreateEmail",
+          },
+        ],
+      },
+      {
+        id: "emailDetail",
+        element: <EmailDetail />,
+        path: "/email/:id",
+        textKey: "Email",
+      },
+      {
+        id: "contact",
+        element: <Contact />,
+        path: "/email/contact",
+        labelKey: "contact",
+        textKey: "Contact",
+        children: [
+          {
+            id: "createcontact",
+            element: <CreateContact />,
+            path: "/email/contact/create",
+            textKey: "CreateContact",
+          },
+        ],
+      },
+    ],
   },
   {
-    id: "user-center",
-    element: <UserCenter />,
-    path: "/usercenter",
-    textKey: "usercenter",
+    id: "user",
+    element: <SelfCenter />,
+    path: "/user",
+    labelKey: "user",
     icon: <SettingFilled />,
+    textKey: "User",
+    children: [
+      {
+        id: "createcontact",
+        element: <OtherCenter />,
+        path: "/user/:id",
+        textKey: "User",
+      },
+    ],
   },
 ];
 
@@ -112,10 +197,6 @@ export const flatRoutes: RouteItem[] = (() => {
   flat([...ROUTES]);
   return result;
 })();
-
-export const menuRoutes: MenuItem[] = ROUTES.filter(
-  ({ textKey }) => !!textKey
-).map((item) => _formateMenuItem(item));
 
 export const pageTypes = {
   noFrame: ["", "login", "register", "forget"],

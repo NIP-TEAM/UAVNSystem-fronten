@@ -43,6 +43,18 @@
     "en": "Warning",
     "zh": "警告"
   },
+  "macLabel": {
+    "en": "Mac Address",
+    "zh": "硬件地址"
+  },
+  "macEmpty": {
+    "en": "Mac address of uav is required!",
+    "zh": "无人机硬件地址是必填项!"
+  },
+  "macInvalid": {
+    "en": "Mac address invalid!",
+    "zh": "无人机硬件地址不合法!"
+  },
   "confirmAlert": {
     "en": "Are you sure you want to delete?",
     "zh": "确定执行删除操作?"
@@ -82,10 +94,6 @@
   "creatorLabel": {
     "en": "Creator",
     "zh": "创建者"
-  },
-  "speedLabel": {
-    "en": "Uav Speed",
-    "zh": "网络传输速度"
   },
   "errorStatus": {
     "en": "Error",
@@ -138,10 +146,6 @@
   "action": {
     "en": "Action",
     "zh": "操作"
-  },
-  "detail": {
-    "en": "Detail",
-    "zh": "详情"
   },
   "more": {
     "en": "More",

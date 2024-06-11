@@ -12,11 +12,11 @@ interface BreadcrumbProp {}
 const _formateBreadcurmbItem = ({
   id,
   path,
-  textKey,
+  labelKey,
 }: RouteItem): ItemType => ({
   key: id,
   path,
-  title: textKey,
+  title: labelKey,
 });
 
 type GlobalMenuJsonType = typeof GlobalMenuJson;

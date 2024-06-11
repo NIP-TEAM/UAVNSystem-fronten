@@ -1,7 +1,7 @@
 import { Button, Card, Checkbox, Flex, Form, Input } from "antd";
 import { FC, useContext, useEffect, useState } from "react";
 import { ButtonNoStyle, LoginCardStyle } from "./style";
-import { useConfig } from "@/hooks";
+import { useLanguageContext } from "@/hooks";
 import { LoginInfo, useLogin } from "@/service";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { ProtocalBox } from "./components";
@@ -10,17 +10,17 @@ import { userAtom } from "@/store";
 import { useNavigate } from "react-router";
 import { AppContext } from "@/App";
 
-export interface LoginProp { }
+export interface LoginProp {}
 
 interface FormInfo extends LoginInfo {
   protocolRead: boolean;
 }
 
 export const Login: FC<LoginProp> = () => {
-  const { messageApi } = useContext(AppContext)
-  const LoginText = useConfig().useLanguage!<"Login">("Login");
+  const { messageApi } = useContext(AppContext);
+  const { LanguageText } = useLanguageContext<"Login">();
   const [form] = Form.useForm<FormInfo>();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [{ email, password, protocolRead }, setFormInfo] = useState<
     Partial<FormInfo>
   >({});
@@ -30,14 +30,14 @@ export const Login: FC<LoginProp> = () => {
   }, [protocolRead]);
   const rules = {
     email: [
-      { required: true, message: LoginText.emailEmpty },
+      { required: true, message: LanguageText.emailEmpty },
       {
         pattern:
           /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
-        message: LoginText.emailInvalid,
+        message: LanguageText.emailInvalid,
       },
     ],
-    password: [{ required: true, message: LoginText.passwordEmpty }],
+    password: [{ required: true, message: LanguageText.passwordEmpty }],
     protocolRead: [{ required: true, message: "error" }],
   };
   const { fetchData, data, loading, error } = useLogin({ email, password });
@@ -45,12 +45,12 @@ export const Login: FC<LoginProp> = () => {
   const [_, setUserInfo] = useAtom(userAtom);
   useEffect(() => {
     if (data?.status === 200) {
-      console.log(data.data)
+      console.log(data.data);
       setUserInfo(data.data);
-      messageApi?.success(LoginText.loginSuccess)
-      if (data.data.token) navigate('/dashboard')
+      messageApi?.success(LanguageText.loginSuccess);
+      if (data.data.token) navigate("/dashboard");
     }
-  }, [LoginText.loginSuccess, data, messageApi, navigate, setUserInfo]);
+  }, [LanguageText.loginSuccess, data, messageApi, navigate, setUserInfo]);
   const onFinish = () => {
     if (!protocolRead) {
       return setReadState(false);
@@ -61,29 +61,36 @@ export const Login: FC<LoginProp> = () => {
   // Error Handle
   useEffect(() => {
     if (error) {
-      messageApi?.error(error)
+      messageApi?.error(error);
     }
-  }, [error, messageApi])
+  }, [error, messageApi]);
 
   return (
     <Card style={LoginCardStyle}>
-      <h1>{LoginText.title}</h1>
-      <Form onFinish={onFinish} form={form} onValuesChange={(_, newValue) => setFormInfo(newValue)}>
+      <h1>{LanguageText.title}</h1>
+      <Form
+        onFinish={onFinish}
+        form={form}
+        onValuesChange={(_, newValue) => setFormInfo(newValue)}
+      >
         <Form.Item name="email" rules={rules.email}>
-          <Input prefix={<UserOutlined />} placeholder={LoginText.emailInput} />
+          <Input
+            prefix={<UserOutlined />}
+            placeholder={LanguageText.emailInput}
+          />
         </Form.Item>
         {!!email && (
           <>
             <Form.Item name="password" rules={rules.password}>
               <Input.Password
                 prefix={<LockOutlined />}
-                placeholder={LoginText.passwordInput}
+                placeholder={LanguageText.passwordInput}
               />
             </Form.Item>
             <Flex align="center" style={{ margin: "1em 0" }}>
               <Form.Item name="protocolRead" valuePropName="checked" noStyle>
                 <Checkbox style={readState ? {} : { color: "red" }}>
-                  {LoginText.protocolTip}
+                  {LanguageText.protocolTip}
                 </Checkbox>
               </Form.Item>
               <ProtocalBox />
@@ -91,19 +98,27 @@ export const Login: FC<LoginProp> = () => {
 
             <Form.Item>
               <Button type="primary" htmlType="submit" loading={loading}>
-                {LoginText.loginButton}
+                {LanguageText.loginButton}
               </Button>
             </Form.Item>
           </>
         )}
         <Flex gap={10}>
           {!!email && (
-            <Button type="link" style={ButtonNoStyle} onClick={() => navigate('/forget')}>
-              {LoginText.findPassword}
+            <Button
+              type="link"
+              style={ButtonNoStyle}
+              onClick={() => navigate("/forget")}
+            >
+              {LanguageText.findPassword}
             </Button>
           )}
-          <Button type="link" style={ButtonNoStyle} onClick={() => navigate('/register')}>
-            {LoginText.register}
+          <Button
+            type="link"
+            style={ButtonNoStyle}
+            onClick={() => navigate("/register")}
+          >
+            {LanguageText.register}
           </Button>
         </Flex>
       </Form>

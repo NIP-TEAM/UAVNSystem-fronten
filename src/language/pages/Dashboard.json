@@ -1,0 +1,46 @@
+{
+    "dataTitle": {
+        "en": "Data Overview",
+        "zh": "数据总览"
+    },
+    "uavCount": {
+        "zh": "无人机",
+        "en": "Uav"
+    },
+    "networkCount": {
+        "zh": "网络",
+        "en": "Network"
+    },
+    "userInfoCount": {
+        "en": "Creator",
+        "zh": "创建者"
+    },
+    "protocolCount": {
+        "en": "Protocol",
+        "zh": "协议"
+    },
+    "emailCount": {
+        "en": "Email",
+        "zh": "邮件"
+    },
+    "contactCount": {
+        "en": "Contact",
+        "zh": "联系方式"
+    },
+    "usersTitle": {
+        "en": "Creators",
+        "zh": "创建者"
+    },
+    "lastLoginLabel": {
+        "en": "Last Login: ",
+        "zh": "最后登录于: "
+    },
+    "structureTitle": {
+        "en": "Network Map",
+        "zh": "网络可视化"
+    },
+    "visualDataEmpty": {
+        "en": "No visual data available",
+        "zh": "暂无可视化数据"
+    }
+}

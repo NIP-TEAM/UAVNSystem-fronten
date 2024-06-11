@@ -111,6 +111,14 @@
     "en": "Creator",
     "zh": "创建者"
   },
+  "uavsFieldTitle": {
+    "en": "Uav(s) count",
+    "zh": "无人机数量"
+  },
+  "connectMapFieldTitle": {
+    "en": "Uav(s) connect status",
+    "zh": "无人机连接状态"
+  },
   "isQuantifier": {
     "en": "is",
     "zh": "是"
@@ -126,6 +134,18 @@
   "meText": {
     "en": "<< ME >>",
     "zh": "<< 我 >>"
+  },
+  "uavEmptyText": {
+    "en": "0",
+    "zh": "0"
+  },
+  "connectEmptyText": {
+    "en": "Empty",
+    "zh": "空"
+  },
+  "mapText": {
+    "en": "Created",
+    "zh": "已创建"
   },
   "clearFilter": {
     "en": "Clear",
@@ -146,5 +166,9 @@
   "createSuccess": {
     "en": "Create success!",
     "zh": "创建成功!"
+  },
+  "protocolLabel": {
+    "en": "Protocol",
+    "zh": "网络协议"
   }
 }

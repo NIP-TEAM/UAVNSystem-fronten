@@ -1,0 +1,142 @@
+{
+  "EmailListTitle": {
+    "en": "Email List",
+    "zh": "邮件列表"
+  },
+  "EmailCreateButton": {
+    "en": "Create Email",
+    "zh": "创建新邮件"
+  },
+  "idLabel": {
+    "en": "Id",
+    "zh": "识别码"
+  },
+  "nameLabel": {
+    "en": "Name",
+    "zh": "名称"
+  },
+  "creatorLabel": {
+    "en": "Creator",
+    "zh": "创建者"
+  },
+  "networkLabel": {
+    "en": "Network Info",
+    "zh": "所属网络"
+  },
+  "createAtLabel": {
+    "en": "Create At",
+    "zh": "创建于"
+  },
+  "updateAtLabel": {
+    "en": "Update At",
+    "zh": "更新于"
+  },
+  "actionLabel": {
+    "en": "Action",
+    "zh": "操作"
+  },
+  "toDetailLabel": {
+    "en": "Detail",
+    "zh": "详情"
+  },
+  "runScheduleLabel": {
+    "en": "Start Listening",
+    "zh": "开始监听"
+  },
+  "stopScheduleLabel": {
+    "en": "Stop Listening",
+    "zh": "取消监听"
+  },
+  "operationSuccess": {
+    "en": "Operation success!",
+    "zh": "操作成功!"
+  },
+  "networkOptionTypeLabel": {
+    "en": "Network About",
+    "zh": "网络相关"
+  },
+  "uavOptionTypeLabel": {
+    "en": "Uav About",
+    "zh": "无人机相关"
+  },
+  "filterTitle": {
+    "en": "Filter by",
+    "zh": "筛选器"
+  },
+  "isQuantifier": {
+    "en": "is",
+    "zh": "是"
+  },
+  "isNotQuantifier": {
+    "en": "is not",
+    "zh": "不是"
+  },
+  "quantifierEmpty": {
+    "en": "Empty quantifier is not allowed!",
+    "zh": "限定词不能为空!"
+  },
+  "creatorFieldTitle": {
+    "en": "Creator",
+    "zh": "创建者"
+  },
+  "scheduleFieldTitle": {
+    "en": "Schedule State",
+    "zh": "监听状态"
+  },
+  "editableTip": {
+    "en": "Only email that not in schedule can be edited or removed!",
+    "zh": "只有未开始监听的邮件可以被修改或删除!"
+  },
+  "editCancel": {
+    "en": "Cancel",
+    "zh": "取消"
+  },
+  "addField": {
+    "en": "Add Filter",
+    "zh": "添加筛选项"
+  },
+  "scheduleIsRunning": {
+    "en": "Active",
+    "zh": "激活"
+  },
+  "scheduleIsStopping": {
+    "en": "Stop",
+    "zh": "未激活"
+  },
+  "meText": {
+    "en": "<< ME >>",
+    "zh": "<< 我 >>"
+  },
+  "clearFilter": {
+    "en": "Clear",
+    "zh": "清除"
+  },
+  "applyFilter": {
+    "en": "Apply",
+    "zh": "应用"
+  },
+  "EmailDetailTitle": {
+    "en": "Email Detail",
+    "zh": "邮件详情"
+  },
+  "EmailButtonTitle": {
+    "en": "Edit",
+    "zh": "编辑"
+  },
+  "removeButtonTitle": {
+    "en": "Remove",
+    "zh": "删除"
+  },
+  "removeSuccess": {
+    "en": "Remove success!",
+    "zh": "成功删除!"
+  },
+  "sendToTitle": {
+    "en": "Send to",
+    "zh": "发送给"
+  },
+  "removeAlert": {
+    "en": "Are you sure about that?",
+    "zh": "确定要删除吗?"
+  }
+}

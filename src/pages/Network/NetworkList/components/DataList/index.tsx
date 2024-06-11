@@ -1,29 +1,16 @@
 import { useLanguageContext } from "@/hooks";
-import { NetworkDataType } from "@/service/Network";
+import { NetworkDataType } from "@/service/NetworkAbout/Network";
 import { BasicPagination } from "@/types";
-import {
-  CheckCircleFilled,
-  CloseCircleFilled,
-  DownOutlined,
-  ExclamationCircleFilled,
-} from "@ant-design/icons";
-import { Button, Dropdown, Flex, Table, Typography } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Flex, Table, Typography, TableProps } from "antd";
 import { ItemType } from "antd/es/menu/hooks/useItems";
-import { ColumnsType, TablePaginationConfig } from "antd/es/table";
-import {
-  Dispatch,
-  FC,
-  Key,
-  ReactNode,
-  SetStateAction,
-  useMemo,
-  useState,
-} from "react";
+import { Dispatch, FC, Key, SetStateAction, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { DeleteTip } from "./components";
-import dayjs from "dayjs";
 import { FilterType } from "../../types";
-import { SorterResult } from "antd/es/table/interface";
+import { ColumnsType, SorterResult } from "antd/es/table/interface";
+import { useStatusDescription } from "@/pages/Network/hooks";
+import { basicTimeFormate } from "@/utils";
 
 export interface DataListProp {
   networkData: NetworkDataType[];
@@ -48,7 +35,7 @@ export const DataList: FC<DataListProp> = ({
 }) => {
   const navigate = useNavigate();
   const { LanguageText } = useLanguageContext<"Network">();
-  const items = (currentId: string): ItemType[] => [
+  const items = (currentId: number): ItemType[] => [
     {
       key: "1",
       label: (
@@ -61,7 +48,7 @@ export const DataList: FC<DataListProp> = ({
       ),
     },
   ];
-  const columns = [
+  const columns: TableProps["columns"] = [
     ...([
       {
         title: LanguageText.id,
@@ -105,7 +92,7 @@ export const DataList: FC<DataListProp> = ({
             type="link"
             onClick={() => {
               storageFunc();
-              navigate(`/usercenter/${id}`);
+              navigate(`/user/${id}`);
             }}
           >
             @{name}
@@ -119,7 +106,7 @@ export const DataList: FC<DataListProp> = ({
         ellipsis: true,
         sorter: true,
         render: (_, { createAt }) => (
-          <>{dayjs(Number(createAt)).format("YYYY-MM-DD HH:mm")}</>
+          <>{basicTimeFormate(createAt)}</>
         ),
       },
       {
@@ -129,7 +116,7 @@ export const DataList: FC<DataListProp> = ({
         ellipsis: true,
         sorter: true,
         render: (_, { lastEdit }) => (
-          <>{dayjs(Number(lastEdit)).format("YYYY-MM-DD HH:mm")}</>
+          <>{basicTimeFormate(lastEdit)}</>
         ),
       },
       {
@@ -173,7 +160,7 @@ export const DataList: FC<DataListProp> = ({
       : {}),
   }));
 
-  const paginationProps: TablePaginationConfig = {
+  const paginationProps: TableProps["pagination"] = {
     ...pagination,
     position: ["topLeft"],
     onChange: (page, pageSize) =>
@@ -199,48 +186,13 @@ export const DataList: FC<DataListProp> = ({
     ]
   );
 
-  const StatusDescription: Record<
-    number,
-    {
-      icon: ReactNode;
-      description: ReactNode;
-    }
-  > = useMemo(
-    () =>
-      ({
-        1: {
-          icon: <ExclamationCircleFilled style={{ color: "#faad14" }} />,
-          description: (
-            <Typography.Text type="warning">
-              {LanguageText.initStatus}
-            </Typography.Text>
-          ),
-        },
-        2: {
-          icon: <CheckCircleFilled style={{ color: "#52c41a" }} />,
-          description: (
-            <Typography.Text type="success">
-              {LanguageText.doneStatus}
-            </Typography.Text>
-          ),
-        },
-        3: {
-          icon: <CloseCircleFilled style={{ color: "#ff4d4f" }} />,
-          description: (
-            <Typography.Text type="danger">
-              {LanguageText.errorStatus}
-            </Typography.Text>
-          ),
-        },
-      } as const),
-    [LanguageText]
-  );
+  const StatusDescription = useStatusDescription();
 
   return (
     <Table
       loading={loading}
       dataSource={networkData}
-      columns={columns as ColumnsType<NetworkDataType>}
+      columns={columns}
       pagination={paginationProps}
       footer={() => Footer}
       rowSelection={{

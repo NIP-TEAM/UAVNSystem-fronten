@@ -45,8 +45,6 @@ export const DeleteTip: FC<DeleteTipProp> = ({ selectedIds, setTimestamp }) => {
       </Typography.Text>
       <Modal
         open={open}
-        okText={LanguageText.confirm}
-        cancelText={LanguageText.cancel}
         onCancel={() => setOpen(false)}
         confirmLoading={loading}
         onOk={handleDelete}

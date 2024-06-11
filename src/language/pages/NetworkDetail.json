@@ -2,5 +2,65 @@
     "detailTitle": {
         "en": "Network Detail",
         "zh": "网络详情"
+    },
+    "nameLabel": {
+        "en": "Name",
+        "zh": "名称"
+    },
+    "idLabel": {
+        "en": "Id",
+        "zh": "识别码"
+    },
+    "statusLabel": {
+        "en": "Status",
+        "zh": "网络状态"
+    },
+    "createAtLabel": {
+        "en": "Create At",
+        "zh": "创建于"
+    },
+    "creatorLabel": {
+        "en": "Create By",
+        "zh": "创建者"
+    },
+    "uavCountLabel": {
+        "en": "Uav(s) Count",
+        "zh": "无人机总数"
+    },
+    "typeLabel": {
+        "en": "Network Protocol",
+        "zh": "网络协议"
+    },
+    "editingButton": {
+        "en": "Edit",
+        "zh": "编辑"
+    },
+    "editingCancel": {
+        "en": "Cancel",
+        "zh": "取消"
+    },
+    "editingConfirm": {
+        "en": "Confirm",
+        "zh": "确定"
+    },
+    "updateSuccess": {
+        "en": "Update success",
+        "zh": "修改成功"
+    },
+    "protocolAlert": {
+        "en": "This will lead to rebuild the network, are you sure?",
+        "zh": "此操作会导致网络结构重组,要继续吗?"
+    },
+    "refreshButton": {
+        "en": "Refresh",
+        "zh": "刷新"
+    },
+    "modeButtonOn": {
+        "en": "High Response",
+        "zh": "高响应模式"
+    },
+    "modeButtonOff": {
+        "en": "Off High Response",
+        "zh": "关闭高响应模式"
     }
 }

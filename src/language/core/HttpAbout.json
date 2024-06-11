@@ -1,0 +1,6 @@
+{
+    "httpError401": {
+        "zh": "验证错误,需要重新登录",
+        "en": "Validation error, plz log in again!"
+    }
+}

@@ -1,1 +1,2 @@
-export * from './NetworkDetailHeader'
+export * from './DetailHeader'
+export * from './DetailDescription'

@@ -1,0 +1,190 @@
+{
+  "contactListTitle": {
+    "en": "Contact List",
+    "zh": "联系列表"
+  },
+  "createListTitle": {
+    "en": "New Contact List",
+    "zh": "新建联系组"
+  },
+  "createGroupButton": {
+    "en": "New Contact",
+    "zh": "创建联系人"
+  },
+  "createGroupSuccess": {
+    "en": "Contact List created success!",
+    "zh": "联系组创建成功"
+  },
+  "updateContactSuccess": {
+    "en": "Contact info updated!",
+    "zh": "联系信息已更新"
+  },
+  "toCreateContactLink": {
+    "en": "Click Here to create contact!",
+    "zh": "点击此处创建联系人!"
+  },
+  "nameEmpty": {
+    "en": "Name is required!",
+    "zh": "名字为必填项目!"
+  },
+  "filterTitle": {
+    "en": "Filter by",
+    "zh": "筛选器"
+  },
+  "isQuantifier": {
+    "en": "is",
+    "zh": "是"
+  },
+  "isNotQuantifier": {
+    "en": "is not",
+    "zh": "不是"
+  },
+  "quantifierEmpty": {
+    "en": "Empty quantifier is not allowed!",
+    "zh": "限定词不能为空!"
+  },
+  "phoneEmptyText": {
+    "en": "Empty",
+    "zh": "空"
+  },
+  "addField": {
+    "en": "Add Filter",
+    "zh": "添加筛选项"
+  },
+  "creatorFieldTitle": {
+    "en": "Creator",
+    "zh": "创建者"
+  },
+  "phoneFieldTitle": {
+    "en": "Phone",
+    "zh": "电话信息"
+  },
+  "contentEmpty": {
+    "en": "Empty content is not allowed!",
+    "zh": "内容不能为空!"
+  },
+  "clearFilter": {
+    "en": "Clear",
+    "zh": "清除"
+  },
+  "meText": {
+    "en": "<< ME >>",
+    "zh": "<< 我 >>"
+  },
+  "applyFilter": {
+    "en": "Apply",
+    "zh": "应用"
+  },
+  "okText": {
+    "en": "Ok",
+    "zh": "确定"
+  },
+  "editButton": {
+    "en": "Edit",
+    "zh": "编辑"
+  },
+  "cancelTitle": {
+    "en": "Cancel",
+    "zh": "取消"
+  },
+  "creatorLabel": {
+    "en": "Creator",
+    "zh": "创建者"
+  },
+  "searchLabel": {
+    "en": "Search",
+    "zh": "搜索"
+  },
+  "allLabel": {
+    "en": "All",
+    "zh": "全部"
+  },
+  "otherLabel": {
+    "en": "Not Grouped",
+    "zh": "未分组"
+  },
+  "allTitle": {
+    "en": "All Contacts",
+    "zh": "全部联系方式"
+  },
+  "otherTitle": {
+    "en": "None Grouped Contacts",
+    "zh": "未分组的联系方式"
+  },
+  "showDetail": {
+    "en": "Click here to show list detail",
+    "zh": "点击展示列表信息"
+  },
+  "updateSuccess": {
+    "en": "Contact list info updated success!",
+    "zh": "联系人列表信息更新成功!"
+  },
+  "idLabel": {
+    "en": "id",
+    "zh": "识别码"
+  },
+  "nameLabel": {
+    "en": "Name",
+    "zh": "名称"
+  },
+  "emailLabel": {
+    "en": "Email",
+    "zh": "邮箱"
+  },
+  "emailInvalid": {
+    "en": "Invalid Email",
+    "zh": "请输入合法格式的邮箱"
+  },
+  "phoneLabel": {
+    "en": "Phone",
+    "zh": "电话"
+  },
+  "phoneInvalid": {
+    "en": "Please input a valid phone",
+    "zh": "请输入合法格式的电话号码"
+  },
+  "phoneTip": {
+    "en": "Currently, only 11-digit phone numbers with the +86 area code from mainland China are supported.",
+    "zh": "目前只支持中国大陆 (+86区号) 的11位电话号码"
+  },
+  "createAtLabel": {
+    "en": "Create At",
+    "zh": "创建于"
+  },
+  "updateAtLabel": {
+    "en": "Update At",
+    "zh": "最后修改于"
+  },
+  "contactListLabel": {
+    "en": "Contact List Belong to",
+    "zh": "所属联系人分组"
+  },
+  "actionLabel": {
+    "zh": "操作",
+    "en": "Action"
+  },
+  "removeTitle": {
+    "en": "remove",
+    "zh": "删除"
+  },
+  "removeModalTitle": {
+    "en": "Alert",
+    "zh": "警告"
+  },
+  "toDetailTitle": {
+    "en": "Detail",
+    "zh": "详情"
+  },
+  "removeContactTips": {
+    "en": "Are you sure that you want to delete these contact?",
+    "zh": "确定要删除选中的联系方式?"
+  },
+  "removeContactSuccess": {
+    "en": "Remove Contact(s) success!",
+    "zh": "成功删除以上联系方式"
+  },
+  "saveButton": {
+    "en": "Save",
+    "zh": "保存"
+  }
+}

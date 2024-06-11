@@ -1,22 +1,23 @@
-import { atom } from "jotai"
-import { atomWithStorage } from "jotai/utils"
+import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
 export interface UserProtocol {
-    token: string
-    userInfo: UserInfo
+  token: string;
+  userInfo: UserInfo;
 }
 
 export interface UserInfo {
-    id: string
-    name: string
-    active: boolean
-    email: string
-    lastLogin: number
+  id: number;
+  name: string;
+  active: boolean;
+  email: string;
+  lastLogin: string;
+  password: string;
 }
 
-type PartialUserProtocol = Partial<UserProtocol>
-
-const userCoreAtom = atomWithStorage<PartialUserProtocol>('user-about', {
+const userCoreAtom = atomWithStorage<UserProtocol>(
+  "user-about",
+  {
     // token: 'adfafdadsfadfa',
     // userInfo: {
     //     name: 'local data',
@@ -25,11 +26,15 @@ const userCoreAtom = atomWithStorage<PartialUserProtocol>('user-about', {
     //     email: 'test@test.com',
     //     lastLogin: new Date().getTime(),
     // }
-}, undefined, {
-    getOnInit: true
-})
+  } as UserProtocol,
+  undefined,
+  {
+    getOnInit: true,
+  }
+);
 
 export const userAtom = atom(
-    (get) => get(userCoreAtom),
-    (get, set, newValue: PartialUserProtocol) => set(userCoreAtom, {...get(userCoreAtom), ...newValue})
-)
+  (get) => get(userCoreAtom),
+  (get, set, newValue: Partial<UserProtocol>) =>
+    set(userCoreAtom, { ...get(userCoreAtom), ...newValue })
+);

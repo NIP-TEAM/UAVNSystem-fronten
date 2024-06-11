@@ -1,6 +1,6 @@
 import { Button, Card, Flex, Form, Input } from "antd";
 import { FC, useContext, useEffect, useState } from "react";
-import { useConfig } from "@/hooks";
+import { useLanguageContext } from "@/hooks";
 import { RegisterCardStyle } from "./style";
 import { Rule } from "rc-field-form/lib/interface";
 import { AppContext } from "@/App";
@@ -21,23 +21,23 @@ export const Register: FC<RegisterProp> = () => {
     Number(localStorage.getItem(SECOUNDKEY) || 0)
   );
   const navigate = useNavigate();
-  const RegisterText = useConfig().useLanguage!<"Register">("Register");
+  const { LanguageText } = useLanguageContext<"Register">()
 
   const rules: Record<string, Rule[]> = {
     email: [
-      { required: true, message: RegisterText.emailEmpty },
+      { required: true, message: LanguageText.emailEmpty },
       {
         pattern:
           /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
-        message: RegisterText.emailInvalid,
+        message: LanguageText.emailInvalid,
       },
     ],
     verify: [
-      { required: true, message: RegisterText.verifyCodeEmpty },
-      { pattern: /^\d+$/, message: RegisterText.verifyCodeInvalid },
+      { required: true, message: LanguageText.verifyCodeEmpty },
+      { pattern: /^\d+$/, message: LanguageText.verifyCodeInvalid },
     ],
     password: [{ required: true },
-    {pattern: /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/, message: RegisterText.passwordInvalid}],
+    {pattern: /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/, message: LanguageText.passwordInvalid}],
     passwordConfirm: [
       {
         required: true,
@@ -47,7 +47,7 @@ export const Register: FC<RegisterProp> = () => {
           if (!value || getFieldValue("password") === value) {
             return Promise.resolve();
           }
-          return Promise.reject(new Error(RegisterText.confirmPasswordInvalid));
+          return Promise.reject(new Error(LanguageText.confirmPasswordInvalid));
         },
       }),
     ],
@@ -61,10 +61,10 @@ export const Register: FC<RegisterProp> = () => {
   } = useVerifyCode({ email: registerInfo.email });
   useEffect(() => {
     if (verificationCode === 200) {
-      messageApi?.success(RegisterText.verifySendFeedback);
+      messageApi?.success(LanguageText.verifySendFeedback);
       setHoldSecound(60);
     }
-  }, [verificationCode, messageApi, RegisterText.verifySendFeedback]);
+  }, [verificationCode, messageApi, LanguageText.verifySendFeedback]);
 
   useEffect(() => {
     if (verificationError) messageApi?.error(verificationError);
@@ -82,22 +82,22 @@ export const Register: FC<RegisterProp> = () => {
 
   useEffect(() => {
     if (registerCode === 200) {
-      messageApi?.success(RegisterText.registerSuccess);
+      messageApi?.success(LanguageText.registerSuccess);
       setHoldSecound(0)
       setTimeout(() => navigate("/login"), 5000);
     }
-  }, [RegisterText.registerSuccess, messageApi, navigate, registerCode]);
+  }, [LanguageText.registerSuccess, messageApi, navigate, registerCode]);
 
   useEffect(() => {
     if (registerError) messageApi?.error(registerError);
   }, [registerError, messageApi]);
 
   const handleVerify = () => {
-    if (!registerInfo.email) messageApi?.error(RegisterText.emailEmpty);
+    if (!registerInfo.email) messageApi?.error(LanguageText.emailEmpty);
     else {
       const fieldErrors = form.getFieldsError(["email"]);
       if (fieldErrors.some((error) => error.errors.length > 0))
-        messageApi?.error(RegisterText.emailInvalid);
+        messageApi?.error(LanguageText.emailInvalid);
       else postVerification?.();
     }
   };
@@ -125,7 +125,7 @@ export const Register: FC<RegisterProp> = () => {
 
   return (
     <Card style={RegisterCardStyle}>
-      <h1>{RegisterText.title}</h1>
+      <h1>{LanguageText.title}</h1>
       <Form
         form={form}
         onValuesChange={(_, newValue) => setRegisterInfo(newValue)}
@@ -134,14 +134,14 @@ export const Register: FC<RegisterProp> = () => {
         onFinish={onFinish}
       >
         <Form.Item
-          label={RegisterText.emailTitle}
+          label={LanguageText.emailTitle}
           name="email"
           rules={rules.email}
         >
           <Input style={{ width: "100%" }} />
         </Form.Item>
         <Form.Item
-          label={RegisterText.verifyTitle}
+          label={LanguageText.verifyTitle}
           name="verifyCode"
           rules={rules.verify}
         >
@@ -154,25 +154,25 @@ export const Register: FC<RegisterProp> = () => {
               loading={verificationLoading}
             >
               {verificationLoading
-                ? RegisterText.verifySending
+                ? LanguageText.verifySending
                 : !holdSecond
-                ? RegisterText.verifySend
-                : `${RegisterText.verifyResend} ${holdSecond}s`}
+                ? LanguageText.verifySend
+                : `${LanguageText.verifyResend} ${holdSecond}s`}
             </Button>
           </Flex>
         </Form.Item>
-        <Form.Item label={RegisterText.nameTitle} name="name">
+        <Form.Item label={LanguageText.nameTitle} name="name">
           <Input style={{ width: "50%" }} />
         </Form.Item>
         <Form.Item
-          label={RegisterText.passwordTitle}
+          label={LanguageText.passwordTitle}
           name="password"
           rules={rules.password}
         >
           <Input.Password />
         </Form.Item>
         <Form.Item
-          label={RegisterText.confirmTitle}
+          label={LanguageText.confirmTitle}
           name="passwordConfirm"
           dependencies={["password"]}
           rules={rules.passwordConfirm}
@@ -181,10 +181,10 @@ export const Register: FC<RegisterProp> = () => {
         </Form.Item>
         <Flex gap={3}>
           <Button type="primary" htmlType="submit" loading={registerLoading}>
-            {RegisterText.submitButton}
+            {LanguageText.submitButton}
           </Button>
           <Button type="link" onClick={() => navigate("/login")}>
-            {RegisterText.loginButton}
+            {LanguageText.loginButton}
           </Button>
         </Flex>
       </Form>
